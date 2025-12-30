@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
         _sum: { amountPaid: true },
         where: {
           status: 'active',
-          createdAt: { gte: rangeDate },
+          purchaseDate: { gte: rangeDate },
         },
       }),
     ]);

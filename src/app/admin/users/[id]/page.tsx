@@ -4,13 +4,54 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
+interface Plan {
+  id: string;
+  status: string;
+  createdAt: string;
+}
+
+interface CreditPurchase {
+  id: string;
+  creditsGranted: number;
+  creditsRemaining: number;
+  amountPaid: number;
+  purchaseDate: string;
+  expiresAt: string;
+}
+
+interface CreditTransaction {
+  id: string;
+  transactionType: string;
+  description: string | null;
+  creditAmount: number;
+  balanceAfter: number;
+  createdAt: string;
+}
+
+interface User {
+  id: string;
+  email: string;
+  businessName: string | null;
+  industry: string | null;
+  role: string;
+  status: string;
+  createdAt: string;
+  lastLoginAt: string | null;
+  _count: {
+    plans: number;
+  };
+  plans: Plan[];
+  creditPurchases?: CreditPurchase[];
+  creditTransactions?: CreditTransaction[];
+}
+
 export default function UserDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { data: session } = useSession();
   const isSuperAdmin = session?.user?.role === 'SUPER_ADMIN';
 
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showRoleChangeConfirm, setShowRoleChangeConfirm] = useState(false);
@@ -452,7 +493,7 @@ export default function UserDetailPage() {
                       </>
                     ) : (
                       <>
-                        This will remove the user's access to:
+                        This will remove the user&apos;s access to:
                         <ul className="list-disc list-inside mt-2 space-y-1">
                           <li>Admin dashboard and tools</li>
                           <li>User management capabilities</li>
@@ -560,7 +601,7 @@ export default function UserDetailPage() {
           <p className="text-gray-500 text-sm">No plans yet</p>
         ) : (
           <ul className="divide-y divide-gray-200">
-            {user.plans.map((plan: any) => (
+            {user.plans.map((plan: Plan) => (
               <li key={plan.id} className="py-3">
                 <div className="flex justify-between items-center">
                   <div>
@@ -588,7 +629,7 @@ export default function UserDetailPage() {
           <div className="bg-white shadow rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Credit Purchases</h3>
             <ul className="divide-y divide-gray-200">
-              {user.creditPurchases.map((purchase: any) => (
+              {user.creditPurchases.map((purchase: CreditPurchase) => (
                 <li key={purchase.id} className="py-3">
                   <div className="flex justify-between items-start">
                     <div>
@@ -621,7 +662,7 @@ export default function UserDetailPage() {
           <div className="bg-white shadow rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Recent Credit Activity</h3>
             <ul className="divide-y divide-gray-200">
-              {user.creditTransactions.map((transaction: any) => (
+              {user.creditTransactions.map((transaction: CreditTransaction) => (
                 <li key={transaction.id} className="py-3">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">

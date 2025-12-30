@@ -33,7 +33,7 @@ interface AuditLog {
   } | null;
   ipAddress: string | null;
   userAgent: string | null;
-  details: any;
+  details: Record<string, unknown> | null;
   createdAt: string;
 }
 

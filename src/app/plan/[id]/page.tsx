@@ -9,6 +9,14 @@ import ShareModal from '@/components/plan/ShareModal';
 import { Download, Share, Mail } from 'lucide-react';
 import { analytics } from '@/lib/analytics/analyticsService';
 
+interface PlanWithUser extends Plan {
+  user?: {
+    id: string;
+    email: string;
+    businessName?: string;
+  };
+}
+
 interface PlanPageProps {
   params: Promise<{ id: string }>;
 }
@@ -17,7 +25,7 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
   const { id: planId } = use(params);
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [plan, setPlan] = useState<Plan | null>(null);
+  const [plan, setPlan] = useState<PlanWithUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -235,15 +243,15 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Phase 1 (First 30 Days)</h3>
-                  <p className="text-gray-700">{implementationGuide.actionPlans.phase1}</p>
+                  <p className="text-gray-700">{String(implementationGuide.actionPlans.phase1 || '')}</p>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Phase 2 (Days 31-90)</h3>
-                  <p className="text-gray-700">{implementationGuide.actionPlans.phase2}</p>
+                  <p className="text-gray-700">{String(implementationGuide.actionPlans.phase2 || '')}</p>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Phase 3 (Days 91-180)</h3>
-                  <p className="text-gray-700">{implementationGuide.actionPlans.phase3}</p>
+                  <p className="text-gray-700">{String(implementationGuide.actionPlans.phase3 || '')}</p>
                 </div>
               </div>
             </div>

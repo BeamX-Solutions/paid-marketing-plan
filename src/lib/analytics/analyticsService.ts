@@ -28,13 +28,13 @@ export class AnalyticsService {
   }
 
   trackQuestionnaireProgress(
-    userId?: string, 
-    square: number, 
-    questionIndex: number, 
-    totalQuestions: number
+    userId?: string,
+    square?: number,
+    questionIndex?: number,
+    totalQuestions?: number
   ) {
-    const progress = Math.round((questionIndex / totalQuestions) * 100);
-    
+    const progress = questionIndex && totalQuestions ? Math.round((questionIndex / totalQuestions) * 100) : 0;
+
     this.track('questionnaire_progress', {
       user_id: userId,
       current_square: square,
@@ -59,9 +59,9 @@ export class AnalyticsService {
   }
 
   trackQuestionnaireAbandoned(
-    userId?: string, 
-    square: number, 
-    questionIndex: number,
+    userId?: string,
+    square?: number,
+    questionIndex?: number,
     timeSpent?: number
   ) {
     this.track('questionnaire_abandoned', {
@@ -112,11 +112,11 @@ export class AnalyticsService {
     });
   }
 
-  trackPlanDownloaded(userId?: string, planId?: string, format: string = 'pdf') {
+  trackPlanDownloaded(userId?: string, planId?: string, format?: string) {
     this.track('plan_downloaded', {
       user_id: userId,
       plan_id: planId,
-      format
+      format: format || 'pdf'
     });
   }
 
@@ -172,14 +172,14 @@ export class AnalyticsService {
     });
   }
 
-  trackEmailOpened(userId?: string, emailType: string) {
+  trackEmailOpened(userId?: string, emailType?: string) {
     this.track('email_opened', {
       user_id: userId,
       email_type: emailType
     });
   }
 
-  trackEmailClicked(userId?: string, emailType: string, linkUrl?: string) {
+  trackEmailClicked(userId?: string, emailType?: string, linkUrl?: string) {
     this.track('email_clicked', {
       user_id: userId,
       email_type: emailType,
@@ -245,7 +245,7 @@ export class AnalyticsService {
 
   // Utility method to identify user
   identify(userId: string, traits: Record<string, any> = {}) {
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && window.gtag && this.gaId) {
       window.gtag('config', this.gaId, {
         user_id: userId,
         custom_map: traits

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { requireAdmin } from '@/lib/auth-helpers';
 
 const prisma = new PrismaClient();
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Build filter conditions for filtered view
-    const filteredWhere: any = {};
+    const filteredWhere: Prisma.UserWhereInput = {};
 
     if (startDate && endDate) {
       filteredWhere.createdAt = {
@@ -112,7 +112,7 @@ export async function GET(request: NextRequest) {
     });
 
     // For plans, we need to filter by plan createdAt
-    const planFilteredWhere: any = {};
+    const planFilteredWhere: Prisma.PlanWhereInput = {};
     if (startDate && endDate) {
       planFilteredWhere.createdAt = {
         gte: startDate,
@@ -135,7 +135,7 @@ export async function GET(request: NextRequest) {
     });
 
     // For credit purchases, filter by purchase date
-    const creditPurchaseFilteredWhere: any = {};
+    const creditPurchaseFilteredWhere: Prisma.CreditPurchaseWhereInput = {};
     if (startDate && endDate) {
       creditPurchaseFilteredWhere.purchaseDate = {
         gte: startDate,

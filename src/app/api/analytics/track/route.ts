@@ -117,8 +117,23 @@ export async function GET(request: NextRequest) {
 
     // Calculate average generation time for completed plans
     const completedPlansWithTime = user.plans
-      .filter(plan => plan.status === 'completed' && plan.planMetadata?.totalProcessingTime)
-      .map(plan => plan.planMetadata?.totalProcessingTime as number);
+      .filter(plan => {
+        if (plan.status !== 'completed' || !plan.planMetadata) return false;
+        try {
+          const metadata = typeof plan.planMetadata === 'string'
+            ? JSON.parse(plan.planMetadata)
+            : plan.planMetadata;
+          return metadata && typeof metadata === 'object' && 'totalProcessingTime' in metadata;
+        } catch {
+          return false;
+        }
+      })
+      .map(plan => {
+        const metadata = typeof plan.planMetadata === 'string'
+          ? JSON.parse(plan.planMetadata as string)
+          : plan.planMetadata;
+        return (metadata as Record<string, unknown>).totalProcessingTime as number;
+      });
 
     const avgGenerationTime = completedPlansWithTime.length > 0
       ? completedPlansWithTime.reduce((sum, time) => sum + time, 0) / completedPlansWithTime.length
@@ -150,7 +165,16 @@ export async function GET(request: NextRequest) {
         status: plan.status,
         createdAt: plan.createdAt,
         completedAt: plan.completedAt,
-        processingTime: plan.planMetadata?.totalProcessingTime
+        processingTime: plan.planMetadata ? (() => {
+          try {
+            const metadata = typeof plan.planMetadata === 'string'
+              ? JSON.parse(plan.planMetadata)
+              : plan.planMetadata;
+            return (metadata as Record<string, unknown>)?.totalProcessingTime;
+          } catch {
+            return undefined;
+          }
+        })() : undefined
       }))
     };
 

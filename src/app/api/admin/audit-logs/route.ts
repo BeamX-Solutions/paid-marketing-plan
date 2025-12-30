@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
   try {
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
 
     // Build where clause
-    const where: any = {};
+    const where: Prisma.AdminActionWhereInput = {};
 
     if (action) {
       where.action = action;
@@ -148,7 +149,7 @@ export async function GET(request: NextRequest) {
 /**
  * Helper function to safely parse JSON
  */
-function tryParseJSON(jsonString: string): any {
+function tryParseJSON(jsonString: string): unknown {
   try {
     return JSON.parse(jsonString);
   } catch {

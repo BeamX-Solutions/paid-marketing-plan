@@ -3,7 +3,7 @@ export interface User {
   email: string;
   businessName?: string;
   industry?: string;
-  profileData?: Record<string, any>;
+  profileData?: Record<string, unknown>;
   subscriptionStatus: string;
   marketingConsent: boolean;
 }
@@ -24,13 +24,13 @@ export interface BusinessContext {
 export interface QuestionnaireResponses {
   // Square 1: Target Market
   targetMarket: {
-    demographics: Record<string, any>;
-    psychographics: Record<string, any>;
+    demographics: Record<string, unknown>;
+    psychographics: Record<string, unknown>;
     painPoints: string[];
     customerSources: string[];
-    buyingBehavior: Record<string, any>;
-    decisionProcess: Record<string, any>;
-    budgetConstraints: Record<string, any>;
+    buyingBehavior: Record<string, unknown>;
+    decisionProcess: Record<string, unknown>;
+    budgetConstraints: Record<string, unknown>;
     communicationChannels: string[];
     testimonials: string[];
   };
@@ -50,104 +50,104 @@ export interface QuestionnaireResponses {
   
   // Square 3: Media Channels
   mediaChannels: {
-    currentChannels: Record<string, any>;
-    digitalPreferences: Record<string, any>;
-    traditionalMarketing: Record<string, any>;
-    contentCreation: Record<string, any>;
-    socialMedia: Record<string, any>;
-    paidAdvertising: Record<string, any>;
-    publicRelations: Record<string, any>;
-    partnerships: Record<string, any>;
-    eventMarketing: Record<string, any>;
+    currentChannels: Record<string, unknown>;
+    digitalPreferences: Record<string, unknown>;
+    traditionalMarketing: Record<string, unknown>;
+    contentCreation: Record<string, unknown>;
+    socialMedia: Record<string, unknown>;
+    paidAdvertising: Record<string, unknown>;
+    publicRelations: Record<string, unknown>;
+    partnerships: Record<string, unknown>;
+    eventMarketing: Record<string, unknown>;
   };
   
   // Square 4: Lead Capture
   leadCapture: {
-    currentMethods: Record<string, any>;
-    websiteOptimization: Record<string, any>;
-    leadMagnets: Record<string, any>;
-    contactCollection: Record<string, any>;
-    landingPages: Record<string, any>;
-    callToActions: Record<string, any>;
-    formOptimization: Record<string, any>;
-    leadQuality: Record<string, any>;
-    tracking: Record<string, any>;
+    currentMethods: Record<string, unknown>;
+    websiteOptimization: Record<string, unknown>;
+    leadMagnets: Record<string, unknown>;
+    contactCollection: Record<string, unknown>;
+    landingPages: Record<string, unknown>;
+    callToActions: Record<string, unknown>;
+    formOptimization: Record<string, unknown>;
+    leadQuality: Record<string, unknown>;
+    tracking: Record<string, unknown>;
   };
   
   // Square 5: Lead Nurturing
   leadNurturing: {
-    followUpProcesses: Record<string, any>;
-    emailMarketing: Record<string, any>;
-    crmUsage: Record<string, any>;
-    contentMarketing: Record<string, any>;
-    education: Record<string, any>;
-    relationshipBuilding: Record<string, any>;
-    personalization: Record<string, any>;
-    automation: Record<string, any>;
-    community: Record<string, any>;
+    followUpProcesses: Record<string, unknown>;
+    emailMarketing: Record<string, unknown>;
+    crmUsage: Record<string, unknown>;
+    contentMarketing: Record<string, unknown>;
+    education: Record<string, unknown>;
+    relationshipBuilding: Record<string, unknown>;
+    personalization: Record<string, unknown>;
+    automation: Record<string, unknown>;
+    community: Record<string, unknown>;
   };
   
   // Square 6: Sales Conversion
   salesConversion: {
-    salesProcess: Record<string, any>;
-    salesCycle: Record<string, any>;
-    decisionMakers: Record<string, any>;
+    salesProcess: Record<string, unknown>;
+    salesCycle: Record<string, unknown>;
+    decisionMakers: Record<string, unknown>;
     commonObjections: string[];
-    pricingStrategy: Record<string, any>;
-    proposals: Record<string, any>;
-    contracts: Record<string, any>;
-    salesTeam: Record<string, any>;
-    metrics: Record<string, any>;
+    pricingStrategy: Record<string, unknown>;
+    proposals: Record<string, unknown>;
+    contracts: Record<string, unknown>;
+    salesTeam: Record<string, unknown>;
+    metrics: Record<string, unknown>;
   };
   
   // Square 7: Customer Experience
   customerExperience: {
-    deliveryMethod: Record<string, any>;
-    qualityAssurance: Record<string, any>;
-    onboarding: Record<string, any>;
-    support: Record<string, any>;
-    feedbackCollection: Record<string, any>;
-    problemResolution: Record<string, any>;
-    successMetrics: Record<string, any>;
-    optimization: Record<string, any>;
-    training: Record<string, any>;
+    deliveryMethod: Record<string, unknown>;
+    qualityAssurance: Record<string, unknown>;
+    onboarding: Record<string, unknown>;
+    support: Record<string, unknown>;
+    feedbackCollection: Record<string, unknown>;
+    problemResolution: Record<string, unknown>;
+    successMetrics: Record<string, unknown>;
+    optimization: Record<string, unknown>;
+    training: Record<string, unknown>;
   };
   
   // Square 8: Lifetime Value
   lifetimeValue: {
-    retention: Record<string, any>;
-    upselling: Record<string, any>;
-    subscriptionModel: Record<string, any>;
-    loyaltyPrograms: Record<string, any>;
-    pricingOptimization: Record<string, any>;
-    expansion: Record<string, any>;
-    journeyOptimization: Record<string, any>;
-    renewals: Record<string, any>;
-    revenueOptimization: Record<string, any>;
+    retention: Record<string, unknown>;
+    upselling: Record<string, unknown>;
+    subscriptionModel: Record<string, unknown>;
+    loyaltyPrograms: Record<string, unknown>;
+    pricingOptimization: Record<string, unknown>;
+    expansion: Record<string, unknown>;
+    journeyOptimization: Record<string, unknown>;
+    renewals: Record<string, unknown>;
+    revenueOptimization: Record<string, unknown>;
   };
   
   // Square 9: Referral System
   referralSystem: {
-    currentSources: Record<string, any>;
-    advocacyPrograms: Record<string, any>;
-    incentives: Record<string, any>;
-    partnerships: Record<string, any>;
-    wordOfMouth: Record<string, any>;
-    successStories: Record<string, any>;
-    communityBuilding: Record<string, any>;
-    influencers: Record<string, any>;
-    socialProof: Record<string, any>;
+    currentSources: Record<string, unknown>;
+    advocacyPrograms: Record<string, unknown>;
+    incentives: Record<string, unknown>;
+    partnerships: Record<string, unknown>;
+    wordOfMouth: Record<string, unknown>;
+    successStories: Record<string, unknown>;
+    communityBuilding: Record<string, unknown>;
+    influencers: Record<string, unknown>;
+    socialProof: Record<string, unknown>;
   };
 }
 
 export interface ClaudeAnalysis {
-  businessModelAssessment: Record<string, any>;
-  marketOpportunity: Record<string, any>;
-  competitivePositioning: Record<string, any>;
-  customerAvatarRefinement: Record<string, any>;
+  businessModelAssessment: Record<string, unknown>;
+  marketOpportunity: Record<string, unknown>;
+  competitivePositioning: Record<string, unknown>;
+  customerAvatarRefinement: Record<string, unknown>;
   strategicRecommendations: string[];
   riskFactors: string[];
-  growthPotential: Record<string, any>;
+  growthPotential: Record<string, unknown>;
 }
 
 export interface GeneratedContent {
@@ -170,11 +170,11 @@ export interface GeneratedContent {
   };
   implementationGuide: {
     executiveSummary: string;
-    actionPlans: Record<string, any>;
-    timeline: Record<string, any>;
-    resources: Record<string, any>;
-    kpis: Record<string, any>;
-    templates: Record<string, any>;
+    actionPlans: Record<string, unknown>;
+    timeline: Record<string, unknown>;
+    resources: Record<string, unknown>;
+    kpis: Record<string, unknown>;
+    templates: Record<string, unknown>;
   };
   strategicInsights: {
     strengths: string[];
@@ -184,7 +184,7 @@ export interface GeneratedContent {
     growthPotential: string;
     risks: string[];
     investments: string[];
-    roi: Record<string, any>;
+    roi: Record<string, unknown>;
   };
 }
 
@@ -195,7 +195,7 @@ export interface Plan {
   questionnaireResponses: QuestionnaireResponses;
   claudeAnalysis?: ClaudeAnalysis;
   generatedContent?: GeneratedContent;
-  planMetadata?: Record<string, any>;
+  planMetadata?: Record<string, unknown>;
   status: 'in_progress' | 'analyzing' | 'generating' | 'completed' | 'failed';
   completionPercentage: number;
   createdAt: string;
@@ -207,8 +207,8 @@ export interface ClaudeInteraction {
   id: string;
   planId: string;
   interactionType: string;
-  promptData: Record<string, any>;
-  claudeResponse: Record<string, any>;
+  promptData: Record<string, unknown>;
+  claudeResponse: Record<string, unknown>;
   tokensUsed?: number;
   processingTimeMs?: number;
   createdAt: string;
@@ -232,11 +232,11 @@ export interface Question {
   required: boolean;
   helpText?: string;
   placeholder?: string;
-  validation?: Record<string, any>;
+  validation?: Record<string, unknown>;
   conditional?: {
     field: string;
     operator: 'equals' | 'includes' | 'greater_than' | 'less_than';
-    value: any;
+    value: unknown;
   };
 }
 
@@ -265,7 +265,7 @@ export interface CreditTransaction {
   balanceAfter: number;
   description?: string;
   createdAt: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CreditBalance {

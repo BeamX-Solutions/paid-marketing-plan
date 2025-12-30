@@ -440,8 +440,7 @@ export default function AdminSettingsPage() {
                 {isSuperAdmin && (
                   <Button
                     onClick={() => setShowCreateAdminForm(!showCreateAdminForm)}
-                    variant="primary"
-                    icon={UserPlus}
+                    variant="default"
                   >
                     {showCreateAdminForm ? 'Cancel' : 'Create New Admin'}
                   </Button>
@@ -541,11 +540,11 @@ export default function AdminSettingsPage() {
                           setShowCreateAdminForm(false);
                           setNewAdmin({ email: '', password: '', firstName: '', lastName: '' });
                         }}
-                        variant="secondary"
+                        variant="outline"
                       >
                         Cancel
                       </Button>
-                      <Button type="submit" variant="primary" disabled={loading}>
+                      <Button type="submit" variant="default" disabled={loading}>
                         {loading ? 'Creating...' : 'Create Admin'}
                       </Button>
                     </div>
@@ -633,7 +632,7 @@ export default function AdminSettingsPage() {
                               user.role === 'ADMIN' ? (
                                 <Button
                                   onClick={() => updateUserRole(user.id, 'USER')}
-                                  variant="secondary"
+                                  variant="outline"
                                   size="sm"
                                   disabled={loading}
                                 >
@@ -642,7 +641,7 @@ export default function AdminSettingsPage() {
                               ) : (
                                 <Button
                                   onClick={() => updateUserRole(user.id, 'ADMIN')}
-                                  variant="primary"
+                                  variant="default"
                                   size="sm"
                                   disabled={loading}
                                 >
@@ -747,7 +746,7 @@ export default function AdminSettingsPage() {
                               {canDownload ? (
                                 <Button
                                   onClick={() => updateUserPermissions(user.id, false)}
-                                  variant="secondary"
+                                  variant="outline"
                                   size="sm"
                                   disabled={loading}
                                 >
@@ -756,7 +755,7 @@ export default function AdminSettingsPage() {
                               ) : (
                                 <Button
                                   onClick={() => updateUserPermissions(user.id, true)}
-                                  variant="primary"
+                                  variant="default"
                                   size="sm"
                                   disabled={loading}
                                 >

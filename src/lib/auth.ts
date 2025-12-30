@@ -108,8 +108,8 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.businessName || user.email,
-          businessName: user.businessName,
-          industry: user.industry,
+          businessName: user.businessName || undefined,
+          industry: user.industry || undefined,
           role: user.role,
           status: user.status,
         };
@@ -204,8 +204,8 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.businessName || user.email,
-          businessName: user.businessName,
-          industry: user.industry,
+          businessName: user.businessName || undefined,
+          industry: user.industry || undefined,
           role: user.role,
           status: user.status,
         };
@@ -285,11 +285,15 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Check if admin session has expired (for additional security)
-      if (token.isAdmin && token.exp) {
+      if (token.isAdmin && token.exp && typeof token.exp === 'number') {
         const now = Math.floor(Date.now() / 1000);
         if (now > token.exp) {
-          // Session expired - return empty token to force re-login
-          return {};
+          // Session expired - clear sensitive data but maintain structure
+          return {
+            ...token,
+            exp: 0,
+            isAdmin: false
+          };
         }
       }
 
@@ -306,14 +310,13 @@ export const authOptions: NextAuthOptions = {
           businessName: token.businessName,
           industry: token.industry,
         },
-        expires: token.exp ? new Date(token.exp * 1000).toISOString() : session.expires,
+        expires: token.exp && typeof token.exp === 'number' ? new Date(token.exp * 1000).toISOString() : session.expires,
         isAdmin: token.isAdmin || false,
       };
     },
   },
   pages: {
     signIn: '/auth/signin',
-    signUp: '/auth/signup',
   },
 };
 

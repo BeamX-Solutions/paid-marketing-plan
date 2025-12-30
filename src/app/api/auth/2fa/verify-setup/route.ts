@@ -114,9 +114,8 @@ export async function POST(request: NextRequest) {
       details: JSON.stringify({
         timestamp: new Date().toISOString(),
         ip: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
       }),
-      ipAddress: request.headers.get('x-forwarded-for') || undefined,
-      userAgent: request.headers.get('user-agent') || undefined,
     });
 
     // 5. Return success with backup codes (shown only once!)

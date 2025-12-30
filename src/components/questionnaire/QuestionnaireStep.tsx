@@ -7,8 +7,8 @@ import Button from '@/components/ui/Button';
 
 interface QuestionnaireStepProps {
   question: Question;
-  value: any;
-  onChange: (value: any) => void;
+  value: unknown;
+  onChange: (value: unknown) => void;
   onNext: () => void;
   onPrev: () => void;
   canGoNext: boolean;
@@ -28,7 +28,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
   isFirst,
   isLast
 }) => {
-  const handleInputChange = (newValue: any) => {
+  const handleInputChange = (newValue: unknown) => {
     onChange(newValue);
   };
 
@@ -47,7 +47,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
         return (
           <input
             type="text"
-            value={value || ''}
+            value={(value as string) || ''}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder={question.placeholder}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -57,7 +57,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
       case 'textarea':
         return (
           <textarea
-            value={value || ''}
+            value={(value as string) || ''}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder={question.placeholder}
             rows={4}
@@ -68,7 +68,7 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
       case 'select':
         return (
           <select
-            value={value || ''}
+            value={(value as string) || ''}
             onChange={(e) => handleInputChange(e.target.value)}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
@@ -125,13 +125,13 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
               type="range"
               min="1"
               max="10"
-              value={value || 5}
+              value={(value as number) || 5}
               onChange={(e) => handleInputChange(parseInt(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
             <div className="flex justify-between text-sm text-gray-600 mt-2">
               <span>1</span>
-              <span className="font-semibold">Current: {value || 5}</span>
+              <span className="font-semibold">Current: {(value as number) || 5}</span>
               <span>10</span>
             </div>
           </div>

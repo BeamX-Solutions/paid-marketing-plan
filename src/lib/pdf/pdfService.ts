@@ -1,3 +1,4 @@
+import React from 'react';
 import { renderToBuffer } from '@react-pdf/renderer';
 import { MarketingPlanPDF } from './PDFTemplate';
 import { GeneratedContent, BusinessContext } from '@/types';
@@ -17,7 +18,7 @@ export class PDFService {
     try {
       console.log('Generating PDF for plan...');
       
-      const pdfBuffer = await renderToBuffer(MarketingPlanPDF({ plan: data }));
+      const pdfBuffer = await renderToBuffer(React.createElement(MarketingPlanPDF, { plan: data }) as any);
       
       console.log('PDF generated successfully, size:', pdfBuffer.length, 'bytes');
       return pdfBuffer;
@@ -46,7 +47,7 @@ export class PDFService {
     try {
       // For now, we'll use the same template but this could be extended
       // to support custom options in the future
-      const pdfBuffer = await renderToBuffer(MarketingPlanPDF({ plan: data }));
+      const pdfBuffer = await renderToBuffer(React.createElement(MarketingPlanPDF, { plan: data }) as any);
       
       return pdfBuffer;
     } catch (error) {

@@ -8,6 +8,7 @@ import { getLocationFromIp } from '@/lib/email/admin-login-alert';
 
 export type EventType =
   | 'failed_login'
+  | 'admin_login'
   | 'suspicious_activity'
   | 'rate_limit'
   | '2fa_failed'

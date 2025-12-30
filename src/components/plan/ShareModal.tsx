@@ -201,7 +201,7 @@ const ShareModal: React.FC<ShareModalProps> = ({
                   Resend to Yourself
                 </h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  Didn't receive the original email? Click below to resend the completion email to your inbox.
+                  Didn&apos;t receive the original email? Click below to resend the completion email to your inbox.
                 </p>
                 
                 <Button

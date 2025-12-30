@@ -175,7 +175,7 @@ export async function POST(
         businessName: plan.user.businessName || undefined,
         userEmail: plan.user.email,
         planId: plan.id,
-        generatedContent: generatedContent as any,
+        generatedContent: generatedContent,
         businessContext: businessContext,
         createdAt: updatedPlan.createdAt.toISOString(),
         downloadUrl: downloadUrl

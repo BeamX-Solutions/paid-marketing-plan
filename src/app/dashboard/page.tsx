@@ -1,19 +1,29 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import { CreditBalance, CreditTransaction } from '@/types';
 
-export default function DashboardPage() {
+interface DashboardPlan {
+  id: string;
+  businessName: string;
+  status: string;
+  completionPercentage: number;
+  creditsCharged: number;
+  createdAt: string;
+  completedAt?: string;
+}
+
+function DashboardContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const [balance, setBalance] = useState<CreditBalance | null>(null);
   const [transactions, setTransactions] = useState<CreditTransaction[]>([]);
-  const [plans, setPlans] = useState<any[]>([]);
+  const [plans, setPlans] = useState<DashboardPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'plans'>('overview');
@@ -491,5 +501,13 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }

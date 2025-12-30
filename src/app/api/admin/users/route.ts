@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { requireAdmin } from '@/lib/auth-helpers';
 
 const prisma = new PrismaClient();
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status') || '';
 
     const skip = (page - 1) * limit;
-    const where: any = {};
+    const where: Prisma.UserWhereInput = {};
 
     if (search) {
       where.OR = [
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (status) {
-      where.status = status;
+      where.status = status as Prisma.EnumUserStatusFilter;
     }
 
     const [users, totalCount] = await Promise.all([

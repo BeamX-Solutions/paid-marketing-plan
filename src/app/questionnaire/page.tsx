@@ -20,7 +20,7 @@ const QuestionnairePage = () => {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentSquare, setCurrentSquare] = useState(0);
-  const [responses, setResponses] = useState<Record<string, any>>({});
+  const [responses, setResponses] = useState<Record<string, unknown>>({});
   const [completedSquares, setCompletedSquares] = useState<number[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [startTime] = useState<number>(Date.now());
@@ -33,7 +33,7 @@ const QuestionnairePage = () => {
       router.push('/auth/signin');
     } else if (status === 'authenticated' && session?.user?.email) {
       // Track questionnaire start
-      analytics.trackQuestionnaireStart(session.user.email, responses['industry']);
+      analytics.trackQuestionnaireStart(session.user.email, responses['industry'] as string | undefined);
       analytics.identify(session.user.email, {
         business_name: session.user.name || 'Unknown'
       });
@@ -55,7 +55,7 @@ const QuestionnairePage = () => {
     }
   }, [currentQuestion]);
 
-  const handleResponseChange = (value: any) => {
+  const handleResponseChange = (value: unknown) => {
     setResponses(prev => ({
       ...prev,
       [currentQuestion.id]: value
@@ -97,8 +97,8 @@ const QuestionnairePage = () => {
         analytics.trackQuestionnaireCompleted(
           session.user.email,
           completionTime,
-          responses['industry'],
-          responses['business-model']
+          responses['industry'] as string | undefined,
+          responses['business-model'] as string | undefined
         );
       }
       await generateMarketingPlan();
@@ -118,16 +118,16 @@ const QuestionnairePage = () => {
     try {
       // Structure responses according to our types
       const businessContext: Partial<BusinessContext> = {
-        industry: responses['industry'],
-        businessModel: responses['business-model'],
-        companySize: responses['company-size'],
-        yearsInOperation: responses['years-in-operation'],
-        geographicScope: responses['geographic-scope'],
-        primaryChallenges: responses['primary-challenges'],
-        marketingMaturity: responses['marketing-maturity'],
-        marketingBudget: responses['marketing-budget'],
-        timeAvailability: responses['time-availability'],
-        businessGoals: responses['business-goals']
+        industry: responses['industry'] as string | undefined,
+        businessModel: responses['business-model'] as 'B2B' | 'B2C' | 'B2B2C' | 'Marketplace' | undefined,
+        companySize: responses['company-size'] as string | undefined,
+        yearsInOperation: responses['years-in-operation'] as string | undefined,
+        geographicScope: responses['geographic-scope'] as string | undefined,
+        primaryChallenges: responses['primary-challenges'] as string[] | undefined,
+        marketingMaturity: responses['marketing-maturity'] as 'beginner' | 'intermediate' | 'advanced' | undefined,
+        marketingBudget: responses['marketing-budget'] as string | undefined,
+        timeAvailability: responses['time-availability'] as string | undefined,
+        businessGoals: responses['business-goals'] as string[] | undefined
       };
 
       // Create plan record

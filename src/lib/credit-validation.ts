@@ -20,8 +20,7 @@ export const CREDIT_LIMITS = {
  */
 export const CreditAdjustmentSchema = z.object({
   amount: z.number({
-    required_error: 'Amount is required',
-    invalid_type_error: 'Amount must be a number',
+    message: 'Amount must be a number',
   })
     .int('Amount must be an integer')
     .refine(
@@ -62,7 +61,7 @@ export function validateCreditAdjustment(
     CreditAdjustmentSchema.parse({ amount, reason });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      errors.push(...error.errors.map(e => e.message));
+      errors.push(...error.issues.map(e => e.message));
     }
   }
 

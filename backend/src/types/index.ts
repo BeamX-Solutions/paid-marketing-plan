@@ -31,7 +31,9 @@ export interface PlanGenerationRequest {
   additionalInfo?: string;
 }
 
-export interface AuthRequest extends Express.Request {
+import { Request } from 'express';
+
+export interface AuthRequest extends Request {
   userId?: string;
 }
 

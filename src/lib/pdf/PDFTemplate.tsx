@@ -325,13 +325,13 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
 
         <Text style={styles.subsectionTitle}>Competitive Advantage</Text>
-        <Text style={styles.text}>{strategicInsights.competitiveAdvantage}</Text>
+        <Text style={styles.text}>{String(strategicInsights.competitiveAdvantage || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Growth Potential</Text>
-        <Text style={styles.text}>{strategicInsights.growthPotential}</Text>
+        <Text style={styles.text}>{String(strategicInsights.growthPotential || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Recommended Market Positioning</Text>
-        <Text style={styles.text}>{strategicInsights.positioning}</Text>
+        <Text style={styles.text}>{String(strategicInsights.positioning || '')}</Text>
 
         <View style={styles.footer}>
           <Text>Page 3 • MarketingPlan.ai</Text>
@@ -346,25 +346,25 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         <Text style={styles.text}>{implementationGuide.executiveSummary}</Text>
 
         <Text style={styles.subsectionTitle}>Phase 1: First 30 Days</Text>
-        <Text style={styles.text}>{implementationGuide.actionPlans.phase1}</Text>
+        <Text style={styles.text}>{String(implementationGuide.actionPlans.phase1 || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Phase 2: Days 31-90</Text>
-        <Text style={styles.text}>{implementationGuide.actionPlans.phase2}</Text>
+        <Text style={styles.text}>{String(implementationGuide.actionPlans.phase2 || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Phase 3: Days 91-180</Text>
-        <Text style={styles.text}>{implementationGuide.actionPlans.phase3}</Text>
+        <Text style={styles.text}>{String(implementationGuide.actionPlans.phase3 || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Implementation Timeline</Text>
-        <Text style={styles.text}>{implementationGuide.timeline}</Text>
+        <Text style={styles.text}>{String(implementationGuide.timeline || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Required Resources</Text>
-        <Text style={styles.text}>{implementationGuide.resources}</Text>
+        <Text style={styles.text}>{String(implementationGuide.resources || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Key Performance Indicators</Text>
-        <Text style={styles.text}>{implementationGuide.kpis}</Text>
+        <Text style={styles.text}>{String(implementationGuide.kpis || '')}</Text>
 
         <Text style={styles.subsectionTitle}>Templates & Tools</Text>
-        <Text style={styles.text}>{implementationGuide.templates}</Text>
+        <Text style={styles.text}>{String(implementationGuide.templates || '')}</Text>
 
         <View style={styles.footer}>
           <Text>Page 4 • MarketingPlan.ai</Text>
@@ -384,7 +384,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         ))}
 
         <Text style={styles.subsectionTitle}>Expected Return on Investment</Text>
-        <Text style={styles.text}>{strategicInsights.roi}</Text>
+        <Text style={styles.text}>{String(strategicInsights.roi || '')}</Text>
 
         <View style={[styles.insightsContainer, { marginTop: 30 }]}>
           <Text style={[styles.subsectionTitle, { color: '#0369a1' }]}>Next Steps</Text>
