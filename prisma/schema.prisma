@@ -1,0 +1,282 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+model User {
+  id                    String     @id @default(cuid())
+  email                 String     @unique
+  password              String?    // Hashed password (optional for OAuth users)
+  passwordResetToken    String?    @unique
+  passwordResetExpires  DateTime?
+  firstName             String?
+  lastName              String?
+  businessName          String?
+  industry              String?
+  country               String?
+  role                  Role       @default(USER)
+  status                UserStatus @default(ACTIVE)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+  lastLoginAt           DateTime?
+  lastLoginIp           String?
+  lastLoginUserAgent    String?
+  marketingConsent      Boolean    @default(false)
+  profileData           String?    // JSON as string in SQLite
+  permissions           String?    // JSON as string in SQLite - stores admin permissions
+  subscriptionStatus    String     @default("free")
+  stripeCustomerId      String?    @unique
+
+  // Two-Factor Authentication fields
+  twoFactorEnabled      Boolean    @default(false)
+  twoFactorSecret       String?    // Encrypted TOTP secret
+  twoFactorBackupCodes  String?    // JSON array of hashed backup codes
+  twoFactorSetupAt      DateTime?
+
+  plans               Plan[]
+  accounts            Account[]
+  sessions            Session[]
+  creditPurchases     CreditPurchase[]
+  creditTransactions  CreditTransaction[]
+  adminActions        AdminAction[] @relation("AdminUser")
+  affectedByActions   AdminAction[] @relation("AffectedUser")
+
+  // Week 3: Security & Monitoring
+  securityEvents      SecurityEvent[]
+  adminSessions       AdminSession[]
+  notifications       Notification[]
+
+  @@map("users")
+}
+
+model Plan {
+  id                      String    @id @default(cuid())
+  userId                  String
+  businessContext         String    // JSON as string in SQLite
+  questionnaireResponses  String    // JSON as string in SQLite
+  claudeAnalysis          String?   // JSON as string in SQLite
+  generatedContent        String?   // JSON as string in SQLite
+  planMetadata            String?   // JSON as string in SQLite
+  status                  String    @default("in_progress")
+  completionPercentage    Int       @default(0)
+  creditsCharged          Int?      @default(0)
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  completedAt             DateTime?
+
+  user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  claudeInteractions      ClaudeInteraction[]
+  creditTransactions      CreditTransaction[]
+
+  @@map("plans")
+}
+
+model ClaudeInteraction {
+  id                String    @id @default(cuid())
+  planId            String
+  interactionType   String
+  promptData        String    // JSON as string in SQLite
+  claudeResponse    String    // JSON as string in SQLite
+  tokensUsed        Int?
+  processingTimeMs  Int?
+  createdAt         DateTime  @default(now())
+
+  plan              Plan      @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@map("claude_interactions")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+model CreditPurchase {
+  id                String    @id @default(cuid())
+  userId            String
+  creditsGranted    Int
+  creditsRemaining  Int
+  amountPaid        Int
+  currency          String    @default("usd")
+  purchaseDate      DateTime  @default(now())
+  expiresAt         DateTime
+  stripeSessionId   String?   @unique
+  stripePaymentId   String?
+  status            String    @default("active")
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions      CreditTransaction[]
+
+  @@index([userId, status, expiresAt])
+  @@map("credit_purchases")
+}
+
+model CreditTransaction {
+  id                String    @id @default(cuid())
+  userId            String
+  planId            String?
+  purchaseId        String
+  creditAmount      Int
+  transactionType   String
+  balanceBefore     Int
+  balanceAfter      Int
+  description       String?
+  createdAt         DateTime  @default(now())
+  metadata          String?
+
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan              Plan?     @relation(fields: [planId], references: [id], onDelete: SetNull)
+  purchase          CreditPurchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([planId])
+  @@map("credit_transactions")
+}
+
+model AdminAction {
+  id            String    @id @default(cuid())
+  adminId       String
+  action        String
+  targetUserId  String?
+  details       String?
+  ipAddress     String?
+  userAgent     String?
+  createdAt     DateTime  @default(now())
+
+  admin         User      @relation("AdminUser", fields: [adminId], references: [id], onDelete: Cascade)
+  targetUser    User?     @relation("AffectedUser", fields: [targetUserId], references: [id], onDelete: SetNull)
+
+  @@index([adminId])
+  @@index([targetUserId])
+  @@index([createdAt])
+  @@map("admin_actions")
+}
+
+// ============================================
+// Week 3: Security & Monitoring Models
+// ============================================
+
+model SecurityEvent {
+  id            String    @id @default(cuid())
+  eventType     String    // 'failed_login', 'suspicious_activity', 'rate_limit', etc.
+  severity      String    // 'low', 'medium', 'high', 'critical'
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ipAddress     String?
+  userAgent     String?
+  location      String?   // Approximate location from IP
+  details       String?   // JSON with event-specific details
+  resolved      Boolean   @default(false)
+  resolvedBy    String?
+  resolvedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@index([eventType, createdAt])
+  @@index([severity, resolved])
+  @@index([userId])
+  @@map("security_events")
+}
+
+model AdminSession {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionToken  String    @unique
+  ipAddress     String?
+  userAgent     String?
+  location      String?
+  deviceInfo    String?   // JSON with device details
+  lastActivity  DateTime  @default(now())
+  expiresAt     DateTime
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+
+  @@index([userId, isActive])
+  @@index([expiresAt])
+  @@map("admin_sessions")
+}
+
+model SecurityMetric {
+  id            String    @id @default(cuid())
+  metricType    String    // 'login_count', '2fa_adoption', 'failed_logins', etc.
+  metricValue   Float
+  metricData    String?   // JSON with detailed breakdown
+  period        String    // 'hourly', 'daily', 'weekly', 'monthly'
+  periodStart   DateTime
+  periodEnd     DateTime
+  createdAt     DateTime  @default(now())
+
+  @@index([metricType, period, periodStart])
+  @@map("security_metrics")
+}
+
+model Notification {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notificationType  String    // 'security_alert', 'system', 'info'
+  title             String
+  message           String
+  priority          String    @default("medium") // 'low', 'medium', 'high', 'urgent'
+  read              Boolean   @default(false)
+  actionUrl         String?
+  actionLabel       String?
+  relatedId         String?   // ID of related event/log
+  createdAt         DateTime  @default(now())
+  readAt            DateTime?
+
+  @@index([userId, read])
+  @@index([createdAt])
+  @@map("notifications")
+}
