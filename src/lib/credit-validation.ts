@@ -1,57 +1,37 @@
-/**
- * Credit validation utility
- * Validates credit operations and enforces limits
- */
-
 import { z } from 'zod';
 
-/**
- * Credit operation limits
- */
 export const CREDIT_LIMITS = {
-  MIN_ADJUSTMENT: -10000, // Maximum deduction per operation
-  MAX_ADJUSTMENT: 10000, // Maximum addition per operation
-  MIN_BALANCE: 0, // Minimum allowed balance
-  MAX_BALANCE: 1000000, // Maximum allowed balance
+  MIN_ADJUSTMENT: -10000,
+  MAX_ADJUSTMENT: 10000,
+  MIN_BALANCE: 0,
+  MAX_BALANCE: 1000000,
 } as const;
 
-/**
- * Credit adjustment schema
- */
 export const CreditAdjustmentSchema = z.object({
-  amount: z.number({
-    required_error: 'Amount is required',
-    invalid_type_error: 'Amount must be a number',
-  })
-    .int('Amount must be an integer')
-    .refine(
-      (val) => val !== 0,
-      'Amount cannot be zero'
-    )
-    .refine(
-      (val) => val >= CREDIT_LIMITS.MIN_ADJUSTMENT,
-      `Amount cannot be less than ${CREDIT_LIMITS.MIN_ADJUSTMENT} credits`
-    )
-    .refine(
-      (val) => val <= CREDIT_LIMITS.MAX_ADJUSTMENT,
-      `Amount cannot be more than ${CREDIT_LIMITS.MAX_ADJUSTMENT} credits`
-    ),
+  amount: z.number()
+    .refine((val) => val !== undefined && val !== null, {
+      message: 'Amount is required',
+    })
+    .refine((val) => Number.isInteger(val), {
+      message: 'Amount must be an integer',
+    })
+    .refine((val) => val !== 0, { message: 'Amount cannot be zero' })
+    .refine((val) => val >= CREDIT_LIMITS.MIN_ADJUSTMENT, {
+      message: `Amount cannot be less than ${CREDIT_LIMITS.MIN_ADJUSTMENT} credits`,
+    })
+    .refine((val) => val <= CREDIT_LIMITS.MAX_ADJUSTMENT, {
+      message: `Amount cannot be more than ${CREDIT_LIMITS.MAX_ADJUSTMENT} credits`,
+    }),
   reason: z.string().optional(),
 });
 
 export type CreditAdjustment = z.infer<typeof CreditAdjustmentSchema>;
 
-/**
- * Validation result interface
- */
 export interface CreditValidationResult {
   isValid: boolean;
   errors: string[];
 }
 
-/**
- * Validate credit adjustment request
- */
 export function validateCreditAdjustment(
   amount: number,
   reason?: string
@@ -62,7 +42,8 @@ export function validateCreditAdjustment(
     CreditAdjustmentSchema.parse({ amount, reason });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      errors.push(...error.errors.map(e => e.message));
+      // Use error.issues instead of error.errors
+      errors.push(...error.issues.map((issue) => issue.message));
     }
   }
 
@@ -72,9 +53,6 @@ export function validateCreditAdjustment(
   };
 }
 
-/**
- * Validate balance after operation
- */
 export function validateBalanceAfterOperation(
   currentBalance: number,
   adjustment: number
@@ -84,7 +62,9 @@ export function validateBalanceAfterOperation(
 
   if (newBalance < CREDIT_LIMITS.MIN_BALANCE) {
     errors.push(
-      `Insufficient credits. Current balance: ${currentBalance}, Deduction: ${Math.abs(adjustment)}. Cannot go below ${CREDIT_LIMITS.MIN_BALANCE}.`
+      `Insufficient credits. Current balance: ${currentBalance}, Deduction: ${Math.abs(
+        adjustment
+      )}. Cannot go below ${CREDIT_LIMITS.MIN_BALANCE}.`
     );
   }
 
@@ -100,16 +80,10 @@ export function validateBalanceAfterOperation(
   };
 }
 
-/**
- * Format credit amount for display
- */
 export function formatCredits(amount: number): string {
   return amount.toLocaleString();
 }
 
-/**
- * Get credit adjustment type
- */
 export function getCreditAdjustmentType(amount: number): 'addition' | 'deduction' {
   return amount > 0 ? 'addition' : 'deduction';
 }

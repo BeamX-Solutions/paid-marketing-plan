@@ -56,7 +56,7 @@ const ShareModal: React.FC<ShareModalProps> = ({
 
       // Track plan share
       if (session?.user?.email) {
-        analytics.trackPlanShared(session.user.email, planId, 'email');
+        analytics.trackPlanShared(planId, 'email', session.user.email);
       }
 
       setSuccess(true);

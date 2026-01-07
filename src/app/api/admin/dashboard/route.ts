@@ -87,17 +87,17 @@ export async function GET(request: NextRequest) {
     });
 
     const allTimeTotalRevenue = allTimeCreditPurchases.reduce(
-      (sum, purchase) => sum + purchase.amountPaid,
+      (sum: any, purchase: any) => sum + purchase.amountPaid,
       0
     ) / 100; // Convert from cents to dollars
 
     const allTimeTotalCreditsGranted = allTimeCreditPurchases.reduce(
-      (sum, purchase) => sum + purchase.creditsGranted,
+      (sum: any, purchase: any) => sum + purchase.creditsGranted,
       0
     );
 
     const allTimeTotalCreditsUsed = allTimeCreditPurchases.reduce(
-      (sum, purchase) => sum + (purchase.creditsGranted - purchase.creditsRemaining),
+      (sum: any, purchase: any) => sum + (purchase.creditsGranted - purchase.creditsRemaining),
       0
     );
 
@@ -158,17 +158,17 @@ export async function GET(request: NextRequest) {
     });
 
     const filteredTotalRevenue = filteredCreditPurchases.reduce(
-      (sum, purchase) => sum + purchase.amountPaid,
+      (sum: any, purchase: any) => sum + purchase.amountPaid,
       0
     ) / 100; // Convert from cents to dollars
 
     const filteredTotalCreditsGranted = filteredCreditPurchases.reduce(
-      (sum, purchase) => sum + purchase.creditsGranted,
+      (sum: any, purchase: any) => sum + purchase.creditsGranted,
       0
     );
 
     const filteredTotalCreditsUsed = filteredCreditPurchases.reduce(
-      (sum, purchase) => sum + (purchase.creditsGranted - purchase.creditsRemaining),
+      (sum: any, purchase: any) => sum + (purchase.creditsGranted - purchase.creditsRemaining),
       0
     );
 

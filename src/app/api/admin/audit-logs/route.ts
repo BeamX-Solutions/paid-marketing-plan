@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Format response
-    const formattedLogs = logs.map((log) => ({
+    const formattedLogs = logs.map((log: any) => ({
       id: log.id,
       action: log.action,
       admin: {

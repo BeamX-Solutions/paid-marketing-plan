@@ -61,11 +61,11 @@ export class CreditService {
       }
     });
 
-    const totalCredits = purchases.reduce((sum, p) => sum + p.creditsRemaining, 0);
+    const totalCredits = purchases.reduce((sum: any, p: any) => sum + p.creditsRemaining, 0);
 
     const expiringCredits = purchases
-      .filter(p => p.creditsRemaining > 0)
-      .map(p => ({
+      .filter((p: any) => p.creditsRemaining > 0)
+      .map((p: any) => ({
         amount: p.creditsRemaining,
         expiresAt: p.expiresAt.toISOString()
       }));
@@ -73,7 +73,7 @@ export class CreditService {
     return {
       totalCredits,
       expiringCredits,
-      purchases: purchases.map(p => ({
+      purchases: purchases.map((p: any) => ({
         id: p.id,
         userId: p.userId,
         creditsGranted: p.creditsGranted,
@@ -228,7 +228,7 @@ export class CreditService {
       }
     });
 
-    return transactions.map(t => ({
+    return transactions.map((t: any) => ({
       id: t.id,
       userId: t.userId,
       planId: t.planId || undefined,

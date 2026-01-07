@@ -1,4 +1,6 @@
+import React, { ReactElement } from 'react';
 import { renderToBuffer } from '@react-pdf/renderer';
+import { DocumentProps } from '@react-pdf/renderer';
 import { MarketingPlanPDF } from './PDFTemplate';
 import { GeneratedContent, BusinessContext } from '@/types';
 
@@ -16,9 +18,10 @@ export class PDFService {
   async generateMarketingPlanPDF(data: PDFGenerationData): Promise<Buffer> {
     try {
       console.log('Generating PDF for plan...');
-      
-      const pdfBuffer = await renderToBuffer(MarketingPlanPDF({ plan: data }));
-      
+     
+      const element = MarketingPlanPDF({ plan: data }) as ReactElement<DocumentProps>;
+      const pdfBuffer = await renderToBuffer(element);
+     
       console.log('PDF generated successfully, size:', pdfBuffer.length, 'bytes');
       return pdfBuffer;
     } catch (error) {
@@ -46,8 +49,9 @@ export class PDFService {
     try {
       // For now, we'll use the same template but this could be extended
       // to support custom options in the future
-      const pdfBuffer = await renderToBuffer(MarketingPlanPDF({ plan: data }));
-      
+      const element = MarketingPlanPDF({ plan: data }) as ReactElement<DocumentProps>;
+      const pdfBuffer = await renderToBuffer(element);
+     
       return pdfBuffer;
     } catch (error) {
       console.error('Error generating custom PDF:', error);

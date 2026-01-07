@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Transform data for frontend
-    const logs = adminActions.map((action) => ({
+    const logs = adminActions.map((action: any) => ({
       id: action.id,
       action: action.action,
       adminEmail: action.admin.email,

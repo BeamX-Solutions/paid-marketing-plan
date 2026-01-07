@@ -58,28 +58,28 @@ export async function calculate2FAAdoption(): Promise<TwoFactorAdoptionMetric> {
     });
 
     const totalAdmins = admins.length;
-    const adminsWithTwoFactor = admins.filter((admin) => admin.twoFactorEnabled).length;
+    const adminsWithTwoFactor = admins.filter((admin: any) => admin.twoFactorEnabled).length;
     const adoptionRate = totalAdmins > 0 ? (adminsWithTwoFactor / totalAdmins) * 100 : 0;
 
     // Calculate by role
-    const adminUsers = admins.filter((u) => u.role === 'ADMIN');
-    const superAdmins = admins.filter((u) => u.role === 'SUPER_ADMIN');
+    const adminUsers = admins.filter((u: any) => u.role === 'ADMIN');
+    const superAdmins = admins.filter((u: any) => u.role === 'SUPER_ADMIN');
 
     const adminStats = {
       total: adminUsers.length,
-      with2FA: adminUsers.filter((u) => u.twoFactorEnabled).length,
+      with2FA: adminUsers.filter((u: any) => u.twoFactorEnabled).length,
       rate:
         adminUsers.length > 0
-          ? (adminUsers.filter((u) => u.twoFactorEnabled).length / adminUsers.length) * 100
+          ? (adminUsers.filter((u: any) => u.twoFactorEnabled).length / adminUsers.length) * 100
           : 0,
     };
 
     const superAdminStats = {
       total: superAdmins.length,
-      with2FA: superAdmins.filter((u) => u.twoFactorEnabled).length,
+      with2FA: superAdmins.filter((u: any) => u.twoFactorEnabled).length,
       rate:
         superAdmins.length > 0
-          ? (superAdmins.filter((u) => u.twoFactorEnabled).length / superAdmins.length) * 100
+          ? (superAdmins.filter((u: any) => u.twoFactorEnabled).length / superAdmins.length) * 100
           : 0,
     };
 
@@ -139,18 +139,17 @@ export async function getLoginStats(
     });
 
     const totalLogins = loginEvents.length;
-    const successfulLogins = loginEvents.filter((e) =>
+    const successfulLogins = loginEvents.filter((e: any) =>
       ['LOGIN', 'LOGIN_SUCCESS'].includes(e.action)
     ).length;
-    const failedLogins = loginEvents.filter((e) => e.action === 'LOGIN_FAILED').length;
+    const failedLogins = loginEvents.filter((e: any) => e.action === 'LOGIN_FAILED').length;
     const successRate = totalLogins > 0 ? (successfulLogins / totalLogins) * 100 : 0;
 
     // Unique users who logged in
-    const uniqueUsers = new Set(loginEvents.map((e) => e.adminId)).size;
-
+    const uniqueUsers = new Set(loginEvents.map((e: any) => e.adminId)).size;
     // Group by day
     const byDay: Record<string, number> = {};
-    loginEvents.forEach((event) => {
+    loginEvents.forEach((event: any) => {
       const date = event.createdAt.toISOString().split('T')[0];
       byDay[date] = (byDay[date] || 0) + 1;
     });
@@ -342,7 +341,7 @@ export async function getTrendData(
 
     return metrics
       .reverse()
-      .map((metric) => ({
+      .map((metric: any) => ({
         date: metric.periodStart.toISOString().split('T')[0],
         value: metric.metricValue,
       }));

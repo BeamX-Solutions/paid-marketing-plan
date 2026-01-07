@@ -140,7 +140,7 @@ export async function getActiveSessions(): Promise<SessionInfo[]> {
       },
     });
 
-    return sessions.map((session) => ({
+    return sessions.map((session: any) => ({
       id: session.id,
       userId: session.userId,
       userEmail: session.user.email,
@@ -183,7 +183,7 @@ export async function getSessionsByUser(userId: string): Promise<SessionInfo[]> 
       },
     });
 
-    return sessions.map((session) => ({
+    return sessions.map((session: any) => ({
       id: session.id,
       userId: session.userId,
       userEmail: session.user.email,

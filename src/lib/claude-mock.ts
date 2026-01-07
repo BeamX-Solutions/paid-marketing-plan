@@ -5,14 +5,34 @@ export class MockClaudeService {
     businessContext: BusinessContext,
     responses: QuestionnaireResponses
   ): Promise<ClaudeAnalysis> {
-    // Mock analysis data
     await this.simulateDelay();
 
     return {
-      businessModelAssessment: "Strong foundation with proven demand in target market. Current business model shows scalability potential with room for optimization in customer acquisition costs.",
-      marketOpportunity: "Market size estimated at $50M+ with 15% annual growth. Digital transformation trends creating new opportunities for innovative solutions.",
-      competitivePositioning: "Positioned well against direct competitors with unique value proposition. Key differentiation lies in customer service and specialized expertise.",
-      customerAvatarRefinement: "Primary customer: Mid-market businesses (50-200 employees) with annual revenue $5M-$25M, seeking efficiency improvements and digital transformation.",
+      businessModelAssessment: {
+        summary: "Strong foundation with proven demand in target market. Current business model shows scalability potential with room for optimization in customer acquisition costs.",
+        strengths: ["Proven demand", "Scalable model", "Clear value proposition"],
+        weaknesses: ["High customer acquisition cost", "Limited market awareness"],
+        score: 7.5
+      },
+      marketOpportunity: {
+        summary: "Market size estimated at $50M+ with 15% annual growth. Digital transformation trends creating new opportunities for innovative solutions.",
+        marketSize: "$50M+",
+        growthRate: "15%",
+        trends: ["Digital transformation", "Remote work adoption", "Efficiency focus"]
+      },
+      competitivePositioning: {
+        summary: "Positioned well against direct competitors with unique value proposition. Key differentiation lies in customer service and specialized expertise.",
+        competitors: ["Competitor A", "Competitor B", "Competitor C"],
+        differentiation: ["Superior customer service", "Specialized expertise", "Proven results"],
+        marketShare: "Emerging player"
+      },
+      customerAvatarRefinement: {
+        summary: "Primary customer: Mid-market businesses (50-200 employees) with annual revenue $5M-$25M, seeking efficiency improvements and digital transformation.",
+        companySize: "50-200 employees",
+        revenue: "$5M-$25M",
+        painPoints: ["Operational inefficiency", "Manual processes", "Growth bottlenecks"],
+        goals: ["Digital transformation", "Cost reduction", "Scalability"]
+      },
       strategicRecommendations: [
         "Focus on content marketing to establish thought leadership",
         "Implement referral program to leverage existing customer satisfaction",
@@ -24,7 +44,12 @@ export class MockClaudeService {
         "Seasonal demand fluctuations",
         "Dependency on key customer accounts"
       ],
-      growthPotential: "High growth potential with 3x revenue scalability possible within 18 months through systematic marketing execution."
+      growthPotential: {
+        summary: "High growth potential with 3x revenue scalability possible within 18 months through systematic marketing execution.",
+        projection: "3x revenue within 18 months",
+        confidence: "High",
+        keyDrivers: ["Systematic marketing", "Partnership expansion", "Product-market fit"]
+      },
     };
   }
 
@@ -64,10 +89,41 @@ export class MockClaudeService {
           phase2: "Days 31-90: Launch content marketing campaign with 2 posts per week, host monthly webinars, implement referral program structure, optimize conversion funnel based on data, and close first 3 strategic partnerships. Begin scaling successful initiatives.",
           phase3: "Days 91-180: Scale content production to daily posts, launch advanced lead magnets, expand partnership network to 20+ active relationships, implement marketing automation sequences, and develop customer success program for retention and expansion."
         },
-        timeline: "Month 1: Foundation building and content creation. Month 2-3: Launch and optimize campaigns. Month 4-6: Scale successful tactics and expand reach. Month 6+: Systematic growth and continuous optimization.",
-        resources: "Required investment: $5,000-$8,000 monthly for tools, content creation, and advertising. Team needs: 1 marketing coordinator (part-time initially), content creation tools, CRM system, and webinar platform.",
-        kpis: "Track: Website traffic (25% monthly increase), lead generation (100+ qualified leads monthly), conversion rate (15%+ lead-to-customer), customer acquisition cost (<$500), lifetime value ($5,000+), and referral rate (20%+ of new customers).",
-        templates: "Email templates for nurture sequences, social media content calendar, webinar presentation framework, sales conversation scripts, customer success playbook, and referral program materials."
+        timeline: {
+          summary: "Month 1: Foundation building and content creation. Month 2-3: Launch and optimize campaigns. Month 4-6: Scale successful tactics and expand reach. Month 6+: Systematic growth and continuous optimization.",
+          month1: "Foundation building and content creation",
+          month2_3: "Launch and optimize campaigns",
+          month4_6: "Scale successful tactics and expand reach",
+          month6plus: "Systematic growth and continuous optimization"
+        },
+        resources: {
+          summary: "Required investment: $5,000-$8,000 monthly for tools, content creation, and advertising. Team needs: 1 marketing coordinator (part-time initially), content creation tools, CRM system, and webinar platform.",
+          budget: "$5,000-$8,000/month",
+          team: ["Marketing coordinator (part-time)"],
+          tools: ["Content creation tools", "CRM system", "Webinar platform"]
+        },
+        kpis: {
+          summary: "Track: Website traffic (25% monthly increase), lead generation (100+ qualified leads monthly), conversion rate (15%+ lead-to-customer), customer acquisition cost (<$500), lifetime value ($5,000+), and referral rate (20%+ of new customers).",
+          metrics: {
+            websiteTraffic: "25% monthly increase",
+            leadGeneration: "100+ qualified leads monthly",
+            conversionRate: "15%+ lead-to-customer",
+            cac: "<$500",
+            ltv: "$5,000+",
+            referralRate: "20%+ of new customers"
+          }
+        },
+        templates: {
+          summary: "Email templates for nurture sequences, social media content calendar, webinar presentation framework, sales conversation scripts, customer success playbook, and referral program materials.",
+          available: [
+            "Email nurture sequences",
+            "Social media content calendar",
+            "Webinar presentation framework",
+            "Sales conversation scripts",
+            "Customer success playbook",
+            "Referral program materials"
+          ]
+        }
       },
       strategicInsights: {
         strengths: [
@@ -97,7 +153,10 @@ export class MockClaudeService {
           "Partnership development time - 10 hours/month",
           "Content creation - 20 hours/month or $1,500 outsourced"
         ],
-        roi: "Expected 4:1 ROI within 6 months, 8:1 ROI within 12 months. Break-even on marketing investment typically occurs within 60-90 days of consistent implementation."
+        roi: {
+          summary: "Expected 4:1 ROI within 6 months, 8:1 ROI within 12 months.",
+          breakEven: "Break-even on marketing investment typically occurs within 60-90 days of consistent implementation."
+        }
       }
     };
   }
@@ -141,7 +200,6 @@ export class MockClaudeService {
   }
 
   private async simulateDelay(): Promise<void> {
-    // Simulate API call delay for realistic feel
     await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
   }
 }

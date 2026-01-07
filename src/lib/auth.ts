@@ -11,8 +11,8 @@ import { logSecurityEvent } from '@/lib/security/event-logger';
 const prisma = new PrismaClient();
 
 // Session timeout constants
-const ADMIN_SESSION_TIMEOUT = 30 * 60; // 30 minutes in seconds
-const USER_SESSION_TIMEOUT = 7 * 24 * 60 * 60; // 7 days in seconds
+const ADMIN_SESSION_TIMEOUT: number = 30 * 60; // 30 minutes in seconds
+const USER_SESSION_TIMEOUT: number = 7 * 24 * 60 * 60; // 7 days in seconds
 
 /**
  * Send admin login alert email (non-blocking)
@@ -39,7 +39,7 @@ async function sendLoginAlertAsync(userId: string, userEmail: string, userName: 
       adminName: userName,
       ipAddress,
       userAgent,
-      location,
+      location: location || 'Unknown',
       twoFactorUsed: user.twoFactorEnabled || false,
       timestamp: new Date(),
     });
@@ -108,8 +108,8 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.businessName || user.email,
-          businessName: user.businessName,
-          industry: user.industry,
+          businessName: user.businessName || undefined,
+          industry: user.industry || undefined,
           role: user.role,
           status: user.status,
         };
@@ -204,8 +204,8 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.businessName || user.email,
-          businessName: user.businessName,
-          industry: user.industry,
+          businessName: user.businessName || undefined,
+          industry: user.industry || undefined,
           role: user.role,
           status: user.status,
         };
@@ -230,22 +230,6 @@ export const authOptions: NextAuthOptions = {
           expiresAt: new Date(Date.now() + ADMIN_SESSION_TIMEOUT * 1000),
         }).catch(err => {
           console.error('Error tracking session:', err);
-        });
-
-        // Log successful admin login (non-blocking)
-        logSecurityEvent({
-          eventType: 'admin_login',
-          severity: 'low',
-          userId: user.id,
-          ipAddress: 'unknown',
-          userAgent: 'unknown',
-          details: {
-            email: user.email,
-            role: user.role,
-            loginMethod: account?.provider || 'credentials',
-          },
-        }).catch(err => {
-          console.error('Error logging security event:', err);
         });
       }
       return true;
@@ -285,11 +269,14 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Check if admin session has expired (for additional security)
-      if (token.isAdmin && token.exp) {
+      if (token.isAdmin && token.exp && typeof token.exp === 'number') {
         const now = Math.floor(Date.now() / 1000);
         if (now > token.exp) {
-          // Session expired - return empty token to force re-login
-          return {};
+          // Session expired - force re-login by returning a minimal token
+          return {
+            ...token,
+            exp: 0, // Immediately expired
+          };
         }
       }
 
@@ -306,14 +293,13 @@ export const authOptions: NextAuthOptions = {
           businessName: token.businessName,
           industry: token.industry,
         },
-        expires: token.exp ? new Date(token.exp * 1000).toISOString() : session.expires,
+        expires: (token.exp && typeof token.exp === 'number') ? new Date(token.exp * 1000).toISOString() : session.expires,
         isAdmin: token.isAdmin || false,
       };
     },
   },
   pages: {
     signIn: '/auth/signin',
-    signUp: '/auth/signup',
   },
 };
 

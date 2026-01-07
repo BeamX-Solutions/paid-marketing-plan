@@ -173,6 +173,21 @@ interface PDFTemplateProps {
   };
 }
 
+const renderObjectAsText = (obj: string | Record<string, any>, style: any): React.ReactNode => {
+  if (typeof obj === 'string') {
+    return <Text style={style}>{obj}</Text>;
+  }
+  if (typeof obj !== 'object' || obj === null) {
+    return <Text style={style}>{String(obj)}</Text>;
+  }
+  return Object.entries(obj).map(([key, value]) => (
+    <View key={key} style={{ marginBottom: 8 }}>
+      <Text style={[style, { fontWeight: 'bold' }]}>{key}:</Text>
+      {renderObjectAsText(value, style)}
+    </View>
+  ));
+};
+
 export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
   const { generatedContent, businessContext, user, createdAt } = plan;
   const { onePagePlan, implementationGuide, strategicInsights } = generatedContent;
@@ -325,13 +340,13 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
 
         <Text style={styles.subsectionTitle}>Competitive Advantage</Text>
-        <Text style={styles.text}>{strategicInsights.competitiveAdvantage}</Text>
+        {renderObjectAsText(strategicInsights.competitiveAdvantage, styles.text)}
 
         <Text style={styles.subsectionTitle}>Growth Potential</Text>
-        <Text style={styles.text}>{strategicInsights.growthPotential}</Text>
+        {renderObjectAsText(strategicInsights.growthPotential, styles.text)}
 
         <Text style={styles.subsectionTitle}>Recommended Market Positioning</Text>
-        <Text style={styles.text}>{strategicInsights.positioning}</Text>
+        {renderObjectAsText(strategicInsights.positioning, styles.text)}
 
         <View style={styles.footer}>
           <Text>Page 3 • MarketingPlan.ai</Text>
@@ -343,28 +358,28 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         <Text style={styles.sectionTitle}>Implementation Guide</Text>
 
         <Text style={styles.subsectionTitle}>Executive Summary</Text>
-        <Text style={styles.text}>{implementationGuide.executiveSummary}</Text>
+        {renderObjectAsText(implementationGuide.executiveSummary, styles.text)}
 
         <Text style={styles.subsectionTitle}>Phase 1: First 30 Days</Text>
-        <Text style={styles.text}>{implementationGuide.actionPlans.phase1}</Text>
+        {renderObjectAsText(implementationGuide.actionPlans.phase1, styles.text)}
 
         <Text style={styles.subsectionTitle}>Phase 2: Days 31-90</Text>
-        <Text style={styles.text}>{implementationGuide.actionPlans.phase2}</Text>
+        {renderObjectAsText(implementationGuide.actionPlans.phase2, styles.text)}
 
         <Text style={styles.subsectionTitle}>Phase 3: Days 91-180</Text>
-        <Text style={styles.text}>{implementationGuide.actionPlans.phase3}</Text>
+        {renderObjectAsText(implementationGuide.actionPlans.phase3, styles.text)}
 
         <Text style={styles.subsectionTitle}>Implementation Timeline</Text>
-        <Text style={styles.text}>{implementationGuide.timeline}</Text>
+        {renderObjectAsText(implementationGuide.timeline, styles.text)}
 
         <Text style={styles.subsectionTitle}>Required Resources</Text>
-        <Text style={styles.text}>{implementationGuide.resources}</Text>
+        {renderObjectAsText(implementationGuide.resources, styles.text)}
 
         <Text style={styles.subsectionTitle}>Key Performance Indicators</Text>
-        <Text style={styles.text}>{implementationGuide.kpis}</Text>
+        {renderObjectAsText(implementationGuide.kpis, styles.text)}
 
         <Text style={styles.subsectionTitle}>Templates & Tools</Text>
-        <Text style={styles.text}>{implementationGuide.templates}</Text>
+        {renderObjectAsText(implementationGuide.templates, styles.text)}
 
         <View style={styles.footer}>
           <Text>Page 4 • MarketingPlan.ai</Text>
@@ -384,7 +399,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         ))}
 
         <Text style={styles.subsectionTitle}>Expected Return on Investment</Text>
-        <Text style={styles.text}>{strategicInsights.roi}</Text>
+        {renderObjectAsText(strategicInsights.roi, styles.text)}
 
         <View style={[styles.insightsContainer, { marginTop: 30 }]}>
           <Text style={[styles.subsectionTitle, { color: '#0369a1' }]}>Next Steps</Text>

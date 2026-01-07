@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Parse business context to get business name
-    const plansWithDetails = plans.map(plan => {
+    const plansWithDetails = plans.map((plan: any) => {
       let businessName = 'Unnamed Business';
       try {
         const context = JSON.parse(plan.businessContext);

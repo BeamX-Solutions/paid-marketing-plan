@@ -28,10 +28,10 @@ export class AnalyticsService {
   }
 
   trackQuestionnaireProgress(
-    userId?: string, 
     square: number, 
     questionIndex: number, 
-    totalQuestions: number
+    totalQuestions: number,
+    userId?: string
   ) {
     const progress = Math.round((questionIndex / totalQuestions) * 100);
     
@@ -59,9 +59,9 @@ export class AnalyticsService {
   }
 
   trackQuestionnaireAbandoned(
-    userId?: string, 
     square: number, 
     questionIndex: number,
+    userId?: string,
     timeSpent?: number
   ) {
     this.track('questionnaire_abandoned', {
@@ -112,7 +112,7 @@ export class AnalyticsService {
     });
   }
 
-  trackPlanDownloaded(userId?: string, planId?: string, format: string = 'pdf') {
+  trackPlanDownloaded(planId: string, format: string = 'pdf', userId?: string) {
     this.track('plan_downloaded', {
       user_id: userId,
       plan_id: planId,
@@ -121,9 +121,9 @@ export class AnalyticsService {
   }
 
   trackPlanShared(
-    userId?: string, 
-    planId?: string, 
-    method: 'email' | 'link' = 'email'
+    planId: string, 
+    method: 'email' | 'link' = 'email',
+    userId?: string
   ) {
     this.track('plan_shared', {
       user_id: userId,
@@ -161,8 +161,8 @@ export class AnalyticsService {
 
   // Track business metrics
   trackLeadGenerated(
-    userId?: string, 
-    source: string = 'website', 
+    source: string = 'website',
+    userId?: string,
     campaign?: string
   ) {
     this.track('lead_generated', {
@@ -172,14 +172,14 @@ export class AnalyticsService {
     });
   }
 
-  trackEmailOpened(userId?: string, emailType: string) {
+  trackEmailOpened(emailType: string, userId?: string) {
     this.track('email_opened', {
       user_id: userId,
       email_type: emailType
     });
   }
 
-  trackEmailClicked(userId?: string, emailType: string, linkUrl?: string) {
+  trackEmailClicked(emailType: string, userId?: string, linkUrl?: string) {
     this.track('email_clicked', {
       user_id: userId,
       email_type: emailType,
@@ -245,7 +245,7 @@ export class AnalyticsService {
 
   // Utility method to identify user
   identify(userId: string, traits: Record<string, any> = {}) {
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && window.gtag && this.gaId) {
       window.gtag('config', this.gaId, {
         user_id: userId,
         custom_map: traits

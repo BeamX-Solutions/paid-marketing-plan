@@ -70,10 +70,10 @@ const QuestionnairePage = () => {
     // Track progress
     if (session?.user?.email) {
       analytics.trackQuestionnaireProgress(
-        session.user.email,
         currentQuestion.square,
         currentQuestionIndex,
-        allQuestions.length
+        allQuestions.length,
+        session.user.email
       );
     }
 

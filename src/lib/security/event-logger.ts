@@ -86,7 +86,7 @@ export async function getRecentEvents(limit: number = 10) {
       },
     });
 
-    return events.map((event) => ({
+    return events.map((event: any) => ({
       ...event,
       details: event.details ? JSON.parse(event.details) : null,
     }));
@@ -136,7 +136,7 @@ export async function getEventsByType(
       },
     });
 
-    return events.map((event) => ({
+    return events.map((event: any) => ({
       ...event,
       details: event.details ? JSON.parse(event.details) : null,
     }));
@@ -171,7 +171,7 @@ export async function getUnresolvedEvents() {
       },
     });
 
-    return events.map((event) => ({
+    return events.map((event: any) => ({
       ...event,
       details: event.details ? JSON.parse(event.details) : null,
     }));
@@ -239,7 +239,7 @@ export async function getEventCountBySeverity(
       critical: 0,
     };
 
-    events.forEach((event) => {
+    events.forEach((event: any) => {
       counts[event.severity] = event._count;
     });
 
@@ -323,7 +323,7 @@ export async function checkForSuspiciousPatterns(userId: string): Promise<{
     });
 
     const uniqueLocations = new Set(
-      recentEvents.map((e) => e.location).filter(Boolean)
+      recentEvents.map((e: any) => e.location).filter(Boolean)
     );
 
     if (uniqueLocations.size >= 3) {

@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
       activeSessions: {
         count: activeSessionsCount,
       },
-      recentEvents: recentEvents.map((event) => ({
+      recentEvents: recentEvents.map((event: any) => ({
         id: event.id,
         eventType: event.eventType,
         severity: event.severity,
@@ -84,8 +84,8 @@ export async function GET(request: NextRequest) {
       })),
       unresolvedAlerts: {
         count: unresolvedEvents.length,
-        critical: unresolvedEvents.filter((e) => e.severity === 'critical').length,
-        high: unresolvedEvents.filter((e) => e.severity === 'high').length,
+        critical: unresolvedEvents.filter((e: any) => e.severity === 'critical').length,
+        high: unresolvedEvents.filter((e: any) => e.severity === 'high').length,
       },
       loginStats24h: {
         total: loginStats24h.totalLogins,

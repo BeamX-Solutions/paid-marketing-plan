@@ -72,7 +72,7 @@ async function testSuperAdminRestrictions() {
     });
 
     console.log(`Found ${admins.length} admin users:`);
-    admins.forEach((admin, index) => {
+    admins.forEach((admin: any, index: any) => {
       const name = admin.firstName && admin.lastName
         ? `${admin.firstName} ${admin.lastName}`
         : 'N/A';
@@ -114,7 +114,7 @@ async function testSuperAdminRestrictions() {
       console.log('ℹ️  No admin actions logged yet');
     } else {
       console.log(`Found ${recentActions.length} recent admin actions:`);
-      recentActions.forEach((action, index) => {
+      recentActions.forEach((action: any, index: any) => {
         console.log(`\n${index + 1}. Action: ${action.action}`);
         console.log(`   Admin: ${action.admin.email} (${action.admin.role})`);
         if (action.targetUser) {
@@ -131,7 +131,7 @@ async function testSuperAdminRestrictions() {
     console.log('\n📋 Test 6: Security Features Summary');
     console.log('-'.repeat(60));
 
-    const regularAdmins = admins.filter(a => a.role === 'ADMIN').length;
+    const regularAdmins = admins.filter((a: any) => a.role === 'ADMIN').length;
     const users = await prisma.user.count({ where: { role: 'USER' } });
 
     console.log('✅ Security Configuration:');

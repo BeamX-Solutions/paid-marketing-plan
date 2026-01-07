@@ -59,10 +59,7 @@ export function mergePermissions(
  * Validate permission update request
  */
 export const PermissionUpdateSchema = z.object({
-  canDownloadData: z.boolean({
-    required_error: 'canDownloadData is required',
-    invalid_type_error: 'canDownloadData must be a boolean',
-  }),
+  canDownloadData: z.boolean(),
 });
 
 export type PermissionUpdate = z.infer<typeof PermissionUpdateSchema>;

@@ -122,8 +122,7 @@ export async function POST(request: NextRequest) {
           timestamp: new Date().toISOString(),
           reason: 'Too many failed 2FA attempts',
         }),
-        ipAddress: request.headers.get('x-forwarded-for') || undefined,
-        userAgent: request.headers.get('user-agent') || undefined,
+        request,
       });
 
       return NextResponse.json(
@@ -182,8 +181,7 @@ export async function POST(request: NextRequest) {
           timestamp: new Date().toISOString(),
           useBackupCode,
         }),
-        ipAddress: request.headers.get('x-forwarded-for') || undefined,
-        userAgent: request.headers.get('user-agent') || undefined,
+        request,
       });
 
       return NextResponse.json(
@@ -222,8 +220,7 @@ export async function POST(request: NextRequest) {
         useBackupCode,
         remainingBackupCodes: usedBackupCode ? remainingBackupCodes : undefined,
       }),
-      ipAddress: request.headers.get('x-forwarded-for') || undefined,
-      userAgent: request.headers.get('user-agent') || undefined,
+      request,
     });
 
     return NextResponse.json({

@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export interface User {
   id: string;
   email: string;
@@ -31,7 +33,7 @@ export interface PlanGenerationRequest {
   additionalInfo?: string;
 }
 
-export interface AuthRequest extends Express.Request {
+export interface AuthRequest extends Request {
   userId?: string;
 }
 

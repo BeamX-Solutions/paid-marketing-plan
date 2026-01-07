@@ -12,7 +12,7 @@ async function promoteSuperAdmin() {
     });
 
     console.log(`Found ${allUsers.length} users in database:`);
-    allUsers.forEach(u => console.log(`  - ${u.email} (${u.role})`));
+    allUsers.forEach((u: any) => console.log(`  - ${u.email} (${u.role})`));
     console.log('');
 
     const email = 'obinna.nweke@beamxsolutions.com'; // Try with .com

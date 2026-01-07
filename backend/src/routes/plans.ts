@@ -17,7 +17,7 @@ router.post('/create', [
   body('timeframe').isString().trim().isLength({ min: 1 }),
   body('goals').isArray({ min: 1 }),
   body('additionalInfo').optional().isString().trim()
-], async (req: AuthRequest, res) => {
+], async (req: AuthRequest, res: any) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

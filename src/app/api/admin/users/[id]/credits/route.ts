@@ -57,7 +57,7 @@ export async function POST(
         return NextResponse.json(
           {
             error: 'Invalid request data',
-            details: error.errors.map(e => e.message),
+            details: error.issues.map(e => e.message),
           },
           { status: 400 }
         );
@@ -109,7 +109,7 @@ export async function POST(
       // Use UUID instead of timestamp for better uniqueness
       const stripeSessionId = `admin_manual_${randomUUID()}`;
 
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         // Create the purchase record
         const purchase = await tx.creditPurchase.create({
           data: {
@@ -154,7 +154,7 @@ export async function POST(
       const deductAmount = Math.abs(amount);
       const deductionReference = `admin_deduction_${randomUUID()}`;
 
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         // Get active purchases (oldest expiring first - FIFO)
         const purchases = await tx.creditPurchase.findMany({
           where: {

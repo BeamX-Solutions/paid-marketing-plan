@@ -67,9 +67,9 @@ export async function GET(request: NextRequest) {
     ]);
 
     // Calculate credit balance for each user and parse permissions
-    const usersWithBalance = users.map(user => ({
+    const usersWithBalance = users.map((user: any) => ({
       ...user,
-      creditBalance: user.creditPurchases.reduce((sum, p) => sum + p.creditsRemaining, 0),
+      creditBalance: user.creditPurchases.reduce((sum: any, p: any) => sum + p.creditsRemaining, 0),
       permissions: user.permissions ? JSON.parse(user.permissions) : {},
       creditPurchases: undefined, // Remove the raw data
     }));

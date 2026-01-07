@@ -94,7 +94,7 @@ export async function createNotificationForAllAdmins(
 
     // Create notifications for each admin
     await Promise.all(
-      admins.map((admin) =>
+      admins.map((admin: any) =>
         createNotification({
           ...params,
           userId: admin.id,

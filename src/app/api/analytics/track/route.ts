@@ -111,17 +111,17 @@ export async function GET(request: NextRequest) {
 
     // Calculate basic analytics
     const totalPlans = user.plans.length;
-    const completedPlans = user.plans.filter(plan => plan.status === 'completed').length;
-    const inProgressPlans = user.plans.filter(plan => plan.status === 'in_progress').length;
-    const failedPlans = user.plans.filter(plan => plan.status === 'failed').length;
+    const completedPlans = user.plans.filter((plan: any) => plan.status === 'completed').length;
+    const inProgressPlans = user.plans.filter((plan: any) => plan.status === 'in_progress').length;
+    const failedPlans = user.plans.filter((plan: any) => plan.status === 'failed').length;
 
     // Calculate average generation time for completed plans
     const completedPlansWithTime = user.plans
-      .filter(plan => plan.status === 'completed' && plan.planMetadata?.totalProcessingTime)
-      .map(plan => plan.planMetadata?.totalProcessingTime as number);
+      .filter((plan: any) => plan.status === 'completed' && plan.planMetadata?.totalProcessingTime)
+      .map((plan: any) => plan.planMetadata?.totalProcessingTime as number);
 
     const avgGenerationTime = completedPlansWithTime.length > 0
-      ? completedPlansWithTime.reduce((sum, time) => sum + time, 0) / completedPlansWithTime.length
+      ? completedPlansWithTime.reduce((sum: any, time:any) => sum + time, 0) / completedPlansWithTime.length
       : null;
 
     const analytics = {
@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
           ? `${Math.round(avgGenerationTime / 1000)}s` 
           : null
       },
-      recentPlans: user.plans.slice(0, 5).map(plan => ({
+      recentPlans: user.plans.slice(0, 5).map((plan: any) => ({
         id: plan.id,
         status: plan.status,
         createdAt: plan.createdAt,

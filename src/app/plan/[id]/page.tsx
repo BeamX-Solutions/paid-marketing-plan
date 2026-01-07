@@ -13,11 +13,17 @@ interface PlanPageProps {
   params: Promise<{ id: string }>;
 }
 
+interface PlanWithUser extends Plan {
+  user?: {
+    businessName?: string;
+  };
+}
+
 const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
   const { id: planId } = use(params);
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [plan, setPlan] = useState<Plan | null>(null);
+  const [plan, setPlan] = useState<PlanWithUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showShareModal, setShowShareModal] = useState(false);

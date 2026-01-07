@@ -74,10 +74,13 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' },
     });
 
+    // Extract type from the actual query result
+    type UserWithDetails = typeof users[number];
+
     // Calculate totals and format data for CSV
-    const csvData = users.map(user => {
-      const creditBalance = user.creditPurchases.reduce((sum, p) => sum + p.creditsRemaining, 0);
-      const totalCreditsGranted = user.creditPurchases.reduce((sum, p) => sum + p.creditsGranted, 0);
+    const csvData = users.map((user: UserWithDetails) => {
+      const creditBalance = user.creditPurchases.reduce((sum: number, p) => sum + p.creditsRemaining, 0);
+      const totalCreditsGranted = user.creditPurchases.reduce((sum: number, p) => sum + p.creditsGranted, 0);
       const completedPlans = user.plans.filter(p => p.status === 'completed').length;
       const inProgressPlans = user.plans.filter(p => p.status === 'in_progress').length;
 
