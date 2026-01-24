@@ -39,8 +39,6 @@
 ### 5. Payment Integration ✅
 - **Status**: ✅ Live Paystack keys configured
 - **Keys in `.env.local`**:
-  - Public: `pk_live_4b78b2163feb6c505b8763457da33249491f5f03`
-  - Secret: `sk_live_416ef0f2fc1f1989575dae79cdec611ac0952fd0`
 - **Pricing**: ₦100,000 or $100 for 100 credits
 - **Webhook**: URL configured in Paystack dashboard (needs events selected)
 
