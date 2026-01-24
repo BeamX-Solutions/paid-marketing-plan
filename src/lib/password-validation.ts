@@ -9,7 +9,7 @@ export interface PasswordValidationResult {
 }
 
 export const PASSWORD_REQUIREMENTS = {
-  minLength: 12,
+  minLength: 8,
   requireUppercase: true,
   requireLowercase: true,
   requireNumbers: true,
@@ -74,9 +74,9 @@ export function validatePassword(password: string): PasswordValidationResult {
 export function getPasswordStrength(password: string): 'weak' | 'medium' | 'strong' | 'very-strong' {
   let score = 0;
 
+  if (password.length >= 8) score += 1;
   if (password.length >= 12) score += 1;
   if (password.length >= 16) score += 1;
-  if (password.length >= 20) score += 1;
   if (/[a-z]/.test(password)) score += 1;
   if (/[A-Z]/.test(password)) score += 1;
   if (/[0-9]/.test(password)) score += 1;

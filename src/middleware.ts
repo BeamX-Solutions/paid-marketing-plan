@@ -1,6 +1,5 @@
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
-import { isAdminSubdomain, getSubdomainRedirect } from '@/lib/subdomain';
 import { applyAdminSecurityHeaders, applyUserSecurityHeaders } from '@/lib/security-headers';
 import { isIpWhitelisted, isIpWhitelistEnabled } from '@/lib/ip-whitelist';
 
@@ -8,12 +7,10 @@ export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
     const pathname = req.nextUrl.pathname;
+    const isAdminRoute = pathname.startsWith('/admin');
 
-    // Check if this is an admin subdomain request
-    const isAdminSub = isAdminSubdomain(req);
-
-    // Check IP whitelist for admin subdomain (if enabled)
-    if (isAdminSub && isIpWhitelistEnabled() && !isIpWhitelisted(req)) {
+    // Check IP whitelist for admin routes (if enabled)
+    if (isAdminRoute && isIpWhitelistEnabled() && !isIpWhitelisted(req)) {
       console.log(`[Security] IP whitelist blocked access from ${req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'}`);
       return new NextResponse(
         `
@@ -37,30 +34,11 @@ export default withAuth(
       );
     }
 
-    // Check for subdomain redirects
-    // If user is accessing /admin routes, they should be on admin subdomain
-    if (pathname.startsWith('/admin')) {
-      const redirectUrl = getSubdomainRedirect(req, 'admin');
-      if (redirectUrl) {
-        return NextResponse.redirect(redirectUrl);
-      }
-    }
-
-    // If on admin subdomain accessing non-admin routes, redirect to user subdomain
-    if (isAdminSub && !pathname.startsWith('/admin') && !pathname.startsWith('/api/admin') && pathname !== '/account-suspended') {
-      const redirectUrl = getSubdomainRedirect(req, 'user');
-      if (redirectUrl) {
-        return NextResponse.redirect(redirectUrl);
-      }
-    }
-
-    // Always allow admin login page - return immediately
+    // Always allow admin login page
     if (pathname === '/admin/login') {
       const response = NextResponse.next();
-      return isAdminSub ? applyAdminSecurityHeaders(response) : response;
+      return applyAdminSecurityHeaders(response);
     }
-
-    const isAdminRoute = pathname.startsWith('/admin');
 
     // Protect admin routes
     if (isAdminRoute) {
@@ -80,8 +58,8 @@ export default withAuth(
 
     const response = NextResponse.next();
 
-    // Apply security headers based on subdomain
-    if (isAdminSub || isAdminRoute) {
+    // Apply security headers based on route
+    if (isAdminRoute) {
       return applyAdminSecurityHeaders(response);
     } else {
       return applyUserSecurityHeaders(response);

@@ -36,7 +36,12 @@
       "Bash(npx prettier:*)",
       "Bash(DATABASE_URL=\"file:./dev.db\" npx tsx:*)",
       "Bash(DATABASE_URL=\"file:../prisma/dev.db\" npx tsx:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npx next build)",
+      "Bash(git checkout:*)",
+      "Bash(dir:*)",
+      "Bash(xargs cat:*)",
+      "Bash(copy:*)"
     ],
     "deny": [],
     "ask": []

@@ -32,11 +32,22 @@ export class StripeService {
       }
     });
 
-    // Save to database
-    await prisma.user.update({
-      where: { id: userId },
-      data: { stripeCustomerId: customer.id }
-    });
+    // Save to database with error handling
+    // If this fails, we should delete the Stripe customer to avoid orphaned records
+    try {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { stripeCustomerId: customer.id }
+      });
+    } catch (error) {
+      // Clean up the Stripe customer if database update fails
+      try {
+        await stripe.customers.del(customer.id);
+      } catch (deleteError) {
+        console.error('Failed to cleanup Stripe customer:', deleteError);
+      }
+      throw error; // Re-throw original error
+    }
 
     return customer.id;
   }

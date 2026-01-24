@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
-import { User, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -55,18 +56,32 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full">
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-block hover:opacity-80 transition-opacity duration-300">
+            <Image
+              src="/logo.png"
+              alt="BeamX Solutions"
+              width={180}
+              height={45}
+              className="h-12 w-auto mx-auto"
+              priority
+            />
+          </Link>
+        </div>
+
         {/* Back to Home */}
-        <Link 
-          href="/" 
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8 transition-colors"
+        <Link
+          href="/"
+          className="inline-flex items-center text-[#1e3a5f] hover:text-[#152a45] mb-6 transition-colors duration-300 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Link>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Get Started Free</h1>
             <p className="text-gray-600">Create your account to generate your marketing plan</p>
@@ -84,7 +99,7 @@ const SignUpPage = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -97,7 +112,7 @@ const SignUpPage = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -112,7 +127,7 @@ const SignUpPage = () => {
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
                 placeholder="Your Company Name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
                 required
               />
             </div>
@@ -124,7 +139,7 @@ const SignUpPage = () => {
               <select
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300 cursor-pointer"
                 required
               >
                 <option value="">Select your industry</option>
@@ -150,7 +165,7 @@ const SignUpPage = () => {
               <select
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300 cursor-pointer"
                 required
               >
                 <option value="">Select your country</option>
@@ -179,7 +194,7 @@ const SignUpPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
                 required
               />
             </div>
@@ -193,7 +208,7 @@ const SignUpPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
                 required
                 minLength={8}
               />
@@ -206,9 +221,9 @@ const SignUpPage = () => {
                 type="checkbox"
                 checked={marketingConsent}
                 onChange={(e) => setMarketingConsent(e.target.checked)}
-                className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="mt-1 h-4 w-4 text-[#1e3a5f] focus:ring-[#1e3a5f] border-gray-300 rounded cursor-pointer"
               />
-              <label htmlFor="marketingConsent" className="ml-3 text-sm text-gray-600">
+              <label htmlFor="marketingConsent" className="ml-3 text-sm text-gray-600 cursor-pointer">
                 I agree to receive marketing emails, newsletters, and product updates from BeamX Solutions.
                 You can unsubscribe at any time.
               </label>
@@ -223,17 +238,17 @@ const SignUpPage = () => {
             <Button
               type="submit"
               loading={isLoading}
-              className="w-full"
+              className="w-full bg-[#1e3a5f] hover:bg-[#152a45] text-white rounded-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
             >
-              <User className="w-4 h-4 mr-2" />
               Create Account
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <Link href="/auth/signin" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="/auth/signin" className="text-[#1e3a5f] hover:text-[#152a45] font-medium transition-colors duration-300 cursor-pointer">
                 Sign in
               </Link>
             </p>

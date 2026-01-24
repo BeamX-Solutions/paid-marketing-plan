@@ -3,6 +3,9 @@
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -40,26 +43,31 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#1e3a5f] py-12 px-4">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <div className="flex justify-center">
-            <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center">
-              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
+          <div className="flex justify-center mb-6">
+            <Link href="/" className="hover:opacity-80 transition-opacity duration-300">
+              <Image
+                src="/logo-white.png"
+                alt="BeamX Solutions"
+                width={200}
+                height={50}
+                className="h-14 w-auto"
+                priority
+              />
+            </Link>
           </div>
           <h2 className="mt-6 text-center text-3xl font-bold text-white">
-            Admin Portal 
+            Admin Portal
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-400">
+          <p className="mt-2 text-center text-sm text-gray-300">
             Sign in to access the admin dashboard
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="rounded-md bg-red-900 bg-opacity-50 p-4 border border-red-700">
+            <div className="rounded-lg bg-red-900 bg-opacity-50 p-4 border border-red-700">
               <p className="text-sm text-red-200">{error}</p>
             </div>
           )}
@@ -72,7 +80,7 @@ export default function AdminLoginPage() {
                 id="email"
                 type="email"
                 required
-                className="w-full px-3 py-2 border border-gray-700 bg-gray-800 text-white rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-gray-600 bg-[#152a45] text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -85,7 +93,7 @@ export default function AdminLoginPage() {
                 id="password"
                 type="password"
                 required
-                className="w-full px-3 py-2 border border-gray-700 bg-gray-800 text-white rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-gray-600 bg-[#152a45] text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -94,9 +102,14 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 transition-colors"
+            className="w-full py-3 px-4 bg-white text-[#1e3a5f] font-semibold rounded-lg disabled:opacity-50 hover:bg-gray-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex items-center justify-center"
           >
-            {loading ? 'Signing in...' : 'Sign in to Admin Portal'}
+            {loading ? 'Signing in...' : (
+              <>
+                Sign in to Admin Portal
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </>
+            )}
           </button>
         </form>
       </div>

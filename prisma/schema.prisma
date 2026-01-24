@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -41,7 +42,12 @@ model User {
   profileData           String?    // JSON as string in SQLite
   permissions           String?    // JSON as string in SQLite - stores admin permissions
   subscriptionStatus    String     @default("free")
-  stripeCustomerId      String?    @unique
+  paystackCustomerId    String?    @unique
+
+  // Email verification fields
+  emailVerified         Boolean    @default(false)
+  emailVerificationToken String?   @unique
+  emailVerificationExpires DateTime?
 
   // Two-Factor Authentication fields
   twoFactorEnabled      Boolean    @default(false)
@@ -143,17 +149,17 @@ model VerificationToken {
 }
 
 model CreditPurchase {
-  id                String    @id @default(cuid())
-  userId            String
-  creditsGranted    Int
-  creditsRemaining  Int
-  amountPaid        Int
-  currency          String    @default("usd")
-  purchaseDate      DateTime  @default(now())
-  expiresAt         DateTime
-  stripeSessionId   String?   @unique
-  stripePaymentId   String?
-  status            String    @default("active")
+  id                    String    @id @default(cuid())
+  userId                String
+  creditsGranted        Int
+  creditsRemaining      Int
+  amountPaid            Int
+  currency              String    @default("ngn")
+  purchaseDate          DateTime  @default(now())
+  expiresAt             DateTime
+  paystackReference     String?   @unique
+  paystackTransactionId String?
+  status                String    @default("active")
 
   user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   transactions      CreditTransaction[]

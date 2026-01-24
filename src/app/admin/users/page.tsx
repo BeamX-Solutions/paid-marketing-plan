@@ -91,7 +91,7 @@ export default function AdminUsersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f4f8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-6">
           <div>
@@ -108,12 +108,12 @@ export default function AdminUsersPage() {
               <input
                 type="text"
                 placeholder="Search by email or business name..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-[#1e3a5f] focus:border-[#1e3a5f] transition-all duration-300"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
               <select
-                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-[#1e3a5f] focus:border-[#1e3a5f] transition-all duration-300"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -123,7 +123,7 @@ export default function AdminUsersPage() {
                 <option value="DEACTIVATED">Deactivated</option>
               </select>
               <select
-                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="px-4 py-2 border border-gray-300 rounded-md focus:ring-[#1e3a5f] focus:border-[#1e3a5f] transition-all duration-300"
                 value={sortBy}
                 onChange={(e) =>
                   setSortBy(e.target.value as "newest" | "oldest" | "credits-high" | "credits-low" | "plans-high" | "plans-low")
@@ -138,7 +138,7 @@ export default function AdminUsersPage() {
               </select>
               <button
                 onClick={handleExportCSV}
-                className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md flex items-center gap-2 transition-colors"
+                className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md flex items-center gap-2 transition-all duration-300 cursor-pointer hover:scale-[1.02]"
               >
                 <svg
                   className="w-5 h-5"
@@ -161,7 +161,7 @@ export default function AdminUsersPage() {
           <div className="bg-white shadow rounded-lg overflow-hidden">
             {loading ? (
               <div className="p-8 text-center">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e3a5f]"></div>
               </div>
             ) : (
               <table className="min-w-full divide-y divide-gray-200">
@@ -250,7 +250,7 @@ export default function AdminUsersPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-right">
                           <Link
                             href={`/admin/users/${user.id}`}
-                            className="text-blue-600 hover:text-blue-900 font-medium"
+                            className="text-[#1e3a5f] hover:text-[#152a45] font-medium transition-colors duration-300 cursor-pointer"
                           >
                             View Details
                           </Link>
@@ -308,7 +308,7 @@ export default function AdminUsersPage() {
                             onClick={() => setCurrentPage(pageNum)}
                             className={`px-4 py-2 text-sm font-medium rounded-md ${
                               currentPage === pageNum
-                                ? "bg-blue-600 text-white"
+                                ? "bg-[#1e3a5f] text-white"
                                 : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
                             }`}
                           >

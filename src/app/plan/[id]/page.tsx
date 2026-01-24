@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Plan } from '@/types';
 import Button from '@/components/ui/Button';
 import ShareModal from '@/components/plan/ShareModal';
-import { Download, Share, Mail } from 'lucide-react';
+import { Download, Share, Mail, ArrowLeft } from 'lucide-react';
 import { analytics } from '@/lib/analytics/analyticsService';
 
 interface PlanPageProps {
@@ -134,6 +134,14 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-6">
+          <Button
+            variant="ghost"
+            onClick={() => router.push('/dashboard')}
+            className="mb-4 text-[#1e3a5f] hover:text-[#152a45] hover:bg-blue-50"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Dashboard
+          </Button>
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Your Marketing Plan</h1>

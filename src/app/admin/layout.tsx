@@ -11,8 +11,9 @@
  */
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useState, useRef, useEffect } from 'react';
 import NotificationBell from '@/components/admin/NotificationBell';
 
@@ -22,6 +23,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
+
+  // Check if on login page
+  const isLoginPage = pathname === '/admin/login';
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -51,26 +56,35 @@ export default function AdminLayout({
   };
 
   const navLinkClasses = (path: string) => {
-    const baseClasses = 'px-3 py-2 rounded-md text-sm font-medium transition-colors';
-    const activeClasses = 'bg-blue-50 text-blue-700';
-    const inactiveClasses = 'text-gray-700 hover:text-gray-900 hover:bg-gray-100';
+    const baseClasses = 'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer';
+    const activeClasses = 'bg-[#1e3a5f] text-white';
+    const inactiveClasses = 'text-gray-700 hover:text-[#1e3a5f] hover:bg-gray-100';
 
     return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`;
   };
 
+  // Don't show navbar on login page or when not authenticated
+  const showNavbar = !isLoginPage && status === 'authenticated' && session?.user;
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b border-gray-200">
+    <div className="min-h-screen bg-[#f0f4f8]">
+      {showNavbar && (
+      <nav className="bg-[#f0f4f8] border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center space-x-8">
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center mr-2">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
+              <div className="flex items-center space-x-4">
+                <Link href="/admin" className="flex items-center hover:opacity-80 transition-opacity duration-300">
+                  <Image
+                    src="/logo.png"
+                    alt="BeamX Solutions"
+                    width={140}
+                    height={35}
+                    className="h-9 w-auto"
+                    priority
+                  />
+                </Link>
+                <span className="text-sm font-medium text-gray-500 border-l border-gray-300 pl-4">Admin</span>
               </div>
 
               {/* Navigation Links */}
@@ -95,7 +109,7 @@ export default function AdminLayout({
 
             {/* Right Side - Notifications & Profile */}
             <div className="flex items-center space-x-4">
-              <Link href="/" className="text-gray-600 hover:text-gray-900 text-sm font-medium">
+              <Link href="/" className="text-gray-600 hover:text-[#1e3a5f] text-sm font-medium transition-colors duration-300 cursor-pointer">
                 View Site
               </Link>
 
@@ -106,9 +120,9 @@ export default function AdminLayout({
               <div className="relative" ref={profileRef}>
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 p-2 rounded-md hover:bg-gray-100 transition-colors"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-[#1e3a5f] p-2 rounded-lg hover:bg-white transition-all duration-300 cursor-pointer"
                 >
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#1e3a5f] rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
@@ -124,14 +138,14 @@ export default function AdminLayout({
                     <div className="py-1">
                       <Link
                         href="/admin/settings"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#1e3a5f] transition-colors duration-300 cursor-pointer"
                         onClick={() => setIsProfileOpen(false)}
                       >
                         Account Settings
                       </Link>
                       <Link
                         href="/admin/settings/security"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#1e3a5f] transition-colors duration-300 cursor-pointer"
                         onClick={() => setIsProfileOpen(false)}
                       >
                         Security Settings
@@ -139,7 +153,7 @@ export default function AdminLayout({
                       <div className="border-t border-gray-200 my-1"></div>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-300 cursor-pointer"
                       >
                         Sign Out
                       </button>
@@ -151,6 +165,7 @@ export default function AdminLayout({
           </div>
         </div>
       </nav>
+      )}
 
       {/* Main Content */}
       <main>{children}</main>

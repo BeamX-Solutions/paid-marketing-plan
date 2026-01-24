@@ -85,7 +85,7 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f4f8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
           {/* Header */}
@@ -106,7 +106,7 @@ export default function AdminDashboardPage() {
             <select
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value as DateFilter)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
             >
               <option value="day">Today</option>
               <option value="month">This Month</option>
@@ -124,7 +124,7 @@ export default function AdminDashboardPage() {
             <select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
             >
               <option value="">All Countries</option>
               <option value="United States">United States</option>
@@ -148,7 +148,7 @@ export default function AdminDashboardPage() {
             <select
               value={industry}
               onChange={(e) => setIndustry(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
             >
               <option value="">All Industries</option>
               <option value="Technology">Technology</option>
@@ -176,7 +176,7 @@ export default function AdminDashboardPage() {
                 setCustomStartDate('');
                 setCustomEndDate('');
               }}
-              className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+              className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all duration-300 cursor-pointer"
             >
               Clear Filters
             </button>
@@ -194,7 +194,7 @@ export default function AdminDashboardPage() {
                 type="date"
                 value={customStartDate}
                 onChange={(e) => setCustomStartDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
               />
             </div>
             <div>
@@ -205,7 +205,7 @@ export default function AdminDashboardPage() {
                 type="date"
                 value={customEndDate}
                 onChange={(e) => setCustomEndDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
               />
             </div>
           </div>

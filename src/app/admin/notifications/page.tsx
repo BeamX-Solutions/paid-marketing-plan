@@ -223,9 +223,9 @@ export default function NotificationsPage() {
 
   if (status === 'loading' || !session) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -233,7 +233,7 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-[#f0f4f8] py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -251,7 +251,7 @@ export default function NotificationsPage() {
                 onClick={() => setFilter('all')}
                 className={`px-4 py-2 text-sm font-medium rounded-md ${
                   filter === 'all'
-                    ? 'bg-blue-100 text-blue-700'
+                    ? 'bg-[#e8eef4] text-[#1e3a5f]'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
@@ -261,7 +261,7 @@ export default function NotificationsPage() {
                 onClick={() => setFilter('unread')}
                 className={`px-4 py-2 text-sm font-medium rounded-md ${
                   filter === 'unread'
-                    ? 'bg-blue-100 text-blue-700'
+                    ? 'bg-[#e8eef4] text-[#1e3a5f]'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
@@ -272,7 +272,7 @@ export default function NotificationsPage() {
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800"
+                className="px-4 py-2 text-sm font-medium text-[#1e3a5f] hover:text-[#152a45] cursor-pointer transition-colors duration-300"
               >
                 Mark all as read
               </button>
@@ -284,7 +284,7 @@ export default function NotificationsPage() {
         {loading && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f] mx-auto mb-4"></div>
               <p className="text-gray-600">Loading notifications...</p>
             </div>
           </div>
@@ -322,7 +322,7 @@ export default function NotificationsPage() {
                             {notification.priority}
                           </span>
                           {!notification.read && (
-                            <span className="inline-block w-2 h-2 bg-blue-600 rounded-full"></span>
+                            <span className="inline-block w-2 h-2 bg-[#1e3a5f] rounded-full"></span>
                           )}
                         </div>
                         <p className="mt-2 text-gray-600">{notification.message}</p>
@@ -337,7 +337,7 @@ export default function NotificationsPage() {
                       {notification.actionUrl && notification.actionLabel && (
                         <Link
                           href={notification.actionUrl}
-                          className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                          className="text-sm font-medium text-[#1e3a5f] hover:text-[#152a45] cursor-pointer transition-colors duration-300"
                           onClick={() => markAsRead(notification.id)}
                         >
                           {notification.actionLabel} →

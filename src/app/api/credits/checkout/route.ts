@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { stripeService } from '@/lib/stripe/stripeService';
+import { paystackService } from '@/lib/paystack/paystackService';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,27 +17,39 @@ export async function POST(request: NextRequest) {
     const userId = session.user.id as string;
     const email = session.user.email;
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const successUrl = `${appUrl}/dashboard?payment=success`;
-    const cancelUrl = `${appUrl}/dashboard?payment=cancelled`;
+    // Get currency from request body, default to NGN
+    const body = await request.json();
+    const currency = (body.currency?.toUpperCase() || 'NGN') as 'NGN' | 'USD';
 
-    const checkoutSession = await stripeService.createCheckoutSession(
+    // Validate currency
+    if (currency !== 'NGN' && currency !== 'USD') {
+      return NextResponse.json(
+        { error: 'Unsupported currency. Only NGN and USD are supported.' },
+        { status: 400 }
+      );
+    }
+
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const callbackUrl = `${appUrl}/dashboard?payment=success`;
+
+    const transaction = await paystackService.initializeTransaction(
       userId,
       email,
-      successUrl,
-      cancelUrl
+      currency,
+      callbackUrl
     );
 
     return NextResponse.json({
-      sessionId: checkoutSession.sessionId,
-      url: checkoutSession.url
+      reference: transaction.reference,
+      authorizationUrl: transaction.authorizationUrl,
+      currency,
     });
 
   } catch (error) {
-    console.error('Error creating checkout session:', error);
+    console.error('Error creating payment session:', error);
     return NextResponse.json(
       {
-        error: 'Failed to create checkout session',
+        error: 'Failed to initialize payment',
         details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }

@@ -86,6 +86,11 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Account is suspended or deactivated');
         }
 
+        // Check if email is verified
+        if (!user.emailVerified) {
+          throw new Error('Please verify your email address before signing in');
+        }
+
         // Check if user has a password (some users may only use OAuth)
         if (!user.password) {
           throw new Error('Please sign in with Google');
@@ -167,6 +172,11 @@ export const authOptions: NextAuthOptions = {
             },
           }).catch(console.error);
           throw new Error('Unauthorized: Admin access required');
+        }
+
+        // Check if email is verified (skip for admin accounts created via seed)
+        if (!user.emailVerified && user.role !== 'SUPER_ADMIN') {
+          throw new Error('Please verify your email address before signing in');
         }
 
         // Check if user has a password

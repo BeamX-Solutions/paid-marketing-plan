@@ -96,7 +96,7 @@ export default function SecurityDashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f] mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading security dashboard...</p>
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function SecurityDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f4f8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -191,7 +191,7 @@ export default function SecurityDashboardPage() {
               <h3 className="text-lg font-semibold text-gray-900">Security Score</h3>
               <span className={`text-2xl font-bold ${
                 data.securityScore.grade === 'A' ? 'text-green-600' :
-                data.securityScore.grade === 'B' ? 'text-blue-600' :
+                data.securityScore.grade === 'B' ? 'text-[#1e3a5f]' :
                 data.securityScore.grade === 'C' ? 'text-yellow-600' :
                 'text-red-600'
               }`}>
@@ -245,7 +245,7 @@ export default function SecurityDashboardPage() {
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">2FA Adoption</h3>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600">
+              <div className="text-4xl font-bold text-[#1e3a5f]">
                 {data.twoFactorStats.adoptionRate}%
               </div>
               <p className="text-sm text-gray-500 mt-1">
@@ -266,7 +266,7 @@ export default function SecurityDashboardPage() {
             <div className="mt-4 text-center">
               <Link
                 href="/admin/settings/security"
-                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                className="text-sm text-[#1e3a5f] hover:text-[#152a45] cursor-pointer transition-colors duration-300 font-medium"
               >
                 Enable 2FA →
               </Link>
@@ -302,7 +302,7 @@ export default function SecurityDashboardPage() {
                 <h3 className="text-lg font-semibold text-gray-900">Recent Security Events</h3>
                 <Link
                   href="/admin/audit-logs"
-                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                  className="text-sm text-[#1e3a5f] hover:text-[#152a45] cursor-pointer transition-colors duration-300 font-medium"
                 >
                   View all →
                 </Link>
@@ -322,7 +322,7 @@ export default function SecurityDashboardPage() {
                           event.severity === 'critical' ? 'bg-red-100 text-red-600' :
                           event.severity === 'high' ? 'bg-orange-100 text-orange-600' :
                           event.severity === 'medium' ? 'bg-yellow-100 text-yellow-600' :
-                          'bg-blue-100 text-blue-600'
+                          'bg-blue-100 text-[#1e3a5f]'
                         }`}>
                           {event.severity === 'critical' || event.severity === 'high' ? '⚠' : 'ℹ'}
                         </span>
@@ -401,9 +401,9 @@ export default function SecurityDashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
               href="/admin/audit-logs"
-              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-[#1e3a5f] hover:bg-blue-50 cursor-pointer transition-colors"
             >
-              <svg className="h-8 w-8 text-blue-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-8 w-8 text-[#1e3a5f] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <div>
@@ -414,9 +414,9 @@ export default function SecurityDashboardPage() {
 
             <Link
               href="/admin/settings/security"
-              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-[#1e3a5f] hover:bg-blue-50 cursor-pointer transition-colors"
             >
-              <svg className="h-8 w-8 text-blue-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-8 w-8 text-[#1e3a5f] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
               <div>
@@ -427,9 +427,9 @@ export default function SecurityDashboardPage() {
 
             <Link
               href="/admin/users"
-              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-[#1e3a5f] hover:bg-blue-50 cursor-pointer transition-colors"
             >
-              <svg className="h-8 w-8 text-blue-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-8 w-8 text-[#1e3a5f] mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
               <div>

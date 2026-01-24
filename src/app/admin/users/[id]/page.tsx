@@ -202,14 +202,14 @@ export default function UserDetailPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f]"></div>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[#f0f4f8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center py-12">
             <p className="text-gray-500">User not found</p>
@@ -220,7 +220,7 @@ export default function UserDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f4f8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-6">
           <div className="flex justify-between items-center">
@@ -230,7 +230,7 @@ export default function UserDetailPage() {
             </div>
             <button
               onClick={() => router.back()}
-              className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
             >
               Back
             </button>
@@ -359,7 +359,7 @@ export default function UserDetailPage() {
               )}
               <button
                 onClick={manageCredits}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-[#1e3a5f] text-white rounded-md hover:bg-[#152a45] cursor-pointer transition-colors"
               >
                 Manage Credits
               </button>
@@ -396,7 +396,7 @@ export default function UserDetailPage() {
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
               >
                 Cancel
               </button>
@@ -472,7 +472,7 @@ export default function UserDetailPage() {
                   setShowRoleChangeConfirm(false);
                   setPendingRole(null);
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
               >
                 Cancel
               </button>
@@ -518,7 +518,7 @@ export default function UserDetailPage() {
                 </code>
                 <button
                   onClick={copyPassword}
-                  className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm"
+                  className="px-3 py-2 bg-[#1e3a5f] text-white rounded hover:bg-[#152a45] cursor-pointer transition-colors text-sm"
                 >
                   Copy
                 </button>
@@ -545,7 +545,7 @@ export default function UserDetailPage() {
                   setShowPasswordReset(false);
                   setTemporaryPassword(null);
                 }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-[#1e3a5f] text-white rounded-md hover:bg-[#152a45] cursor-pointer transition-colors"
               >
                 Done
               </button>

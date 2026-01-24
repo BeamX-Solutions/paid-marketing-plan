@@ -3,6 +3,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import { CreditBalance, CreditTransaction } from '@/types';
 
@@ -19,12 +21,46 @@ function DashboardContent() {
   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'plans'>('overview');
 
   const paymentStatus = searchParams?.get('payment');
+  const paymentReference = searchParams?.get('reference');
+  const [verifying, setVerifying] = useState(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/auth/signin');
     }
   }, [status, router]);
+
+  // Verify Paystack payment if reference is present
+  useEffect(() => {
+    const verifyPayment = async () => {
+      if (paymentReference && !verifying && session?.user) {
+        setVerifying(true);
+        try {
+          const response = await fetch(`/api/credits/verify?reference=${paymentReference}`);
+          const result = await response.json();
+
+          if (result.success) {
+            // Payment verified successfully, refresh credit data
+            await fetchCreditData();
+
+            // Remove reference from URL to prevent re-verification
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.delete('reference');
+            window.history.replaceState({}, '', newUrl);
+          } else {
+            console.error('Payment verification failed:', result.error);
+            alert('Payment verification failed. Please contact support if credits were not added.');
+          }
+        } catch (error) {
+          console.error('Error verifying payment:', error);
+        } finally {
+          setVerifying(false);
+        }
+      }
+    };
+
+    verifyPayment();
+  }, [paymentReference, session]);
 
   useEffect(() => {
     if (session?.user) {
@@ -67,20 +103,28 @@ function DashboardContent() {
     try {
       setPurchaseLoading(true);
 
+      // Default to NGN currency (can add currency selector later)
       const response = await fetch('/api/credits/checkout', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currency: 'NGN', // Change to 'USD' if needed
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create checkout session');
+        throw new Error('Failed to initialize payment');
       }
 
-      const { url } = await response.json();
+      const { authorizationUrl } = await response.json();
 
-      window.location.href = url;
+      // Redirect to Paystack payment page
+      window.location.href = authorizationUrl;
     } catch (error) {
-      console.error('Error creating checkout session:', error);
-      alert('Failed to start checkout. Please try again.');
+      console.error('Error creating payment session:', error);
+      alert('Failed to start payment. Please try again.');
     } finally {
       setPurchaseLoading(false);
     }
@@ -88,9 +132,9 @@ function DashboardContent() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -108,13 +152,22 @@ function DashboardContent() {
   const lowCreditWarning = (balance?.totalCredits || 0) < 50;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f0f4f8]">
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
+      <nav className="bg-[#f0f4f8] border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-blue-600">MarketingPlan.ai</h1>
+            <div className="flex items-center space-x-6">
+              <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
+                <Image
+                  src="/logo.png"
+                  alt="BeamX Solutions"
+                  width={160}
+                  height={40}
+                  className="h-10 w-auto"
+                  priority
+                />
+              </Link>
               {session?.user && (
                 <div className="flex items-center space-x-2 text-gray-700">
                   <span className="text-sm">Welcome,</span>
@@ -123,16 +176,24 @@ function DashboardContent() {
               )}
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="outline" onClick={() => router.push('/questionnaire')}>
+              <Button
+                variant="outline"
+                onClick={() => router.push('/questionnaire')}
+                className="border-[#1e3a5f] text-[#1e3a5f] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+              >
                 Create New Plan
               </Button>
-              <Button variant="outline" onClick={() => router.push('/')}>
+              <Button
+                variant="outline"
+                onClick={() => router.push('/')}
+                className="border-[#1e3a5f] text-[#1e3a5f] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+              >
                 Home
               </Button>
               <Button
                 variant="outline"
                 onClick={() => signOut({ callbackUrl: '/' })}
-                className="text-red-600 hover:text-red-700 hover:border-red-300"
+                className="text-red-600 hover:text-red-700 hover:border-red-300 hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
               >
                 Sign Out
               </Button>
@@ -181,7 +242,11 @@ function DashboardContent() {
                 </p>
               </div>
             </div>
-            <Button onClick={handlePurchaseCredits} loading={purchaseLoading}>
+            <Button
+              onClick={handlePurchaseCredits}
+              loading={purchaseLoading}
+              className="bg-[#1e3a5f] hover:bg-[#152a45] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+            >
               Buy Credits
             </Button>
           </div>
@@ -192,7 +257,7 @@ function DashboardContent() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-medium text-gray-500">Total Credits</h3>
-              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-[#1e3a5f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -238,14 +303,14 @@ function DashboardContent() {
         </div>
 
         {/* Purchase Credits Card */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-8 mb-8 text-white">
+        <div className="bg-[#1e3a5f] rounded-lg shadow-lg p-8 mb-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex-1">
               <h2 className="text-2xl font-bold mb-2">Purchase More Credits</h2>
-              <p className="text-blue-100 mb-4">
+              <p className="text-gray-300 mb-4">
                 100 credits for $100 • Generate 2 marketing plans • Credits valid for 12 months
               </p>
-              <ul className="space-y-2 text-sm text-blue-50 mb-6">
+              <ul className="space-y-2 text-sm text-gray-200 mb-6">
                 <li className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -267,7 +332,7 @@ function DashboardContent() {
               </ul>
               <Button
                 size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100"
+                className="bg-white text-[#1e3a5f] hover:bg-gray-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                 onClick={handlePurchaseCredits}
                 loading={purchaseLoading}
               >
@@ -275,7 +340,7 @@ function DashboardContent() {
               </Button>
             </div>
             <div className="hidden md:block ml-8">
-              <svg className="w-32 h-32 text-blue-300 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-32 h-32 text-gray-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
               </svg>
             </div>
@@ -289,7 +354,7 @@ function DashboardContent() {
               <button
                 className={`px-6 py-3 font-medium ${
                   activeTab === 'overview'
-                    ? 'border-b-2 border-blue-600 text-blue-600'
+                    ? 'border-b-2 border-[#1e3a5f] text-[#1e3a5f]'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
                 onClick={() => setActiveTab('overview')}
@@ -299,7 +364,7 @@ function DashboardContent() {
               <button
                 className={`px-6 py-3 font-medium ${
                   activeTab === 'plans'
-                    ? 'border-b-2 border-blue-600 text-blue-600'
+                    ? 'border-b-2 border-[#1e3a5f] text-[#1e3a5f]'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
                 onClick={() => setActiveTab('plans')}
@@ -309,7 +374,7 @@ function DashboardContent() {
               <button
                 className={`px-6 py-3 font-medium ${
                   activeTab === 'history'
-                    ? 'border-b-2 border-blue-600 text-blue-600'
+                    ? 'border-b-2 border-[#1e3a5f] text-[#1e3a5f]'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
                 onClick={() => setActiveTab('history')}
@@ -356,7 +421,11 @@ function DashboardContent() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                     </svg>
                     <p className="text-gray-500 mb-4">No active credit packages</p>
-                    <Button onClick={handlePurchaseCredits} loading={purchaseLoading}>
+                    <Button
+                      onClick={handlePurchaseCredits}
+                      loading={purchaseLoading}
+                      className="bg-[#1e3a5f] hover:bg-[#152a45] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                    >
                       Purchase Your First Package
                     </Button>
                   </div>
@@ -372,7 +441,7 @@ function DashboardContent() {
                     {plans.map((plan) => (
                       <div
                         key={plan.id}
-                        className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors"
+                        className="border border-gray-200 rounded-lg p-4 hover:border-[#1e3a5f] transition-colors"
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
@@ -410,6 +479,7 @@ function DashboardContent() {
                               <Button
                                 size="sm"
                                 onClick={() => router.push(`/plan/${plan.id}`)}
+                                className="bg-[#1e3a5f] hover:bg-[#152a45] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                               >
                                 View Plan
                               </Button>
@@ -433,7 +503,10 @@ function DashboardContent() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     <p className="text-gray-500 mb-4">No marketing plans yet</p>
-                    <Button onClick={() => router.push('/questionnaire')}>
+                    <Button
+                      onClick={() => router.push('/questionnaire')}
+                      className="bg-[#1e3a5f] hover:bg-[#152a45] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                    >
                       Create Your First Plan
                     </Button>
                   </div>

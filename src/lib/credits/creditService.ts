@@ -100,6 +100,7 @@ export class CreditService {
   /**
    * Deduct credits from user's balance using FIFO (oldest expiration first)
    * Returns array of transactions created
+   * Uses Prisma transaction to ensure atomicity - all operations succeed or all fail
    */
   async deductCredits(
     userId: string,
@@ -113,55 +114,60 @@ export class CreditService {
       throw new Error(`Insufficient credits. Required: ${amount}, Available: ${balance.totalCredits}`);
     }
 
-    let remainingToDeduct = amount;
-    const transactions: CreditTransaction[] = [];
-    const balanceBefore = balance.totalCredits;
+    // Use Prisma transaction to ensure all operations succeed or fail together
+    const transactions = await prisma.$transaction(async (tx) => {
+      let remainingToDeduct = amount;
+      const txnResults: CreditTransaction[] = [];
+      const balanceBefore = balance.totalCredits;
 
-    // Deduct from oldest expiring purchases first (FIFO)
-    for (const purchase of balance.purchases) {
-      if (remainingToDeduct <= 0) break;
-      if (purchase.creditsRemaining <= 0) continue;
+      // Deduct from oldest expiring purchases first (FIFO)
+      for (const purchase of balance.purchases) {
+        if (remainingToDeduct <= 0) break;
+        if (purchase.creditsRemaining <= 0) continue;
 
-      const deductFromThisPurchase = Math.min(purchase.creditsRemaining, remainingToDeduct);
+        const deductFromThisPurchase = Math.min(purchase.creditsRemaining, remainingToDeduct);
 
-      // Update purchase remaining credits
-      await prisma.creditPurchase.update({
-        where: { id: purchase.id },
-        data: {
-          creditsRemaining: purchase.creditsRemaining - deductFromThisPurchase
-        }
-      });
+        // Update purchase remaining credits within transaction
+        await tx.creditPurchase.update({
+          where: { id: purchase.id },
+          data: {
+            creditsRemaining: purchase.creditsRemaining - deductFromThisPurchase
+          }
+        });
 
-      // Create transaction record
-      const transaction = await prisma.creditTransaction.create({
-        data: {
-          userId,
-          planId,
-          purchaseId: purchase.id,
-          creditAmount: -deductFromThisPurchase,
-          transactionType: 'plan_generation',
-          balanceBefore: balanceBefore - (amount - remainingToDeduct),
-          balanceAfter: balanceBefore - (amount - remainingToDeduct) - deductFromThisPurchase,
-          description: description || `Plan generation (Plan ID: ${planId})`
-        }
-      });
+        // Create transaction record within transaction
+        const transaction = await tx.creditTransaction.create({
+          data: {
+            userId,
+            planId,
+            purchaseId: purchase.id,
+            creditAmount: -deductFromThisPurchase,
+            transactionType: 'plan_generation',
+            balanceBefore: balanceBefore - (amount - remainingToDeduct),
+            balanceAfter: balanceBefore - (amount - remainingToDeduct) - deductFromThisPurchase,
+            description: description || `Plan generation (Plan ID: ${planId})`
+          }
+        });
 
-      transactions.push({
-        id: transaction.id,
-        userId: transaction.userId,
-        planId: transaction.planId || undefined,
-        purchaseId: transaction.purchaseId,
-        creditAmount: transaction.creditAmount,
-        transactionType: transaction.transactionType,
-        balanceBefore: transaction.balanceBefore,
-        balanceAfter: transaction.balanceAfter,
-        description: transaction.description || undefined,
-        createdAt: transaction.createdAt.toISOString(),
-        metadata: transaction.metadata ? JSON.parse(transaction.metadata) : undefined
-      });
+        txnResults.push({
+          id: transaction.id,
+          userId: transaction.userId,
+          planId: transaction.planId || undefined,
+          purchaseId: transaction.purchaseId,
+          creditAmount: transaction.creditAmount,
+          transactionType: transaction.transactionType,
+          balanceBefore: transaction.balanceBefore,
+          balanceAfter: transaction.balanceAfter,
+          description: transaction.description || undefined,
+          createdAt: transaction.createdAt.toISOString(),
+          metadata: transaction.metadata ? JSON.parse(transaction.metadata) : undefined
+        });
 
-      remainingToDeduct -= deductFromThisPurchase;
-    }
+        remainingToDeduct -= deductFromThisPurchase;
+      }
+
+      return txnResults;
+    });
 
     return transactions;
   }
@@ -169,6 +175,7 @@ export class CreditService {
   /**
    * Refund credits (e.g., if plan generation fails)
    * Credits are returned to the original purchases they were deducted from
+   * Uses Prisma transaction to ensure atomicity
    */
   async refundCredits(planId: string): Promise<void> {
     // Get all transactions for this plan
@@ -182,31 +189,34 @@ export class CreditService {
       }
     });
 
-    for (const transaction of transactions) {
-      // Return credits to original purchase
-      await prisma.creditPurchase.update({
-        where: { id: transaction.purchaseId },
-        data: {
-          creditsRemaining: {
-            increment: Math.abs(transaction.creditAmount)
+    // Use Prisma transaction to ensure all refunds succeed or fail together
+    await prisma.$transaction(async (tx) => {
+      for (const transaction of transactions) {
+        // Return credits to original purchase within transaction
+        await tx.creditPurchase.update({
+          where: { id: transaction.purchaseId },
+          data: {
+            creditsRemaining: {
+              increment: Math.abs(transaction.creditAmount)
+            }
           }
-        }
-      });
+        });
 
-      // Create refund transaction
-      await prisma.creditTransaction.create({
-        data: {
-          userId: transaction.userId,
-          planId: transaction.planId,
-          purchaseId: transaction.purchaseId,
-          creditAmount: Math.abs(transaction.creditAmount),
-          transactionType: 'refund',
-          balanceBefore: transaction.balanceAfter,
-          balanceAfter: transaction.balanceBefore,
-          description: `Refund for failed plan generation (Plan ID: ${planId})`
-        }
-      });
-    }
+        // Create refund transaction within transaction
+        await tx.creditTransaction.create({
+          data: {
+            userId: transaction.userId,
+            planId: transaction.planId,
+            purchaseId: transaction.purchaseId,
+            creditAmount: Math.abs(transaction.creditAmount),
+            transactionType: 'refund',
+            balanceBefore: transaction.balanceAfter,
+            balanceAfter: transaction.balanceBefore,
+            description: `Refund for failed plan generation (Plan ID: ${planId})`
+          }
+        });
+      }
+    });
   }
 
   /**
