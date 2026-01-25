@@ -40,4 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.md*
+# claude code local settings
+.claude/
+
+# SQLite database (sensitive data)
+prisma/dev.db
+prisma/dev.db-journal
+
+# Data exports (sensitive data)
+data-export.json
