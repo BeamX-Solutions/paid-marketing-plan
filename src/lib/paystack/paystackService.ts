@@ -6,13 +6,10 @@ const prisma = new PrismaClient();
 const CREDITS_PER_PACKAGE = parseInt(process.env.CREDITS_PER_PACKAGE || '100');
 const CREDIT_EXPIRY_MONTHS = parseInt(process.env.CREDIT_EXPIRY_MONTHS || '12');
 
-// Pricing in different currencies (in smallest units - kobo for NGN, cents for USD)
-const PACKAGE_PRICES = {
-  NGN: parseInt(process.env.PACKAGE_PRICE_NGN || '50000'), // 500 NGN in kobo
-  USD: parseInt(process.env.PACKAGE_PRICE_USD || '10000'), // 100 USD in cents
-} as const;
+// Pricing in kobo (smallest unit for NGN)
+const PACKAGE_PRICE_NGN = parseInt(process.env.PACKAGE_PRICE_NGN || '10000000'); // 100,000 NGN in kobo
 
-type SupportedCurrency = keyof typeof PACKAGE_PRICES;
+type SupportedCurrency = 'NGN';
 
 interface PaystackInitializeResponse {
   status: boolean;
@@ -141,11 +138,11 @@ export class PaystackService {
   async initializeTransaction(
     userId: string,
     email: string,
-    currency: SupportedCurrency,
     callbackUrl: string
   ): Promise<{ reference: string; authorizationUrl: string }> {
     const reference = this.generateReference(userId);
-    const amount = PACKAGE_PRICES[currency];
+    const amount = PACKAGE_PRICE_NGN;
+    const currency: SupportedCurrency = 'NGN';
 
     // Create customer first (optional but recommended)
     const customerCode = await this.getOrCreateCustomer(userId, email);
@@ -278,31 +275,27 @@ export class PaystackService {
   }
 
   /**
-   * Get supported currencies for user's location
+   * Get supported currency (NGN only for now)
    */
-  getSupportedCurrencies(): Array<{ code: SupportedCurrency; name: string; symbol: string }> {
-    return [
-      { code: 'NGN', name: 'Nigerian Naira', symbol: '₦' },
-      { code: 'USD', name: 'US Dollar', symbol: '$' },
-    ];
+  getSupportedCurrency(): { code: SupportedCurrency; name: string; symbol: string } {
+    return { code: 'NGN', name: 'Nigerian Naira', symbol: '₦' };
   }
 
   /**
-   * Get package price in specified currency
+   * Get package price in Naira
    */
-  getPackagePrice(currency: SupportedCurrency): {
+  getPackagePrice(): {
     amount: number;
     displayAmount: string;
     currency: string;
   } {
-    const amount = PACKAGE_PRICES[currency];
-    const divisor = 100; // Both kobo and cents divide by 100
-    const displayAmount = (amount / divisor).toFixed(2);
+    const amount = PACKAGE_PRICE_NGN;
+    const displayAmount = (amount / 100).toLocaleString('en-NG'); // Convert from kobo to Naira
 
     return {
       amount,
-      displayAmount,
-      currency,
+      displayAmount: `₦${displayAmount}`,
+      currency: 'NGN',
     };
   }
 }

@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
     const allTimeTotalRevenue = allTimeCreditPurchases.reduce(
       (sum: any, purchase: any) => sum + purchase.amountPaid,
       0
-    ) / 100; // Convert from cents to dollars
+    ) / 100; // Convert from kobo to Naira
 
     const allTimeTotalCreditsGranted = allTimeCreditPurchases.reduce(
       (sum: any, purchase: any) => sum + purchase.creditsGranted,
@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
     const filteredTotalRevenue = filteredCreditPurchases.reduce(
       (sum: any, purchase: any) => sum + purchase.amountPaid,
       0
-    ) / 100; // Convert from cents to dollars
+    ) / 100; // Convert from kobo to Naira
 
     const filteredTotalCreditsGranted = filteredCreditPurchases.reduce(
       (sum: any, purchase: any) => sum + purchase.creditsGranted,

@@ -103,15 +103,12 @@ function DashboardContent() {
     try {
       setPurchaseLoading(true);
 
-      // Default to NGN currency (can add currency selector later)
       const response = await fetch('/api/credits/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          currency: 'NGN', // Change to 'USD' if needed
-        }),
+        body: JSON.stringify({}),
       });
 
       if (!response.ok) {

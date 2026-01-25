@@ -107,7 +107,7 @@ export async function POST(
       expiresAt.setMonth(expiresAt.getMonth() + 12);
 
       // Use UUID instead of timestamp for better uniqueness
-      const stripeSessionId = `admin_manual_${randomUUID()}`;
+      const paystackReference = `admin_manual_${randomUUID()}`;
 
       await prisma.$transaction(async (tx: any) => {
         // Create the purchase record
@@ -117,10 +117,10 @@ export async function POST(
             creditsGranted: amount,
             creditsRemaining: amount,
             amountPaid: 0,
-            currency: 'usd',
+            currency: 'ngn',
             expiresAt,
             status: 'active',
-            stripeSessionId,
+            paystackReference,
           },
         });
 
