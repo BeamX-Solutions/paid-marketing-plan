@@ -31,13 +31,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/#features"
-              className="text-sm font-medium text-gray-700 hover:text-[#1e3a5f] transition-colors duration-300 cursor-pointer"
+              className="text-sm font-medium text-gray-700 hover:text-[#0F5AE0] transition-colors duration-300 cursor-pointer"
             >
               Features
             </Link>
             <Link
               href="/#how-it-works"
-              className="text-sm font-medium text-gray-700 hover:text-[#1e3a5f] transition-colors duration-300 cursor-pointer"
+              className="text-sm font-medium text-gray-700 hover:text-[#0F5AE0] transition-colors duration-300 cursor-pointer"
             >
               How It Works
             </Link>
@@ -51,7 +51,7 @@ export default function Navbar() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-[#1e3a5f] text-[#1e3a5f] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+                    className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
                   >
                     Dashboard
                   </Button>
@@ -59,7 +59,7 @@ export default function Navbar() {
                 <Link href="/questionnaire">
                   <Button
                     size="sm"
-                    className="bg-[#1e3a5f] hover:bg-[#152a45] text-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+                    className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
                   >
                     Create Plan
                     <ArrowRight className="ml-1 h-4 w-4" />
@@ -72,7 +72,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-700 hover:text-[#1e3a5f] hover:scale-105 transition-all duration-300 cursor-pointer"
+                    className="text-gray-700 hover:text-[#0F5AE0] hover:scale-105 transition-all duration-300 cursor-pointer"
                   >
                     Sign In
                   </Button>
@@ -80,7 +80,7 @@ export default function Navbar() {
                 <Link href="/auth/signup">
                   <Button
                     size="sm"
-                    className="bg-[#1e3a5f] hover:bg-[#152a45] text-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+                    className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
                   >
                     Get Started
                     <ArrowRight className="ml-1 h-4 w-4" />
@@ -94,7 +94,7 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-700 hover:text-[#1e3a5f] p-2 transition-colors duration-300 cursor-pointer"
+              className="text-gray-700 hover:text-[#0F5AE0] p-2 transition-colors duration-300 cursor-pointer"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -112,14 +112,14 @@ export default function Navbar() {
             <div className="flex flex-col space-y-4">
               <Link
                 href="/#features"
-                className="text-sm font-medium text-gray-700 hover:text-[#1e3a5f] px-4 py-2 transition-colors duration-300"
+                className="text-sm font-medium text-gray-700 hover:text-[#0F5AE0] px-4 py-2 transition-colors duration-300"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Features
               </Link>
               <Link
                 href="/#how-it-works"
-                className="text-sm font-medium text-gray-700 hover:text-[#1e3a5f] px-4 py-2 transition-colors duration-300"
+                className="text-sm font-medium text-gray-700 hover:text-[#0F5AE0] px-4 py-2 transition-colors duration-300"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 How It Works
@@ -127,7 +127,7 @@ export default function Navbar() {
               {session && (
                 <Link
                   href="/dashboard"
-                  className="text-sm font-medium text-gray-700 hover:text-[#1e3a5f] px-4 py-2 transition-colors duration-300"
+                  className="text-sm font-medium text-gray-700 hover:text-[#0F5AE0] px-4 py-2 transition-colors duration-300"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Dashboard
@@ -139,7 +139,7 @@ export default function Navbar() {
                     <Link href="/dashboard" className="block">
                       <Button
                         variant="outline"
-                        className="w-full border-[#1e3a5f] text-[#1e3a5f] rounded-lg"
+                        className="w-full border-[#0F5AE0] text-[#0F5AE0] rounded-lg"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Dashboard
@@ -147,7 +147,7 @@ export default function Navbar() {
                     </Link>
                     <Link href="/questionnaire" className="block">
                       <Button
-                        className="w-full bg-[#1e3a5f] hover:bg-[#152a45] text-white rounded-lg"
+                        className="w-full bg-[#0F5AE0] hover:bg-[#0C48B3] text-white rounded-lg"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Create Plan
@@ -160,7 +160,7 @@ export default function Navbar() {
                     <Link href="/auth/signin" className="block">
                       <Button
                         variant="outline"
-                        className="w-full border-[#1e3a5f] text-[#1e3a5f] rounded-lg"
+                        className="w-full border-[#0F5AE0] text-[#0F5AE0] rounded-lg"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Sign In
@@ -168,7 +168,7 @@ export default function Navbar() {
                     </Link>
                     <Link href="/auth/signup" className="block">
                       <Button
-                        className="w-full bg-[#1e3a5f] hover:bg-[#152a45] text-white rounded-lg"
+                        className="w-full bg-[#0F5AE0] hover:bg-[#0C48B3] text-white rounded-lg"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         Get Started

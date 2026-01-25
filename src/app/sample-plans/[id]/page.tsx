@@ -351,7 +351,7 @@ export default function SamplePlanDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Plan Not Found</h1>
           <p className="text-gray-600 mb-8">The sample plan you&apos;re looking for doesn&apos;t exist.</p>
-          <Link href="/sample-plans" className="text-[#1e3a5f] hover:text-[#152a45] font-medium">
+          <Link href="/sample-plans" className="text-[#0F5AE0] hover:text-[#0C48B3] font-medium">
             ← Back to Sample Plans
           </Link>
         </div>
@@ -369,14 +369,14 @@ export default function SamplePlanDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/sample-plans"
-            className="inline-flex items-center text-[#1e3a5f] hover:text-[#152a45] font-medium mb-6 transition-colors"
+            className="inline-flex items-center text-[#0F5AE0] hover:text-[#0C48B3] font-medium mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Sample Plans
           </Link>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-              <span className="text-sm font-semibold text-[#1e3a5f] uppercase tracking-wider">
+              <span className="text-sm font-semibold text-[#0F5AE0] uppercase tracking-wider">
                 {plan.industry}
               </span>
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">
@@ -386,7 +386,7 @@ export default function SamplePlanDetailPage() {
             </div>
             <div className="mt-6 md:mt-0">
               <Link href="/questionnaire">
-                <button className="bg-[#1e3a5f] hover:bg-[#152a45] text-white px-6 py-3 text-sm font-semibold rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer inline-flex items-center">
+                <button className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white px-6 py-3 text-sm font-semibold rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer inline-flex items-center">
                   Create Your Own Plan
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
@@ -444,7 +444,7 @@ export default function SamplePlanDetailPage() {
               </div>
 
               {/* Value Proposition */}
-              <div className="bg-[#1e3a5f] rounded-2xl p-8 text-white">
+              <div className="bg-[#0F5AE0] rounded-2xl p-8 text-white">
                 <div className="flex items-center mb-4">
                   <MessageSquare className="w-6 h-6 mr-3" />
                   <h2 className="text-xl font-bold">Value Proposition</h2>
@@ -460,7 +460,7 @@ export default function SamplePlanDetailPage() {
                     <div key={index} className="border border-gray-200 rounded-xl p-6">
                       <div className="flex items-center justify-between mb-3">
                         <h3 className="font-semibold text-gray-900">{channel.name}</h3>
-                        <span className="text-sm font-medium text-[#1e3a5f] bg-blue-50 px-3 py-1 rounded-full">
+                        <span className="text-sm font-medium text-[#0F5AE0] bg-blue-50 px-3 py-1 rounded-full">
                           {channel.budget}
                         </span>
                       </div>
@@ -500,7 +500,7 @@ export default function SamplePlanDetailPage() {
                   {plan.goals.map((goal, index) => (
                     <div key={index} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
                       <h3 className="font-medium text-gray-900 mb-1">{goal.objective}</h3>
-                      <p className="text-sm text-[#1e3a5f] font-semibold">{goal.metric}</p>
+                      <p className="text-sm text-[#0F5AE0] font-semibold">{goal.metric}</p>
                       <p className="text-xs text-gray-500 mt-1">Timeline: {goal.timeline}</p>
                     </div>
                   ))}
@@ -527,7 +527,7 @@ export default function SamplePlanDetailPage() {
                       </div>
                       <div className="w-full bg-gray-100 rounded-full h-2">
                         <div
-                          className="bg-[#1e3a5f] h-2 rounded-full"
+                          className="bg-[#0F5AE0] h-2 rounded-full"
                           style={{ width: `${item.percentage}%` }}
                         ></div>
                       </div>
@@ -537,13 +537,13 @@ export default function SamplePlanDetailPage() {
               </div>
 
               {/* CTA */}
-              <div className="bg-gradient-to-br from-[#1e3a5f] to-[#152a45] rounded-2xl p-6 text-white text-center">
+              <div className="bg-gradient-to-br from-[#008BD8] to-[#02428E] rounded-2xl p-6 text-white text-center">
                 <h3 className="text-lg font-bold mb-3">Ready for Your Own Plan?</h3>
                 <p className="text-blue-100 text-sm mb-6">
                   Get a customized marketing plan tailored to your specific business needs.
                 </p>
                 <Link href="/questionnaire">
-                  <button className="w-full bg-white text-[#1e3a5f] px-6 py-3 text-sm font-semibold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 cursor-pointer">
+                  <button className="w-full bg-white text-[#0F5AE0] px-6 py-3 text-sm font-semibold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 cursor-pointer">
                     Create Your Plan
                   </button>
                 </Link>

@@ -42,8 +42,8 @@ const SignUpPage = () => {
       });
 
       if (response.ok) {
-        // Redirect to questionnaire after successful registration
-        router.push('/questionnaire');
+        // Redirect to dashboard after successful registration
+        router.push('/dashboard');
       } else {
         const data = await response.json();
         setError(data.error || 'Registration failed. Please try again.');
@@ -75,7 +75,7 @@ const SignUpPage = () => {
         {/* Back to Home */}
         <Link
           href="/"
-          className="inline-flex items-center text-[#1e3a5f] hover:text-[#152a45] mb-6 transition-colors duration-300 cursor-pointer"
+          className="inline-flex items-center text-[#0F5AE0] hover:text-[#0C48B3] mb-6 transition-colors duration-300 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -99,7 +99,7 @@ const SignUpPage = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -112,7 +112,7 @@ const SignUpPage = () => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -127,7 +127,7 @@ const SignUpPage = () => {
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
                 placeholder="Your Company Name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                 required
               />
             </div>
@@ -139,7 +139,7 @@ const SignUpPage = () => {
               <select
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300 cursor-pointer"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300 cursor-pointer"
                 required
               >
                 <option value="">Select your industry</option>
@@ -165,7 +165,7 @@ const SignUpPage = () => {
               <select
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300 cursor-pointer"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300 cursor-pointer"
                 required
               >
                 <option value="">Select your country</option>
@@ -194,7 +194,7 @@ const SignUpPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                 required
               />
             </div>
@@ -208,7 +208,7 @@ const SignUpPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                 required
                 minLength={8}
               />
@@ -221,7 +221,7 @@ const SignUpPage = () => {
                 type="checkbox"
                 checked={marketingConsent}
                 onChange={(e) => setMarketingConsent(e.target.checked)}
-                className="mt-1 h-4 w-4 text-[#1e3a5f] focus:ring-[#1e3a5f] border-gray-300 rounded cursor-pointer"
+                className="mt-1 h-4 w-4 text-[#0F5AE0] focus:ring-[#0F5AE0] border-gray-300 rounded cursor-pointer"
               />
               <label htmlFor="marketingConsent" className="ml-3 text-sm text-gray-600 cursor-pointer">
                 I agree to receive marketing emails, newsletters, and product updates from BeamX Solutions.
@@ -238,7 +238,7 @@ const SignUpPage = () => {
             <Button
               type="submit"
               loading={isLoading}
-              className="w-full bg-[#1e3a5f] hover:bg-[#152a45] text-white rounded-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+              className="w-full bg-[#0F5AE0] hover:bg-[#0C48B3] text-white rounded-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
             >
               Create Account
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -248,7 +248,7 @@ const SignUpPage = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <Link href="/auth/signin" className="text-[#1e3a5f] hover:text-[#152a45] font-medium transition-colors duration-300 cursor-pointer">
+              <Link href="/auth/signin" className="text-[#0F5AE0] hover:text-[#0C48B3] font-medium transition-colors duration-300 cursor-pointer">
                 Sign in
               </Link>
             </p>

@@ -57,8 +57,8 @@ export default function AdminLayout({
 
   const navLinkClasses = (path: string) => {
     const baseClasses = 'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer';
-    const activeClasses = 'bg-[#1e3a5f] text-white';
-    const inactiveClasses = 'text-gray-700 hover:text-[#1e3a5f] hover:bg-gray-100';
+    const activeClasses = 'bg-[#0F5AE0] text-white';
+    const inactiveClasses = 'text-gray-700 hover:text-[#0F5AE0] hover:bg-gray-100';
 
     return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`;
   };
@@ -109,7 +109,7 @@ export default function AdminLayout({
 
             {/* Right Side - Notifications & Profile */}
             <div className="flex items-center space-x-4">
-              <Link href="/" className="text-gray-600 hover:text-[#1e3a5f] text-sm font-medium transition-colors duration-300 cursor-pointer">
+              <Link href="/" className="text-gray-600 hover:text-[#0F5AE0] text-sm font-medium transition-colors duration-300 cursor-pointer">
                 View Site
               </Link>
 
@@ -120,9 +120,9 @@ export default function AdminLayout({
               <div className="relative" ref={profileRef}>
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center space-x-2 text-gray-700 hover:text-[#1e3a5f] p-2 rounded-lg hover:bg-white transition-all duration-300 cursor-pointer"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-[#0F5AE0] p-2 rounded-lg hover:bg-white transition-all duration-300 cursor-pointer"
                 >
-                  <div className="w-8 h-8 bg-[#1e3a5f] rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#0F5AE0] rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                     </svg>
@@ -138,14 +138,14 @@ export default function AdminLayout({
                     <div className="py-1">
                       <Link
                         href="/admin/settings"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#1e3a5f] transition-colors duration-300 cursor-pointer"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#0F5AE0] transition-colors duration-300 cursor-pointer"
                         onClick={() => setIsProfileOpen(false)}
                       >
                         Account Settings
                       </Link>
                       <Link
                         href="/admin/settings/security"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#1e3a5f] transition-colors duration-300 cursor-pointer"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#0F5AE0] transition-colors duration-300 cursor-pointer"
                         onClick={() => setIsProfileOpen(false)}
                       >
                         Security Settings

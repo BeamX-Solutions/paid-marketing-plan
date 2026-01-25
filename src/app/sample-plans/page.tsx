@@ -115,7 +115,7 @@ export default function SamplePlansPage() {
                   <p className="text-gray-600 mb-6">
                     {plan.description}
                   </p>
-                  <div className="flex items-center text-[#1e3a5f] font-medium group-hover:text-[#152a45]">
+                  <div className="flex items-center text-[#0F5AE0] font-medium group-hover:text-[#0C48B3]">
                     View Plan
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -134,7 +134,7 @@ export default function SamplePlansPage() {
                 Get a marketing plan tailored specifically to your business in minutes.
               </p>
               <Link href="/questionnaire">
-                <button className="bg-[#1e3a5f] hover:bg-[#152a45] text-white px-8 py-4 text-base font-semibold rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer inline-flex items-center">
+                <button className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white px-8 py-4 text-base font-semibold rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer inline-flex items-center">
                   Create Your Plan Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>

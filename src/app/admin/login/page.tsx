@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1e3a5f] py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#008BD8] to-[#02428E] py-12 px-4">
       <div className="max-w-md w-full space-y-8">
         <div>
           <div className="flex justify-center mb-6">
@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
                 id="email"
                 type="email"
                 required
-                className="w-full px-4 py-3 border border-gray-600 bg-[#152a45] text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-600 bg-[#0C48B3] text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -93,7 +93,7 @@ export default function AdminLoginPage() {
                 id="password"
                 type="password"
                 required
-                className="w-full px-4 py-3 border border-gray-600 bg-[#152a45] text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-600 bg-[#0C48B3] text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-white text-[#1e3a5f] font-semibold rounded-lg disabled:opacity-50 hover:bg-gray-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex items-center justify-center"
+            className="w-full py-3 px-4 bg-white text-[#0F5AE0] font-semibold rounded-lg disabled:opacity-50 hover:bg-gray-100 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex items-center justify-center"
           >
             {loading ? 'Signing in...' : (
               <>

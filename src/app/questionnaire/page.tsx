@@ -219,7 +219,7 @@ const QuestionnairePage = () => {
   if (status === 'loading') {
     return (
       <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#1e3a5f]"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#0F5AE0]"></div>
       </div>
     );
   }
@@ -232,7 +232,7 @@ const QuestionnairePage = () => {
     return (
       <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#1e3a5f] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#0F5AE0] mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
             Generating Your Marketing Plan
           </h2>

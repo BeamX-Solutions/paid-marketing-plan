@@ -33,7 +33,7 @@ const SignInPage = () => {
         // Check if user has a session
         const session = await getSession();
         if (session) {
-          router.push('/questionnaire');
+          router.push('/dashboard');
         }
       }
     } catch (err) {
@@ -63,7 +63,7 @@ const SignInPage = () => {
         {/* Back to Home */}
         <Link
           href="/"
-          className="inline-flex items-center text-[#1e3a5f] hover:text-[#152a45] mb-6 transition-colors duration-300 cursor-pointer"
+          className="inline-flex items-center text-[#0F5AE0] hover:text-[#0C48B3] mb-6 transition-colors duration-300 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -85,7 +85,7 @@ const SignInPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                 required
               />
             </div>
@@ -95,7 +95,7 @@ const SignInPage = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
-                <Link href="/auth/forgot-password" className="text-sm text-[#1e3a5f] hover:text-[#152a45] font-medium transition-colors duration-300 cursor-pointer">
+                <Link href="/auth/forgot-password" className="text-sm text-[#0F5AE0] hover:text-[#0C48B3] font-medium transition-colors duration-300 cursor-pointer">
                   Forgot password?
                 </Link>
               </div>
@@ -104,7 +104,7 @@ const SignInPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                 required
               />
             </div>
@@ -118,7 +118,7 @@ const SignInPage = () => {
             <Button
               type="submit"
               loading={isLoading}
-              className="w-full bg-[#1e3a5f] hover:bg-[#152a45] text-white rounded-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+              className="w-full bg-[#0F5AE0] hover:bg-[#0C48B3] text-white rounded-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
             >
               Sign In
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -128,7 +128,7 @@ const SignInPage = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="text-[#1e3a5f] hover:text-[#152a45] font-medium transition-colors duration-300 cursor-pointer">
+              <Link href="/auth/signup" className="text-[#0F5AE0] hover:text-[#0C48B3] font-medium transition-colors duration-300 cursor-pointer">
                 Sign up for free
               </Link>
             </p>

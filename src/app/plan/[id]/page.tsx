@@ -137,7 +137,7 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
           <Button
             variant="ghost"
             onClick={() => router.push('/dashboard')}
-            className="mb-4 text-[#1e3a5f] hover:text-[#152a45] hover:bg-blue-50"
+            className="mb-4 text-[#0F5AE0] hover:text-[#0C48B3] hover:bg-blue-50"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard

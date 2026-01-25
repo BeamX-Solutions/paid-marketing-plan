@@ -197,7 +197,7 @@ export default function AuditLogsPage() {
     return (
       <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0066B8] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -228,7 +228,7 @@ export default function AuditLogsPage() {
                 placeholder="Search actions, details..."
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] transition-all duration-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0066B8] transition-all duration-300"
               />
             </div>
 
@@ -240,7 +240,7 @@ export default function AuditLogsPage() {
               <select
                 value={filters.action}
                 onChange={(e) => handleFilterChange('action', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] transition-all duration-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0066B8] transition-all duration-300"
               >
                 <option value="">All Actions</option>
                 <option value="USER_LOGIN">User Login</option>
@@ -268,7 +268,7 @@ export default function AuditLogsPage() {
                 type="date"
                 value={filters.startDate}
                 onChange={(e) => handleFilterChange('startDate', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] transition-all duration-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0066B8] transition-all duration-300"
               />
             </div>
 
@@ -281,7 +281,7 @@ export default function AuditLogsPage() {
                 type="date"
                 value={filters.endDate}
                 onChange={(e) => handleFilterChange('endDate', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] transition-all duration-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0066B8] transition-all duration-300"
               />
             </div>
 
@@ -293,7 +293,7 @@ export default function AuditLogsPage() {
               <select
                 value={filters.limit}
                 onChange={(e) => handleFilterChange('limit', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] transition-all duration-300"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0066B8] transition-all duration-300"
               >
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -323,7 +323,7 @@ export default function AuditLogsPage() {
               <button
                 onClick={exportToCSV}
                 disabled={logs.length === 0}
-                className="px-4 py-2 text-sm font-medium text-white bg-[#1e3a5f] rounded-md hover:bg-[#152a45] cursor-pointer transition-all duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm font-medium text-white bg-[#0066B8] rounded-md hover:bg-[#0052A3] cursor-pointer transition-all duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
               >
                 Export to CSV
               </button>
@@ -355,7 +355,7 @@ export default function AuditLogsPage() {
         {loading && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f] mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0066B8] mx-auto mb-4"></div>
               <p className="text-gray-600">Loading audit logs...</p>
             </div>
           </div>
@@ -425,7 +425,7 @@ export default function AuditLogsPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         <button
                           onClick={() => setSelectedLog(log)}
-                          className="text-[#1e3a5f] hover:text-[#152a45] cursor-pointer transition-colors duration-300 font-medium"
+                          className="text-[#0066B8] hover:text-[#0052A3] cursor-pointer transition-colors duration-300 font-medium"
                         >
                           View Details
                         </button>
@@ -570,7 +570,7 @@ export default function AuditLogsPage() {
                 <div className="mt-6 flex justify-end">
                   <button
                     onClick={() => setSelectedLog(null)}
-                    className="px-4 py-2 text-sm font-medium text-white bg-[#1e3a5f] rounded-md hover:bg-[#152a45] cursor-pointer transition-all duration-300"
+                    className="px-4 py-2 text-sm font-medium text-white bg-[#0066B8] rounded-md hover:bg-[#0052A3] cursor-pointer transition-all duration-300"
                   >
                     Close
                   </button>

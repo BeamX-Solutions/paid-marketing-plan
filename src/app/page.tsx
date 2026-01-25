@@ -30,7 +30,7 @@ export default function HomePage() {
               <Link href="/questionnaire">
                 <Button
                   size="lg"
-                  className="bg-[#1e3a5f] hover:bg-[#152a45] text-white px-8 py-4 text-base rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+                  className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white px-8 py-4 text-base rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer"
                 >
                   Create Your Plan Now
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -40,7 +40,7 @@ export default function HomePage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-[#1e3a5f] text-[#1e3a5f] hover:bg-white px-8 py-4 text-base rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+                  className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white px-8 py-4 text-base rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer"
                 >
                   View Sample Plans
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -64,9 +64,9 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-[#1e3a5f]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-              <div className="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#1e3a5f] transition-colors duration-300">
-                <Target className="w-7 h-7 text-[#1e3a5f] group-hover:text-white transition-colors duration-300" />
+            <div className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-[#0F5AE0]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+              <div className="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#0F5AE0] transition-colors duration-300">
+                <Target className="w-7 h-7 text-[#0F5AE0] group-hover:text-white transition-colors duration-300" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 Smart Questionnaire
@@ -91,7 +91,7 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-[#1e3a5f]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+            <div className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-[#0F5AE0]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               <div className="bg-purple-50 w-14 h-14 rounded-xl group-hover:bg-purple-600 transition-colors duration-300 flex items-center justify-center mb-6">
                 <TrendingUp className="w-7 h-7 text-purple-600 group-hover:text-white transition-colors duration-300" />
               </div>
@@ -118,7 +118,7 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-[#1e3a5f]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+            <div className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-[#0F5AE0]/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               <div className="bg-green-50 w-14 h-14 rounded-xl group-hover:bg-green-600 transition-colors duration-300 flex items-center justify-center mb-6">
                 <CheckCircle className="w-7 h-7 text-green-600 group-hover:text-white transition-colors duration-300" />
               </div>
@@ -162,7 +162,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center group cursor-pointer">
-              <div className="bg-[#1e3a5f] text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300">
+              <div className="bg-[#0F5AE0] text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300">
                 1
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -175,7 +175,7 @@ export default function HomePage() {
             </div>
 
             <div className="text-center group cursor-pointer">
-              <div className="bg-[#1e3a5f] text-white w-16 h-16 rounded-2xl shadow-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6 hover:shadow-2xl hover:scale-110 transition-all duration-300">
+              <div className="bg-[#0F5AE0] text-white w-16 h-16 rounded-2xl shadow-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6 hover:shadow-2xl hover:scale-110 transition-all duration-300">
                 2
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -188,7 +188,7 @@ export default function HomePage() {
             </div>
 
             <div className="text-center group cursor-pointer">
-              <div className="bg-[#1e3a5f] text-white w-16 h-16 rounded-2xl shadow-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6 hover:shadow-2xl hover:scale-110 transition-all duration-300">
+              <div className="bg-[#0F5AE0] text-white w-16 h-16 rounded-2xl shadow-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6 hover:shadow-2xl hover:scale-110 transition-all duration-300">
                 3
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -204,24 +204,24 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 lg:py-32 bg-[#1e3a5f] relative overflow-hidden">
+      <section className="py-16 lg:py-20 bg-gradient-to-r from-[#008BD8] to-[#02428E] relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             Ready to Transform Your Marketing?
           </h2>
-          <p className="text-xl text-blue-100 mb-12 leading-relaxed">
+          <p className="text-xl text-white/90 mb-12 leading-relaxed">
             Join thousands of businesses that have created winning marketing strategies with our AI-powered platform.
           </p>
           <Link href="/questionnaire">
             <Button
               size="lg"
-              className="bg-white text-[#1e3a5f] hover:bg-gray-100 hover:scale-105 px-10 py-5 text-lg font-semibold shadow-2xl transition-all duration-300 cursor-pointer rounded-lg"
+              className="bg-white text-[#0F5AE0] hover:bg-gray-100 hover:scale-105 px-10 py-5 text-lg font-semibold shadow-2xl transition-all duration-300 cursor-pointer rounded-lg"
             >
               Create Your Marketing Plan Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
-          <p className="text-blue-200 mt-6 text-base">
+          <p className="text-white/80 mt-6 text-sm">
             No marketing experience required
           </p>
         </div>

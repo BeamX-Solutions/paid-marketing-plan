@@ -106,7 +106,7 @@ export default function AdminDashboardPage() {
             <select
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value as DateFilter)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
             >
               <option value="day">Today</option>
               <option value="month">This Month</option>
@@ -124,7 +124,7 @@ export default function AdminDashboardPage() {
             <select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
             >
               <option value="">All Countries</option>
               <option value="United States">United States</option>
@@ -148,7 +148,7 @@ export default function AdminDashboardPage() {
             <select
               value={industry}
               onChange={(e) => setIndustry(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
             >
               <option value="">All Industries</option>
               <option value="Technology">Technology</option>
@@ -194,7 +194,7 @@ export default function AdminDashboardPage() {
                 type="date"
                 value={customStartDate}
                 onChange={(e) => setCustomStartDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
               />
             </div>
             <div>
@@ -205,7 +205,7 @@ export default function AdminDashboardPage() {
                 type="date"
                 value={customEndDate}
                 onChange={(e) => setCustomEndDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1e3a5f] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
               />
             </div>
           </div>

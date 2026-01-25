@@ -202,7 +202,7 @@ export default function UserDetailPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1e3a5f]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0F5AE0]"></div>
       </div>
     );
   }
@@ -359,7 +359,7 @@ export default function UserDetailPage() {
               )}
               <button
                 onClick={manageCredits}
-                className="px-4 py-2 bg-[#1e3a5f] text-white rounded-md hover:bg-[#152a45] cursor-pointer transition-colors"
+                className="px-4 py-2 bg-[#0F5AE0] text-white rounded-md hover:bg-[#0C48B3] cursor-pointer transition-colors"
               >
                 Manage Credits
               </button>
@@ -518,7 +518,7 @@ export default function UserDetailPage() {
                 </code>
                 <button
                   onClick={copyPassword}
-                  className="px-3 py-2 bg-[#1e3a5f] text-white rounded hover:bg-[#152a45] cursor-pointer transition-colors text-sm"
+                  className="px-3 py-2 bg-[#0F5AE0] text-white rounded hover:bg-[#0C48B3] cursor-pointer transition-colors text-sm"
                 >
                   Copy
                 </button>
@@ -545,7 +545,7 @@ export default function UserDetailPage() {
                   setShowPasswordReset(false);
                   setTemporaryPassword(null);
                 }}
-                className="px-4 py-2 bg-[#1e3a5f] text-white rounded-md hover:bg-[#152a45] cursor-pointer transition-colors"
+                className="px-4 py-2 bg-[#0F5AE0] text-white rounded-md hover:bg-[#0C48B3] cursor-pointer transition-colors"
               >
                 Done
               </button>
