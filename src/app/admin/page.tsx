@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, DollarSign, Users, FileText, CreditCard, TrendingUp } from 'lucide-react';
+import { Calendar, Users, FileText, CreditCard, TrendingUp } from 'lucide-react';
 
 type DateFilter = 'day' | 'month' | 'year' | 'custom' | 'all-time';
 
@@ -218,8 +218,8 @@ export default function AdminDashboardPage() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <MetricCard
                 title="Total Revenue"
-                value={`$${data.allTime.totalRevenue.toFixed(2)}`}
-                icon={<DollarSign className="w-6 h-6 text-green-600" />}
+                value={`₦${data.allTime.totalRevenue.toLocaleString('en-NG', { minimumFractionDigits: 2 })}`}
+                icon={<span className="w-6 h-6 text-green-600 font-bold text-lg">₦</span>}
                 bgColor="bg-green-50"
               />
               <MetricCard
@@ -253,8 +253,8 @@ export default function AdminDashboardPage() {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <StatCard
                 title="Revenue"
-                value={`$${data.filtered.totalRevenue.toFixed(2)}`}
-                icon={<DollarSign className="w-5 h-5" />}
+                value={`₦${data.filtered.totalRevenue.toLocaleString('en-NG', { minimumFractionDigits: 2 })}`}
+                icon={<span className="font-bold">₦</span>}
                 iconColor="text-green-600"
               />
               <StatCard
@@ -320,17 +320,17 @@ export default function AdminDashboardPage() {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">All Time Revenue</span>
-                  <span className="font-medium text-green-600">${data.allTime.totalRevenue.toFixed(2)}</span>
+                  <span className="font-medium text-green-600">₦{data.allTime.totalRevenue.toLocaleString('en-NG', { minimumFractionDigits: 2 })}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">{getFilterLabel()} Revenue</span>
-                  <span className="font-medium text-blue-600">${data.filtered.totalRevenue.toFixed(2)}</span>
+                  <span className="font-medium text-blue-600">₦{data.filtered.totalRevenue.toLocaleString('en-NG', { minimumFractionDigits: 2 })}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Avg Revenue per User</span>
                   <span className="font-medium">
-                    ${data.allTime.totalUsers > 0
-                      ? (data.allTime.totalRevenue / data.allTime.totalUsers).toFixed(2)
+                    ₦{data.allTime.totalUsers > 0
+                      ? (data.allTime.totalRevenue / data.allTime.totalUsers).toLocaleString('en-NG', { minimumFractionDigits: 2 })
                       : '0.00'}
                   </span>
                 </div>

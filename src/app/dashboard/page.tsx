@@ -305,7 +305,7 @@ function DashboardContent() {
             <div className="flex-1">
               <h2 className="text-2xl font-bold mb-2">Purchase More Credits</h2>
               <p className="text-gray-300 mb-4">
-                100 credits for $100 • Generate 2 marketing plans • Credits valid for 12 months
+                100 credits for ₦100,000 • Generate 2 marketing plans • Credits valid for 12 months
               </p>
               <ul className="space-y-2 text-sm text-gray-200 mb-6">
                 <li className="flex items-center">
@@ -333,7 +333,7 @@ function DashboardContent() {
                 onClick={handlePurchaseCredits}
                 loading={purchaseLoading}
               >
-                {purchaseLoading ? 'Processing...' : 'Purchase 100 Credits - $100'}
+                {purchaseLoading ? 'Processing...' : 'Purchase 100 Credits - ₦100,000'}
               </Button>
             </div>
             <div className="hidden md:block ml-8">
