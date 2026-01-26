@@ -59,11 +59,15 @@ export async function POST(request: NextRequest) {
     // Send reset email
     const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3002'}/auth/reset-password?token=${resetToken}`;
 
+    // Get the base URL for logo (use production URL or fallback)
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const logoUrl = `${baseUrl}/logo.png`;
+
     try {
       await resend.emails.send({
         from: 'BeamX Solutions <info@beamxsolutions.com>',
         to: email,
-        subject: 'Password Reset Request',
+        subject: 'Reset Your BeamX Luna Password',
         html: `
           <!DOCTYPE html>
           <html>
@@ -71,25 +75,58 @@ export async function POST(request: NextRequest) {
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
             </head>
-            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-              <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-                <h1 style="color: white; margin: 0;">Password Reset Request</h1>
-              </div>
+            <body style="font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f4f7fa;">
+              <div style="background-color: #f4f7fa; padding: 40px 20px;">
+                <!-- Main Container -->
+                <div style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
 
-              <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px;">
-                <p>Hello,</p>
+                  <!-- Header with Logo -->
+                  <div style="background: linear-gradient(135deg, #008BD8 0%, #02428E 100%); padding: 40px 30px; text-align: center;">
+                    <img src="${logoUrl}" alt="BeamX Luna" style="height: 50px; margin-bottom: 20px;" />
+                    <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Password Reset Request</h1>
+                  </div>
 
-                <p>We received a request to reset your password. Click the button below to create a new password:</p>
+                  <!-- Body Content -->
+                  <div style="padding: 40px 30px;">
+                    <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">Hello,</p>
 
-                <div style="text-align: center; margin: 30px 0;">
-                  <a href="${resetUrl}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 28px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">Reset Password</a>
+                    <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
+                      We received a request to reset the password for your BeamX Luna account. Click the button below to create a new password:
+                    </p>
+
+                    <!-- CTA Button -->
+                    <div style="text-align: center; margin: 35px 0;">
+                      <a href="${resetUrl}" style="background: linear-gradient(135deg, #008BD8 0%, #02428E 100%); color: white; padding: 16px 40px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: 600; font-size: 16px; box-shadow: 0 4px 14px rgba(15, 90, 224, 0.3);">Reset Password</a>
+                    </div>
+
+                    <!-- Link fallback -->
+                    <div style="background-color: #f8fafc; border-radius: 8px; padding: 15px; margin: 25px 0;">
+                      <p style="color: #6b7280; font-size: 13px; margin: 0 0 8px 0;">Or copy and paste this link into your browser:</p>
+                      <p style="color: #0F5AE0; word-break: break-all; font-size: 13px; margin: 0;">${resetUrl}</p>
+                    </div>
+
+                    <!-- Security Notice -->
+                    <div style="border-left: 4px solid #f59e0b; background-color: #fffbeb; padding: 15px; border-radius: 0 8px 8px 0; margin-top: 25px;">
+                      <p style="color: #92400e; font-size: 14px; margin: 0;">
+                        <strong>Security Notice:</strong> This link will expire in 1 hour. If you didn't request a password reset, please ignore this email or contact support if you have concerns.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Footer -->
+                  <div style="background-color: #f8fafc; padding: 25px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 10px 0;">
+                      Powered by <strong style="color: #0F5AE0;">BeamX Luna</strong>
+                    </p>
+                    <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                      © ${new Date().getFullYear()} BeamX Solutions. All rights reserved.
+                    </p>
+                  </div>
                 </div>
 
-                <p style="color: #666; font-size: 14px;">Or copy and paste this link into your browser:</p>
-                <p style="color: #667eea; word-break: break-all; font-size: 14px;">${resetUrl}</p>
-
-                <p style="color: #999; font-size: 13px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
-                  This link will expire in 1 hour. If you didn't request a password reset, please ignore this email or contact support if you have concerns.
+                <!-- Bottom Note -->
+                <p style="text-align: center; color: #9ca3af; font-size: 12px; margin-top: 20px;">
+                  This email was sent by BeamX Solutions. If you have any questions, contact us at support@beamxsolutions.com
                 </p>
               </div>
             </body>

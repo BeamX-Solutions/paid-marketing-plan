@@ -94,127 +94,9 @@ export default function AdminDashboardPage() {
             <p className="mt-2 text-gray-600">Platform overview and metrics</p>
           </div>
 
-          {/* Filters */}
-          <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Filters</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Date Filter */}
+          {/* All Time Metrics - Big Picture First */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Time Period
-            </label>
-            <select
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value as DateFilter)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
-            >
-              <option value="day">Today</option>
-              <option value="month">This Month</option>
-              <option value="year">This Year</option>
-              <option value="custom">Custom Range</option>
-              <option value="all-time">All Time</option>
-            </select>
-          </div>
-
-          {/* Country Filter */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Country
-            </label>
-            <select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
-            >
-              <option value="">All Countries</option>
-              <option value="United States">United States</option>
-              <option value="United Kingdom">United Kingdom</option>
-              <option value="Canada">Canada</option>
-              <option value="Australia">Australia</option>
-              <option value="Germany">Germany</option>
-              <option value="France">France</option>
-              <option value="India">India</option>
-              <option value="Nigeria">Nigeria</option>
-              <option value="South Africa">South Africa</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          {/* Industry Filter */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Industry
-            </label>
-            <select
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
-            >
-              <option value="">All Industries</option>
-              <option value="Technology">Technology</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Finance">Finance</option>
-              <option value="Retail">Retail</option>
-              <option value="E-commerce">E-commerce</option>
-              <option value="Manufacturing">Manufacturing</option>
-              <option value="Education">Education</option>
-              <option value="Real Estate">Real Estate</option>
-              <option value="Hospitality">Hospitality</option>
-              <option value="Consulting">Consulting</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          {/* Clear Filters */}
-          <div className="flex items-end">
-            <button
-              onClick={() => {
-                setDateFilter('month');
-                setCountry('');
-                setIndustry('');
-                setCustomStartDate('');
-                setCustomEndDate('');
-              }}
-              className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all duration-300 cursor-pointer"
-            >
-              Clear Filters
-            </button>
-          </div>
-        </div>
-
-        {/* Custom Date Range */}
-        {dateFilter === 'custom' && (
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Start Date
-              </label>
-              <input
-                type="date"
-                value={customStartDate}
-                onChange={(e) => setCustomStartDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                End Date
-              </label>
-              <input
-                type="date"
-                value={customEndDate}
-                onChange={(e) => setCustomEndDate(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
-              />
-            </div>
-          </div>
-        )}
-          </div>
-
-          {/* All Time Metrics */}
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">All Time Metrics</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">All Time Overview</h2>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <MetricCard
                 title="Total Revenue"
@@ -245,37 +127,158 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Filtered View Metrics */}
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              {getFilterLabel()} Metrics
-            </h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <StatCard
-                title="Revenue"
-                value={`₦${data.filtered.totalRevenue.toLocaleString('en-NG', { minimumFractionDigits: 2 })}`}
-                icon={<span className="font-bold">₦</span>}
-                iconColor="text-green-600"
-              />
-              <StatCard
-                title="New Users"
-                value={data.filtered.totalUsers.toString()}
-                icon={<Users className="w-5 h-5" />}
-                iconColor="text-blue-600"
-              />
-              <StatCard
-                title="Plans Created"
-                value={data.filtered.totalPlans.toString()}
-                subtitle={`${data.filtered.completedPlans} completed`}
-                icon={<FileText className="w-5 h-5" />}
-                iconColor="text-purple-600"
-              />
-              <StatCard
-                title="Credits Used"
-                value={data.filtered.totalCreditsUsed.toLocaleString()}
-                icon={<TrendingUp className="w-5 h-5" />}
-                iconColor="text-orange-600"
-              />
+          {/* Filtered Section - Filter Controls + Results Together */}
+          <div className="bg-white rounded-lg shadow overflow-hidden">
+            {/* Filter Header and Controls */}
+            <div className="p-6 border-b border-gray-200 bg-gray-50">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">Filter by Period</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Date Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Time Period
+                  </label>
+                  <select
+                    value={dateFilter}
+                    onChange={(e) => setDateFilter(e.target.value as DateFilter)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
+                  >
+                    <option value="day">Today</option>
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                    <option value="custom">Custom Range</option>
+                    <option value="all-time">All Time</option>
+                  </select>
+                </div>
+
+                {/* Country Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Country
+                  </label>
+                  <select
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
+                  >
+                    <option value="">All Countries</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="India">India</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* Industry Filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Industry
+                  </label>
+                  <select
+                    value={industry}
+                    onChange={(e) => setIndustry(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
+                  >
+                    <option value="">All Industries</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Retail">Retail</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Education">Education</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Hospitality">Hospitality</option>
+                    <option value="Consulting">Consulting</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* Clear Filters */}
+                <div className="flex items-end">
+                  <button
+                    onClick={() => {
+                      setDateFilter('month');
+                      setCountry('');
+                      setIndustry('');
+                      setCustomStartDate('');
+                      setCustomEndDate('');
+                    }}
+                    className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all duration-300 cursor-pointer"
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              </div>
+
+              {/* Custom Date Range */}
+              {dateFilter === 'custom' && (
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Start Date
+                    </label>
+                    <input
+                      type="date"
+                      value={customStartDate}
+                      onChange={(e) => setCustomStartDate(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      End Date
+                    </label>
+                    <input
+                      type="date"
+                      value={customEndDate}
+                      onChange={(e) => setCustomEndDate(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Filtered Results */}
+            <div className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                {getFilterLabel()} Results
+              </h3>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <StatCard
+                  title="Revenue"
+                  value={`₦${data.filtered.totalRevenue.toLocaleString('en-NG', { minimumFractionDigits: 2 })}`}
+                  icon={<span className="font-bold">₦</span>}
+                  iconColor="text-green-600"
+                />
+                <StatCard
+                  title="New Users"
+                  value={data.filtered.totalUsers.toString()}
+                  icon={<Users className="w-5 h-5" />}
+                  iconColor="text-blue-600"
+                />
+                <StatCard
+                  title="Plans Created"
+                  value={data.filtered.totalPlans.toString()}
+                  subtitle={`${data.filtered.completedPlans} completed`}
+                  icon={<FileText className="w-5 h-5" />}
+                  iconColor="text-purple-600"
+                />
+                <StatCard
+                  title="Credits Used"
+                  value={data.filtered.totalCreditsUsed.toLocaleString()}
+                  icon={<TrendingUp className="w-5 h-5" />}
+                  iconColor="text-orange-600"
+                />
+              </div>
             </div>
           </div>
 

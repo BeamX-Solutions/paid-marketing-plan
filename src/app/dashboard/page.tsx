@@ -153,46 +153,55 @@ function DashboardContent() {
       {/* Navigation */}
       <nav className="bg-[#f0f4f8] border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            {/* Logo and Welcome */}
+            <div className="flex items-center justify-between sm:justify-start sm:space-x-6">
               <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
                 <Image
                   src="/logo.png"
                   alt="BeamX Solutions"
                   width={160}
                   height={40}
-                  className="h-10 w-auto"
+                  className="h-8 sm:h-10 w-auto"
                   priority
                 />
               </Link>
               {session?.user && (
-                <div className="flex items-center space-x-2 text-gray-700">
-                  <span className="text-sm">Welcome,</span>
-                  <span className="font-semibold">{session.user.name || session.user.email}</span>
+                <div className="flex items-center space-x-2 text-gray-700 sm:flex">
+                  <span className="text-xs sm:text-sm">Welcome,</span>
+                  <span className="font-semibold text-xs sm:text-sm truncate max-w-[120px] sm:max-w-none">
+                    {session.user.name || session.user.email}
+                  </span>
                 </div>
               )}
             </div>
-            <div className="flex items-center space-x-4">
+            {/* Navigation Buttons */}
+            <div className="flex items-center justify-end gap-2 sm:gap-4 flex-wrap">
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => router.push('/questionnaire')}
-                className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+                className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg text-xs sm:text-sm px-2 sm:px-4"
               >
-                Create New Plan
+                <span className="hidden sm:inline">Create New Plan</span>
+                <span className="sm:hidden">New Plan</span>
               </Button>
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => router.push('/')}
-                className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+                className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg text-xs sm:text-sm px-2 sm:px-4"
               >
                 Home
               </Button>
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => signOut({ callbackUrl: '/' })}
-                className="text-red-600 hover:text-red-700 hover:border-red-300 hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
+                className="text-red-600 hover:text-red-700 hover:border-red-300 hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg text-xs sm:text-sm px-2 sm:px-4"
               >
-                Sign Out
+                <span className="hidden sm:inline">Sign Out</span>
+                <span className="sm:hidden">Exit</span>
               </Button>
             </div>
           </div>
