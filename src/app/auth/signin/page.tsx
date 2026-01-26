@@ -15,6 +15,9 @@ const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
+  const [sendingVerification, setSendingVerification] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +32,20 @@ const SignInPage = () => {
       });
 
       if (result?.error) {
-        setError('Invalid credentials. Please try again.');
+        // Show specific error messages from the auth system
+        setNeedsVerification(false);
+        if (result.error === 'CredentialsSignin') {
+          setError('Invalid email or password. Please try again.');
+        } else if (result.error.includes('verify your email')) {
+          setError('Please verify your email address before signing in.');
+          setNeedsVerification(true);
+        } else if (result.error.includes('suspended') || result.error.includes('deactivated')) {
+          setError('Your account has been suspended or deactivated. Please contact support.');
+        } else if (result.error.includes('Google')) {
+          setError('This account uses Google sign-in. Please sign in with Google.');
+        } else {
+          setError(result.error || 'Invalid credentials. Please try again.');
+        }
       } else {
         // Check if user has a session
         const session = await getSession();
@@ -41,6 +57,34 @@ const SignInPage = () => {
       setError('Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (!email) {
+      setError('Please enter your email address first.');
+      return;
+    }
+
+    setSendingVerification(true);
+    try {
+      const response = await fetch('/api/auth/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setVerificationSent(true);
+        setError('');
+      } else {
+        setError(data.error || 'Failed to send verification email.');
+      }
+    } catch (err) {
+      setError('Failed to send verification email. Please try again.');
+    } finally {
+      setSendingVerification(false);
     }
   };
 
@@ -119,9 +163,25 @@ const SignInPage = () => {
               </div>
             </div>
 
+            {verificationSent && (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-green-700 text-sm">Verification email sent! Please check your inbox and click the verification link.</p>
+              </div>
+            )}
+
             {error && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-700 text-sm">{error}</p>
+                {needsVerification && !verificationSent && (
+                  <button
+                    type="button"
+                    onClick={handleResendVerification}
+                    disabled={sendingVerification}
+                    className="mt-2 text-sm text-[#0F5AE0] hover:text-[#0C48B3] font-medium underline cursor-pointer disabled:opacity-50"
+                  >
+                    {sendingVerification ? 'Sending...' : 'Resend verification email'}
+                  </button>
+                )}
               </div>
             )}
 

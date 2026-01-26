@@ -57,15 +57,12 @@ export async function POST(request: NextRequest) {
     });
 
     // Send reset email
-    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3002'}/auth/reset-password?token=${resetToken}`;
-
-    // Get the base URL for logo (use production URL or fallback)
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const logoUrl = `${baseUrl}/logo.png`;
+    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/reset-password?token=${resetToken}`;
+    const logoUrl = 'https://luna.beamxsolutions.com/logo.png';
 
     try {
       await resend.emails.send({
-        from: 'BeamX Solutions <info@beamxsolutions.com>',
+        from: 'BeamX Solutions <noreply@beamxsolutions.com>',
         to: email,
         subject: 'Reset Your BeamX Luna Password',
         html: `
@@ -115,6 +112,21 @@ export async function POST(request: NextRequest) {
 
                   <!-- Footer -->
                   <div style="background-color: #f8fafc; padding: 25px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+                    <!-- Social Media Links -->
+                    <div style="margin-bottom: 20px;">
+                      <a href="https://twitter.com/beamxsolutions" style="display: inline-block; margin: 0 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733579.png" alt="Twitter" style="width: 24px; height: 24px;" />
+                      </a>
+                      <a href="https://linkedin.com/company/beamxsolutions" style="display: inline-block; margin: 0 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733561.png" alt="LinkedIn" style="width: 24px; height: 24px;" />
+                      </a>
+                      <a href="https://facebook.com/beamxsolutions" style="display: inline-block; margin: 0 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" style="width: 24px; height: 24px;" />
+                      </a>
+                      <a href="https://instagram.com/beamxsolutions" style="display: inline-block; margin: 0 8px;">
+                        <img src="https://cdn-icons-png.flaticon.com/24/733/733558.png" alt="Instagram" style="width: 24px; height: 24px;" />
+                      </a>
+                    </div>
                     <p style="color: #6b7280; font-size: 14px; margin: 0 0 10px 0;">
                       Powered by <strong style="color: #0F5AE0;">BeamX Luna</strong>
                     </p>
