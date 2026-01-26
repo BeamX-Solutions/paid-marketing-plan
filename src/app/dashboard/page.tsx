@@ -1,17 +1,19 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import { CreditBalance, CreditTransaction } from '@/types';
+import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
 
 function DashboardContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [balance, setBalance] = useState<CreditBalance | null>(null);
   const [transactions, setTransactions] = useState<CreditTransaction[]>([]);
@@ -19,10 +21,22 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'plans'>('overview');
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const paymentStatus = searchParams?.get('payment');
   const paymentReference = searchParams?.get('reference');
   const [verifying, setVerifying] = useState(false);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -194,15 +208,69 @@ function DashboardContent() {
               >
                 Home
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => signOut({ callbackUrl: '/' })}
-                className="text-red-600 hover:text-red-700 hover:border-red-300 hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg text-xs sm:text-sm px-2 sm:px-4"
-              >
-                <span className="hidden sm:inline">Sign Out</span>
-                <span className="sm:hidden">Exit</span>
-              </Button>
+
+              {/* User Dropdown Menu */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 border border-gray-300 rounded-lg hover:bg-white hover:border-[#0F5AE0] transition-all duration-300 cursor-pointer"
+                >
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#008BD8] to-[#02428E] flex items-center justify-center">
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showUserMenu ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    {/* User Info Header */}
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-900 truncate">
+                        {session?.user?.name || 'User'}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {session?.user?.email}
+                      </p>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          router.push('/account/profile');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                      >
+                        <User className="w-4 h-4 text-gray-500" />
+                        My Profile
+                      </button>
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          router.push('/account/settings');
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                      >
+                        <Settings className="w-4 h-4 text-gray-500" />
+                        Settings
+                      </button>
+                    </div>
+
+                    {/* Sign Out */}
+                    <div className="border-t border-gray-100 py-1">
+                      <button
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
