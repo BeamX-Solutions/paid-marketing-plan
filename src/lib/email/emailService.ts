@@ -92,7 +92,7 @@ export class EmailService {
     }
 
     try {
-      const subject = `Welcome to MarketingPlan.ai${businessName ? `, ${businessName}` : ''}!`;
+      const subject = `Welcome to BeamX Luna${businessName ? `, ${businessName}` : ''}!`;
       
       const htmlContent = this.generateWelcomeEmailHTML(businessName);
       const textContent = this.generateWelcomeEmailText(businessName);
@@ -129,8 +129,8 @@ export class EmailService {
         <div style="max-width: 600px; margin: 0 auto; background: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #2563eb, #9333ea); color: white; padding: 40px 30px; text-align: center;">
-                <h1 style="margin: 0; font-size: 28px; font-weight: bold;">MarketingPlan.ai</h1>
-                <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">Powered by Claude AI</p>
+                <h1 style="margin: 0; font-size: 28px; font-weight: bold;">BeamX Luna</h1>
+                <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">Powered by BeamX Luna</p>
             </div>
 
             <!-- Main Content -->
@@ -204,17 +204,17 @@ export class EmailService {
                 <!-- Support -->
                 <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f9fafb; border-radius: 8px;">
                     <p style="margin: 0; color: #6b7280;">Need help implementing your plan?</p>
-                    <a href="mailto:support@marketingplan.ai" style="color: #2563eb; text-decoration: none; font-weight: 500;">Contact our support team</a>
+                    <a href="mailto:support@beamxsolutions.com" style="color: #2563eb; text-decoration: none; font-weight: 500;">Contact our support team</a>
                 </div>
             </div>
 
             <!-- Footer -->
             <div style="background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                 <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
-                    This plan was generated using Claude AI's advanced reasoning capabilities
+                    This plan was generated using BeamX Luna's advanced reasoning capabilities
                 </p>
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                    © 2024 MarketingPlan.ai. All rights reserved.
+                    © 2024 BeamX Luna. All rights reserved.
                 </p>
             </div>
         </div>
@@ -255,9 +255,9 @@ NEXT STEPS:
 3. Start with Phase 1 activities (first 30 days)
 4. Schedule a follow-up to track your progress
 
-Need help? Contact us at support@marketingplan.ai
+Need help? Contact us at support@beamxsolutions.com
 
-© 2024 MarketingPlan.ai - Powered by Claude AI
+© 2024 BeamX Luna - Powered by BeamX Luna
     `;
   }
 
@@ -275,7 +275,7 @@ Need help? Contact us at support@marketingplan.ai
     <body style="font-family: 'Inter', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8fafc; margin: 0; padding: 0;">
         <div style="max-width: 600px; margin: 0 auto; background: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <div style="background: linear-gradient(135deg, #2563eb, #9333ea); color: white; padding: 40px 30px; text-align: center;">
-                <h1 style="margin: 0; font-size: 28px; font-weight: bold;">MarketingPlan.ai</h1>
+                <h1 style="margin: 0; font-size: 28px; font-weight: bold;">BeamX Luna</h1>
                 <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">Shared Marketing Plan</p>
             </div>
 
@@ -300,13 +300,13 @@ Need help? Contact us at support@marketingplan.ai
                 </div>
 
                 <p style="color: #6b7280; font-size: 14px; text-align: center; margin: 30px 0;">
-                    This marketing plan was generated using Claude AI's advanced reasoning capabilities.
+                    This marketing plan was generated using BeamX Luna's advanced reasoning capabilities.
                 </p>
             </div>
 
             <div style="background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                    © 2024 MarketingPlan.ai. All rights reserved.
+                    © 2024 BeamX Luna. All rights reserved.
                 </p>
             </div>
         </div>
@@ -327,9 +327,9 @@ ${message ? `Message from ${senderName}: "${message}"` : ''}
 
 View Plan: ${downloadUrl}
 
-This marketing plan was generated using Claude AI's advanced reasoning capabilities.
+This marketing plan was generated using BeamX Luna's advanced reasoning capabilities.
 
-© 2024 MarketingPlan.ai
+© 2024 BeamX Luna
     `;
   }
 
@@ -340,12 +340,12 @@ This marketing plan was generated using Claude AI's advanced reasoning capabilit
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to MarketingPlan.ai</title>
+        <title>Welcome to BeamX Luna</title>
     </head>
     <body style="font-family: 'Inter', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8fafc; margin: 0; padding: 0;">
         <div style="max-width: 600px; margin: 0 auto; background: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <div style="background: linear-gradient(135deg, #2563eb, #9333ea); color: white; padding: 40px 30px; text-align: center;">
-                <h1 style="margin: 0; font-size: 28px; font-weight: bold;">Welcome to MarketingPlan.ai!</h1>
+                <h1 style="margin: 0; font-size: 28px; font-weight: bold;">Welcome to BeamX Luna!</h1>
                 <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">AI-Powered Marketing Plans</p>
             </div>
 
@@ -353,29 +353,29 @@ This marketing plan was generated using Claude AI's advanced reasoning capabilit
                 <h2 style="color: #1f2937; font-size: 24px; margin: 0 0 20px;">🎉 Welcome${businessName ? `, ${businessName}` : ''}!</h2>
                 
                 <p style="font-size: 16px; margin-bottom: 25px; color: #4b5563;">
-                    Thank you for choosing MarketingPlan.ai! You're about to experience the power of Claude AI for creating comprehensive marketing strategies.
+                    Thank you for choosing BeamX Luna! You're about to experience the power of BeamX Luna for creating comprehensive marketing strategies.
                 </p>
 
                 <div style="background: #f0f9ff; border-left: 4px solid #2563eb; padding: 20px; margin: 30px 0; border-radius: 6px;">
                     <h3 style="color: #1e40af; margin: 0 0 15px; font-size: 18px;">What happens next?</h3>
                     <ol style="margin: 0; padding-left: 20px; color: #4b5563;">
                         <li style="margin-bottom: 8px;">Complete our intelligent questionnaire (15-20 minutes)</li>
-                        <li style="margin-bottom: 8px;">Claude AI analyzes your responses and creates your strategy</li>
+                        <li style="margin-bottom: 8px;">BeamX Luna analyzes your responses and creates your strategy</li>
                         <li style="margin-bottom: 8px;">Receive your complete marketing plan via email</li>
                         <li>Download and start implementing immediately</li>
                     </ol>
                 </div>
 
                 <div style="text-align: center; margin: 30px 0;">
-                    <a href="https://marketingplan.ai/questionnaire" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px;">
+                    <a href="https://beamxsolutions.com/questionnaire" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px;">
                         🚀 Start Creating Your Plan
                     </a>
                 </div>
 
                 <div style="background: #f0fdf4; border-left: 4px solid #16a34a; padding: 20px; margin: 30px 0; border-radius: 6px;">
-                    <h3 style="color: #15803d; margin: 0 0 15px; font-size: 18px;">Why MarketingPlan.ai?</h3>
+                    <h3 style="color: #15803d; margin: 0 0 15px; font-size: 18px;">Why BeamX Luna?</h3>
                     <ul style="margin: 0; padding-left: 20px; color: #166534;">
-                        <li style="margin-bottom: 8px;">Powered by Claude AI's superior reasoning</li>
+                        <li style="margin-bottom: 8px;">Powered by BeamX Luna's superior reasoning</li>
                         <li style="margin-bottom: 8px;">Industry-specific recommendations</li>
                         <li style="margin-bottom: 8px;">Proven 9-square marketing framework</li>
                         <li>Actionable implementation guides</li>
@@ -385,10 +385,10 @@ This marketing plan was generated using Claude AI's advanced reasoning capabilit
 
             <div style="background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                 <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
-                    Questions? Reply to this email or contact support@marketingplan.ai
+                    Questions? Reply to this email or contact support@beamxsolutions.com
                 </p>
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                    © 2024 MarketingPlan.ai. All rights reserved.
+                    © 2024 BeamX Luna. All rights reserved.
                 </p>
             </div>
         </div>
@@ -399,29 +399,29 @@ This marketing plan was generated using Claude AI's advanced reasoning capabilit
 
   private generateWelcomeEmailText(businessName?: string): string {
     return `
-Welcome to MarketingPlan.ai!
+Welcome to BeamX Luna!
 
 Hi${businessName ? ` ${businessName}` : ''}!
 
-Thank you for choosing MarketingPlan.ai! You're about to experience the power of Claude AI for creating comprehensive marketing strategies.
+Thank you for choosing BeamX Luna! You're about to experience the power of BeamX Luna for creating comprehensive marketing strategies.
 
 WHAT HAPPENS NEXT:
 1. Complete our intelligent questionnaire (15-20 minutes)
-2. Claude AI analyzes your responses and creates your strategy
+2. BeamX Luna analyzes your responses and creates your strategy
 3. Receive your complete marketing plan via email
 4. Download and start implementing immediately
 
 WHY MARKETINGPLAN.AI?
-• Powered by Claude AI's superior reasoning
+• Powered by BeamX Luna's superior reasoning
 • Industry-specific recommendations  
 • Proven 9-square marketing framework
 • Actionable implementation guides
 
-Ready to get started? Visit: https://marketingplan.ai/questionnaire
+Ready to get started? Visit: https://beamxsolutions.com/questionnaire
 
-Questions? Contact us at support@marketingplan.ai
+Questions? Contact us at support@beamxsolutions.com
 
-© 2024 MarketingPlan.ai
+© 2024 BeamX Luna
     `;
   }
 }

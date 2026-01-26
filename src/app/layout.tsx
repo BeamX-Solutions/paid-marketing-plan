@@ -6,9 +6,9 @@ import AuthSessionProvider from "@/components/providers/SessionProvider";
 import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
-  title: "AI-Powered Marketing Plan Generator | BeamX Solutions",
-  description: "Generate comprehensive marketing plans in minutes with Claude AI. Create your personalized marketing strategy using our proven framework.",
-  keywords: "marketing plan, AI marketing, business strategy, Claude AI, marketing automation, small business marketing, marketing strategy generator",
+  title: "BeamX Luna | AI-Powered Marketing Tool",
+  description: "Generate comprehensive marketing plans in minutes with BeamX Luna. Create your personalized marketing strategy using our proven framework.",
+  keywords: "marketing plan, AI marketing, business strategy, BeamX Luna, marketing automation, small business marketing, marketing strategy generator",
   authors: [{ name: "BeamX Solutions" }],
   creator: "BeamX Solutions",
   publisher: "BeamX Solutions",
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "AI-Powered Marketing Plan Generator | BeamX Solutions",
-    description: "Generate comprehensive marketing plans in minutes with Claude AI. Create your personalized marketing strategy.",
+    title: "BeamX Luna | AI-Powered Marketing Tool",
+    description: "Generate comprehensive marketing plans in minutes with BeamX Luna. Create your personalized marketing strategy.",
     url: "https://beamxsolutions.com",
     siteName: "BeamX Solutions",
     type: "website",
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI-Powered Marketing Plan Generator | BeamX Solutions",
-    description: "Generate comprehensive marketing plans in minutes with Claude AI",
+    title: "BeamX Luna | AI-Powered Marketing Tool",
+    description: "Generate comprehensive marketing plans in minutes with BeamX Luna",
     images: ["/logo.png"],
   },
   robots: {

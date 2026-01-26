@@ -237,7 +237,7 @@ const QuestionnairePage = () => {
             Generating Your Marketing Plan
           </h2>
           <p className="text-gray-600">
-            Claude AI is analyzing your responses and creating your personalized marketing strategy...
+            BeamX Luna is analyzing your responses and creating your personalized marketing strategy...
           </p>
         </div>
       </div>

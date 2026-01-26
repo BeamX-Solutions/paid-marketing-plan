@@ -205,7 +205,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
       {/* Cover Page */}
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.logo}>MarketingPlan.ai</Text>
+          <Text style={styles.logo}>BeamX Luna</Text>
           <Text style={styles.dateGenerated}>Generated on {formatDate(createdAt)}</Text>
         </View>
 
@@ -223,7 +223,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
 
         <View style={styles.footer}>
-          <Text>Powered by Claude AI • MarketingPlan.ai</Text>
+          <Text>Powered by BeamX Luna • BeamX Luna</Text>
         </View>
       </Page>
 
@@ -301,7 +301,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
 
         <View style={styles.footer}>
-          <Text>Page 2 • MarketingPlan.ai</Text>
+          <Text>Page 2 • BeamX Luna</Text>
         </View>
       </Page>
 
@@ -349,7 +349,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         {renderObjectAsText(strategicInsights.positioning, styles.text)}
 
         <View style={styles.footer}>
-          <Text>Page 3 • MarketingPlan.ai</Text>
+          <Text>Page 3 • BeamX Luna</Text>
         </View>
       </Page>
 
@@ -382,7 +382,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         {renderObjectAsText(implementationGuide.templates, styles.text)}
 
         <View style={styles.footer}>
-          <Text>Page 4 • MarketingPlan.ai</Text>
+          <Text>Page 4 • BeamX Luna</Text>
         </View>
       </Page>
 
@@ -430,7 +430,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
 
         <View style={styles.footer}>
-          <Text>Page 5 • MarketingPlan.ai • Generated with Claude AI</Text>
+          <Text>Page 5 • BeamX Luna • Generated with BeamX Luna</Text>
         </View>
       </Page>
     </Document>

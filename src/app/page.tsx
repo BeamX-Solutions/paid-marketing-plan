@@ -99,7 +99,7 @@ export default function HomePage() {
                 AI-Powered Analysis
               </h3>
               <p className="text-gray-600 mb-4">
-                Claude AI analyzes your responses to identify opportunities,
+                BeamX Luna analyzes your responses to identify opportunities,
                 competitive advantages, and create personalized strategies.
               </p>
               <ul className="space-y-2 text-sm text-gray-700">
@@ -182,7 +182,7 @@ export default function HomePage() {
                 AI Analyzes & Strategizes
               </h3>
               <p className="text-gray-600">
-                Claude AI analyzes your responses, identifies opportunities, and creates
+                BeamX Luna analyzes your responses, identifies opportunities, and creates
                 a personalized marketing strategy for your business.
               </p>
             </div>
@@ -210,7 +210,7 @@ export default function HomePage() {
             Ready to Transform Your Marketing?
           </h2>
           <p className="text-xl text-white/90 mb-12 leading-relaxed">
-            Join thousands of businesses that have created winning marketing strategies with our AI-powered platform.
+            Join hundreds of businesses that have created winning marketing strategies with our AI-powered platform.
           </p>
           <Link href="/questionnaire">
             <Button
