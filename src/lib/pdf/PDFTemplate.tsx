@@ -223,7 +223,7 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
 
         <View style={styles.footer}>
-          <Text>Powered by BeamX Luna • BeamX Luna</Text>
+          <Text>Powered by BeamX Solutions • BeamX Luna</Text>
         </View>
       </Page>
 

@@ -311,7 +311,7 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div className="border-t border-gray-200 pt-8 mt-8 text-center text-gray-600">
-            <p>&copy; 2024 MarketingPlan.ai. All rights reserved.</p>
+            <p>&copy; 2026 BeamX Solutions. All rights reserved.</p>
           </div>
         </div>
       </footer>

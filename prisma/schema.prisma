@@ -67,6 +67,7 @@ model User {
   securityEvents      SecurityEvent[]
   adminSessions       AdminSession[]
   notifications       Notification[]
+  feedback            Feedback[]
 
   @@map("users")
 }
@@ -285,4 +286,30 @@ model Notification {
   @@index([userId, read])
   @@index([createdAt])
   @@map("notifications")
+}
+
+// ============================================
+// Feedback System
+// ============================================
+
+model Feedback {
+  id            String    @id @default(cuid())
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  planId        String?   // Optional: feedback can be about a specific plan
+  rating        Int       // 1-5 stars
+  category      String?   // 'general', 'plan_quality', 'usability', 'support', etc.
+  comment       String?   // Optional text feedback
+  email         String?   // For anonymous feedback, allow email
+  status        String    @default("pending") // 'pending', 'reviewed', 'resolved'
+  adminNotes    String?   // Admin response/notes
+  createdAt     DateTime  @default(now())
+  reviewedAt    DateTime?
+  reviewedBy    String?
+
+  @@index([userId])
+  @@index([rating])
+  @@index([status])
+  @@index([createdAt])
+  @@map("feedback")
 }

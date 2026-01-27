@@ -130,7 +130,7 @@ export class EmailService {
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #2563eb, #9333ea); color: white; padding: 40px 30px; text-align: center;">
                 <h1 style="margin: 0; font-size: 28px; font-weight: bold;">BeamX Luna</h1>
-                <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">Powered by BeamX Luna</p>
+                <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">Powered by BeamX Soutions</p>
             </div>
 
             <!-- Main Content -->
@@ -204,7 +204,7 @@ export class EmailService {
                 <!-- Support -->
                 <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f9fafb; border-radius: 8px;">
                     <p style="margin: 0; color: #6b7280;">Need help implementing your plan?</p>
-                    <a href="mailto:support@beamxsolutions.com" style="color: #2563eb; text-decoration: none; font-weight: 500;">Contact our support team</a>
+                    <a href="mailto:info@beamxsolutions.com" style="color: #2563eb; text-decoration: none; font-weight: 500;">Contact our support team</a>
                 </div>
             </div>
 
@@ -214,7 +214,7 @@ export class EmailService {
                     This plan was generated using BeamX Luna's advanced reasoning capabilities
                 </p>
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                    © 2024 BeamX Luna. All rights reserved.
+                    © 2026 BeamX Solutions. All rights reserved.
                 </p>
             </div>
         </div>
@@ -257,7 +257,7 @@ NEXT STEPS:
 
 Need help? Contact us at support@beamxsolutions.com
 
-© 2024 BeamX Luna - Powered by BeamX Luna
+© 2026 BeamX Luna - Powered by BeamX Solutions
     `;
   }
 
@@ -306,7 +306,7 @@ Need help? Contact us at support@beamxsolutions.com
 
             <div style="background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                    © 2024 BeamX Luna. All rights reserved.
+                    © 2026 BeamX Solutions. All rights reserved.
                 </p>
             </div>
         </div>
@@ -329,7 +329,7 @@ View Plan: ${downloadUrl}
 
 This marketing plan was generated using BeamX Luna's advanced reasoning capabilities.
 
-© 2024 BeamX Luna
+© 2026 BeamX Solutions
     `;
   }
 
@@ -388,7 +388,7 @@ This marketing plan was generated using BeamX Luna's advanced reasoning capabili
                     Questions? Reply to this email or contact support@beamxsolutions.com
                 </p>
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                    © 2024 BeamX Luna. All rights reserved.
+                    © 2026 BeamX Solutions. All rights reserved.
                 </p>
             </div>
         </div>
@@ -421,7 +421,7 @@ Ready to get started? Visit: https://beamxsolutions.com/questionnaire
 
 Questions? Contact us at support@beamxsolutions.com
 
-© 2024 BeamX Luna
+© 2026 BeamX Solutions
     `;
   }
 }
