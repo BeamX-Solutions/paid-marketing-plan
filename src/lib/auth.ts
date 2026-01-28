@@ -112,7 +112,8 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.businessName || user.email,
+          name: (user.firstName || user.email) as string,
+          firstName: user.firstName || undefined,
           businessName: user.businessName || undefined,
           industry: user.industry || undefined,
           role: user.role,
@@ -213,7 +214,8 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.businessName || user.email,
+          name: (user.firstName || user.email) as string,
+          firstName: user.firstName || undefined,
           businessName: user.businessName || undefined,
           industry: user.industry || undefined,
           role: user.role,
@@ -254,8 +256,9 @@ export const authOptions: NextAuthOptions = {
           ...token,
           role: user.role,
           status: user.status,
-          businessName: user.businessName,
-          industry: user.industry,
+          firstName: user.firstName || undefined,
+          businessName: user.businessName || undefined,
+          industry: user.industry || undefined,
           exp: Math.floor(Date.now() / 1000) + sessionDuration,
           isAdmin,
         };
@@ -269,6 +272,7 @@ export const authOptions: NextAuthOptions = {
         if (dbUser) {
           token.role = dbUser.role;
           token.status = dbUser.status;
+          token.firstName = dbUser.firstName || undefined;
 
           // Update expiry if role changed
           const isAdmin = dbUser.role === 'ADMIN' || dbUser.role === 'SUPER_ADMIN';
@@ -300,6 +304,7 @@ export const authOptions: NextAuthOptions = {
           id: token.sub,
           role: token.role,
           status: token.status,
+          firstName: token.firstName,
           businessName: token.businessName,
           industry: token.industry,
         },

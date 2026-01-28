@@ -186,7 +186,7 @@ function DashboardContent() {
                 <div className="flex items-center space-x-2 text-gray-700 sm:flex">
                   <span className="text-xs sm:text-sm">Welcome,</span>
                   <span className="font-semibold text-xs sm:text-sm truncate max-w-[120px] sm:max-w-none">
-                    {session.user.name || session.user.email}
+                    {session.user.firstName || session.user.email}
                   </span>
                 </div>
               )}
@@ -229,7 +229,7 @@ function DashboardContent() {
                     {/* User Info Header */}
                     <div className="px-4 py-3 border-b border-gray-100">
                       <p className="text-sm font-semibold text-gray-900 truncate">
-                        {session?.user?.name || 'User'}
+                        {session?.user?.firstName || 'User'}
                       </p>
                       <p className="text-xs text-gray-500 truncate">
                         {session?.user?.email}

@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
 
                   <!-- Body Content -->
                   <div style="padding: 40px 30px;">
-                    <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">Hello,</p>
+                    <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">Hello${user.firstName ? ` ${user.firstName}` : ''},</p>
 
                     <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
                       We received a request to reset the password for your BeamX Luna account. Click the button below to create a new password:
