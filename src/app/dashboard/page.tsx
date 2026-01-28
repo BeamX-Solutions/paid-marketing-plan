@@ -7,7 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import { CreditBalance, CreditTransaction } from '@/types';
-import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { User, Settings, LogOut, ChevronDown, MessageCircle } from 'lucide-react';
+import FeedbackModal from '@/components/FeedbackModal';
 
 function DashboardContent() {
   const { data: session, status } = useSession();
@@ -22,6 +23,7 @@ function DashboardContent() {
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'plans'>('overview');
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const paymentStatus = searchParams?.get('payment');
   const paymentReference = searchParams?.get('reference');
@@ -637,6 +639,24 @@ function DashboardContent() {
           </div>
         </div>
       </div>
+
+      {/* Floating Feedback Button */}
+      <button
+        onClick={() => setShowFeedbackModal(true)}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#008BD8] to-[#02428E] text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-40 group"
+        aria-label="Give Feedback"
+      >
+        <MessageCircle className="w-6 h-6" />
+        <span className="absolute right-16 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          Give Feedback
+        </span>
+      </button>
+
+      {/* Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={() => setShowFeedbackModal(false)}
+      />
     </div>
   );
 }

@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
                     <!-- Social Media Links -->
                     <div style="margin-bottom: 20px;">
                       <a href="https://twitter.com/beamxsolutions" style="display: inline-block; margin: 0 8px;">
-                        <img src="https://cdn-icons-png.flaticon.com/24/733/733579.png" alt="Twitter" style="width: 24px; height: 24px;" />
+                        <img src="https://cdn-icons-png.flaticon.com/24/5968/5968830.png" alt="X" style="width: 24px; height: 24px;" />
                       </a>
                       <a href="https://linkedin.com/company/beamxsolutions" style="display: inline-block; margin: 0 8px;">
                         <img src="https://cdn-icons-png.flaticon.com/24/733/733561.png" alt="LinkedIn" style="width: 24px; height: 24px;" />

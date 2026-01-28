@@ -13,7 +13,7 @@ export const PASSWORD_REQUIREMENTS = {
   requireUppercase: true,
   requireLowercase: true,
   requireNumbers: true,
-  requireSpecialChars: true,
+  requireSpecialChars: false,
 } as const;
 
 /**
@@ -40,26 +40,6 @@ export function validatePassword(password: string): PasswordValidationResult {
 
   if (PASSWORD_REQUIREMENTS.requireSpecialChars && !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
     errors.push('Password must contain at least one special character (!@#$%^&*()_+-=[]{};\'":\\|,.<>/?)');
-  }
-
-  // Check for common weak passwords
-  const commonPasswords = [
-    'password123', 'admin123456', 'welcome123', '123456789012',
-    'password1234', 'qwerty123456', 'letmein12345'
-  ];
-
-  if (commonPasswords.includes(password.toLowerCase())) {
-    errors.push('Password is too common. Please choose a more unique password');
-  }
-
-  // Check for sequential characters
-  if (/(?:abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz|012|123|234|345|456|567|678|789)/i.test(password)) {
-    errors.push('Password should not contain sequential characters');
-  }
-
-  // Check for repeated characters
-  if (/(.)\1{2,}/.test(password)) {
-    errors.push('Password should not contain repeated characters (e.g., "aaa", "111")');
   }
 
   return {
@@ -101,8 +81,5 @@ export function getPasswordRequirementsText(): string[] {
     'At least one uppercase letter (A-Z)',
     'At least one lowercase letter (a-z)',
     'At least one number (0-9)',
-    'At least one special character (!@#$%^&*)',
-    'No sequential or repeated characters',
-    'Not a common password',
   ];
 }

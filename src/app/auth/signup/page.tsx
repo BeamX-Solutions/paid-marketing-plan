@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
-import { ArrowLeft, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Eye, EyeOff, Check, X } from 'lucide-react';
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -21,10 +21,47 @@ const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Password validation states
+  const [passwordRequirements, setPasswordRequirements] = useState({
+    minLength: false,
+    hasUppercase: false,
+    hasLowercase: false,
+    hasNumber: false,
+  });
+
+  // Validate password on change
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+
+    setPasswordRequirements({
+      minLength: newPassword.length >= 8,
+      hasUppercase: /[A-Z]/.test(newPassword),
+      hasLowercase: /[a-z]/.test(newPassword),
+      hasNumber: /[0-9]/.test(newPassword),
+    });
+  };
+
+  const isPasswordValid = () => {
+    return (
+      passwordRequirements.minLength &&
+      passwordRequirements.hasUppercase &&
+      passwordRequirements.hasLowercase &&
+      passwordRequirements.hasNumber
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError('');
+
+    // Validate password before submitting
+    if (!isPasswordValid()) {
+      setError('Password must meet all requirements');
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch('/api/auth/register', {
@@ -208,11 +245,10 @@ const SignUpPage = () => {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePasswordChange}
                   placeholder="Create a password"
                   className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0F5AE0] focus:border-transparent transition-all duration-300"
                   required
-                  minLength={8}
                 />
                 <button
                   type="button"
@@ -222,7 +258,50 @@ const SignUpPage = () => {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <p className="text-gray-500 text-xs mt-1">Minimum 8 characters</p>
+
+              {/* Password Requirements */}
+              <div className="mt-3 space-y-2">
+                <div className="flex items-center gap-2 text-xs">
+                  {passwordRequirements.minLength ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <X className="w-4 h-4 text-gray-400" />
+                  )}
+                  <span className={passwordRequirements.minLength ? 'text-green-600' : 'text-gray-600'}>
+                    At least 8 characters
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  {passwordRequirements.hasUppercase ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <X className="w-4 h-4 text-gray-400" />
+                  )}
+                  <span className={passwordRequirements.hasUppercase ? 'text-green-600' : 'text-gray-600'}>
+                    At least one uppercase letter
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  {passwordRequirements.hasLowercase ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <X className="w-4 h-4 text-gray-400" />
+                  )}
+                  <span className={passwordRequirements.hasLowercase ? 'text-green-600' : 'text-gray-600'}>
+                    At least one lowercase letter
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  {passwordRequirements.hasNumber ? (
+                    <Check className="w-4 h-4 text-green-600" />
+                  ) : (
+                    <X className="w-4 h-4 text-gray-400" />
+                  )}
+                  <span className={passwordRequirements.hasNumber ? 'text-green-600' : 'text-gray-600'}>
+                    At least one number
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div className="flex items-start">
