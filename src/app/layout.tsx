@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
+import { Suspense } from "react";
 import "./globals.css";
 import AuthSessionProvider from "@/components/providers/SessionProvider";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "BeamX Luna | AI-Powered Marketing Tool",
@@ -68,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="font-sans antialiased">
+      <head>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-F9QMSMREGP"
@@ -79,11 +81,18 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-F9QMSMREGP');
+            gtag('config', 'G-F9QMSMREGP', {
+              page_path: window.location.pathname,
+              send_page_view: true
+            });
           `}
         </Script>
-
+      </head>
+      <body className="font-sans antialiased">
         <AuthSessionProvider>
+          <Suspense fallback={null}>
+            <GoogleAnalytics />
+          </Suspense>
           {children}
         </AuthSessionProvider>
       </body>

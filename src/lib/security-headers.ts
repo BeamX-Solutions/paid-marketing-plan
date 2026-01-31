@@ -6,23 +6,6 @@
 import { NextResponse } from 'next/server';
 
 /**
- * Content Security Policy for user-facing application
- */
-const USER_CSP = {
-  'default-src': ["'self'", 'https:'],
-  'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https:', 'http:'],
-  'style-src': ["'self'", "'unsafe-inline'", 'https:'],
-  'font-src': ["'self'", 'https:', 'data:'],
-  'img-src': ["'self'", 'data:', 'https:', 'http:', 'blob:'],
-  'connect-src': ["'self'", 'https:', 'http:', 'ws:', 'wss:'],
-  'frame-src': ["'self'", 'https:'],
-  'object-src': ["'none'"],
-  'base-uri': ["'self'"],
-  'form-action': ["'self'"],
-  'frame-ancestors': ["'none'"],
-};
-
-/**
  * Stricter Content Security Policy for admin subdomain
  * Note: Next.js requires unsafe-inline and unsafe-eval in development mode
  */
@@ -59,23 +42,11 @@ function cspToString(csp: Record<string, string[]>): string {
  * Apply user security headers
  */
 export function applyUserSecurityHeaders(response: NextResponse): NextResponse {
-  // Content Security Policy
-  response.headers.set('Content-Security-Policy', cspToString(USER_CSP));
-
-  // X-Frame-Options
-  response.headers.set('X-Frame-Options', 'DENY');
+  // Don't apply CSP for user-facing site to ensure analytics work
+  // Only apply minimal security headers
 
   // X-Content-Type-Options
   response.headers.set('X-Content-Type-Options', 'nosniff');
-
-  // Referrer-Policy
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-  // Permissions-Policy
-  response.headers.set(
-    'Permissions-Policy',
-    'camera=(), microphone=(), geolocation=(), interest-cohort=()'
-  );
 
   // X-XSS-Protection (legacy but still useful)
   response.headers.set('X-XSS-Protection', '1; mode=block');
