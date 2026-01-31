@@ -65,7 +65,7 @@ export default function InsufficientCreditsModal({
             <h3 className="font-semibold text-blue-900">Credit Package</h3>
           </div>
           <p className="text-sm text-blue-700 mb-3">
-            100 credits for $100 • Generate 2 marketing plans • Valid for 12 months
+            100 credits for ₦100,000 • Generate 2 marketing plans • Valid for 12 months
           </p>
         </div>
 
