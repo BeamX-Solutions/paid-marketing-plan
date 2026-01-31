@@ -69,7 +69,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <head>
+      <body className="font-sans antialiased">
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-F9QMSMREGP"
           strategy="afterInteractive"
@@ -82,8 +83,7 @@ export default function RootLayout({
             gtag('config', 'G-F9QMSMREGP');
           `}
         </Script>
-      </head>
-      <body className="font-sans antialiased">
+
         <AuthSessionProvider>
           {children}
           <CookieConsent />
