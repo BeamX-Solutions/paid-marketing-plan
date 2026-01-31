@@ -44,7 +44,9 @@
       "Bash(copy:*)",
       "Bash(git status:*)",
       "Bash(git add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(taskkill:*)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": []
