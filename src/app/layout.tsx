@@ -4,7 +4,6 @@ import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
 import "./globals.css";
 import AuthSessionProvider from "@/components/providers/SessionProvider";
-import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
   title: "BeamX Luna | AI-Powered Marketing Tool",
@@ -86,7 +85,6 @@ export default function RootLayout({
 
         <AuthSessionProvider>
           {children}
-          <CookieConsent />
         </AuthSessionProvider>
       </body>
     </html>
