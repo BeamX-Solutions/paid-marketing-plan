@@ -46,7 +46,8 @@
       "Bash(git add:*)",
       "Bash(git push:*)",
       "Bash(taskkill:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(del check-db.js check-failures.js test-claude.js)"
     ],
     "deny": [],
     "ask": []

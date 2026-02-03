@@ -385,7 +385,7 @@ export default function SamplePlanDetailPage() {
               <p className="text-lg text-gray-600 mt-2">{plan.businessName}</p>
             </div>
             <div className="mt-6 md:mt-0">
-              <Link href="/questionnaire">
+              <Link href="/questionnaire?new=true">
                 <button className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white px-6 py-3 text-sm font-semibold rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer inline-flex items-center">
                   Create Your Own Plan
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -542,7 +542,7 @@ export default function SamplePlanDetailPage() {
                 <p className="text-blue-100 text-sm mb-6">
                   Get a customized marketing plan tailored to your specific business needs.
                 </p>
-                <Link href="/questionnaire">
+                <Link href="/questionnaire?new=true">
                   <button className="w-full bg-white text-[#0F5AE0] px-6 py-3 text-sm font-semibold rounded-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 cursor-pointer">
                     Create Your Plan
                   </button>

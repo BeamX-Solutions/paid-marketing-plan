@@ -27,7 +27,7 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/questionnaire">
+              <Link href="/questionnaire?new=true">
                 <Button
                   size="lg"
                   className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white px-8 py-4 text-base rounded-lg hover:scale-105 transition-all duration-300 cursor-pointer"
@@ -212,7 +212,7 @@ export default function HomePage() {
           <p className="text-xl text-white/90 mb-12 leading-relaxed">
             Join hundreds of businesses that have created winning marketing strategies with our AI-powered platform.
           </p>
-          <Link href="/questionnaire">
+          <Link href="/questionnaire?new=true">
             <Button
               size="lg"
               className="bg-white text-[#0F5AE0] hover:bg-gray-100 hover:scale-105 px-10 py-5 text-lg font-semibold shadow-2xl transition-all duration-300 cursor-pointer rounded-lg"

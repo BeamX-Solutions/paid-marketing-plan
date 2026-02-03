@@ -56,7 +56,7 @@ export default function Navbar() {
                     Dashboard
                   </Button>
                 </Link>
-                <Link href="/questionnaire">
+                <Link href="/questionnaire?new=true">
                   <Button
                     size="sm"
                     className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg"
@@ -145,7 +145,7 @@ export default function Navbar() {
                         Dashboard
                       </Button>
                     </Link>
-                    <Link href="/questionnaire" className="block">
+                    <Link href="/questionnaire?new=true" className="block">
                       <Button
                         className="w-full bg-[#0F5AE0] hover:bg-[#0C48B3] text-white rounded-lg"
                         onClick={() => setMobileMenuOpen(false)}

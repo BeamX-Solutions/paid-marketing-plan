@@ -11,6 +11,33 @@ function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<'verifying' | 'success' | 'error'>('verifying');
   const [message, setMessage] = useState('');
+  const [resendEmail, setResendEmail] = useState('');
+  const [resendStatus, setResendStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [resendMessage, setResendMessage] = useState('');
+
+  const handleResendVerification = async () => {
+    if (!resendEmail) return;
+    setResendStatus('sending');
+    setResendMessage('');
+    try {
+      const response = await fetch('/api/auth/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: resendEmail }),
+      });
+      if (response.ok) {
+        setResendStatus('sent');
+        setResendMessage('Verification email sent! Please check your inbox.');
+      } else {
+        const data = await response.json();
+        setResendStatus('error');
+        setResendMessage(data.error || 'Failed to send verification email.');
+      }
+    } catch {
+      setResendStatus('error');
+      setResendMessage('Failed to send verification email. Please try again.');
+    }
+  };
 
   useEffect(() => {
     const token = searchParams.get('token');
@@ -116,7 +143,37 @@ function VerifyEmailContent() {
               <XCircle className="w-8 h-8 text-red-600" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Verification Failed</h1>
-            <p className="text-gray-600 mb-8">{message}</p>
+            <p className="text-gray-600 mb-6">{message}</p>
+
+            {/* Resend verification email */}
+            <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
+              <p className="text-sm font-medium text-gray-700 mb-3">
+                Enter your email to receive a new verification link:
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={resendEmail}
+                  onChange={(e) => setResendEmail(e.target.value)}
+                  placeholder="you@company.com"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <Button
+                  onClick={handleResendVerification}
+                  disabled={!resendEmail || resendStatus === 'sending'}
+                  className="text-sm whitespace-nowrap"
+                >
+                  {resendStatus === 'sending' ? 'Sending...' : 'Resend'}
+                </Button>
+              </div>
+              {resendStatus === 'sent' && (
+                <p className="text-green-600 text-sm mt-2">{resendMessage}</p>
+              )}
+              {resendStatus === 'error' && (
+                <p className="text-red-600 text-sm mt-2">{resendMessage}</p>
+              )}
+            </div>
+
             <div className="space-y-3">
               <Link href="/auth/signin">
                 <Button variant="outline" className="w-full">
@@ -125,8 +182,8 @@ function VerifyEmailContent() {
               </Link>
               <p className="text-sm text-gray-500">
                 Need help? Contact{' '}
-                <a href="mailto:support@marketingplan.ai" className="text-blue-600 hover:underline">
-                  support@marketingplan.ai
+                <a href="mailto:support@beamxsolutions.com" className="text-blue-600 hover:underline">
+                  support@beamxsolutions.com
                 </a>
               </p>
             </div>

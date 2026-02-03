@@ -398,7 +398,7 @@ export default function SamplePlansPage() {
                   </div>
                 </div>
               </div>
-              <Button onClick={() => router.push('/questionnaire')}>
+              <Button onClick={() => router.push('/questionnaire?new=true')}>
                 Create Your Own Plan
               </Button>
             </div>
@@ -552,7 +552,7 @@ export default function SamplePlansPage() {
                 <p className="text-sm text-gray-600 mb-4">
                   This is a sample plan. Get your own personalized marketing strategy tailored to your specific business.
                 </p>
-                <Button className="w-full" onClick={() => router.push('/questionnaire')}>
+                <Button className="w-full" onClick={() => router.push('/questionnaire?new=true')}>
                   Start Your Plan
                 </Button>
               </div>
@@ -579,7 +579,7 @@ export default function SamplePlansPage() {
               <Button variant="outline" onClick={() => router.push('/')}>
                 Back to Home
               </Button>
-              <Button onClick={() => router.push('/questionnaire')}>
+              <Button onClick={() => router.push('/questionnaire?new=true')}>
                 Create Your Plan
               </Button>
             </div>
@@ -661,7 +661,7 @@ export default function SamplePlansPage() {
           <Button 
             size="lg" 
             className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4"
-            onClick={() => router.push('/questionnaire')}
+            onClick={() => router.push('/questionnaire?new=true')}
           >
             Create Your Marketing Plan Now
             <ArrowRight className="ml-2 h-5 w-5" />

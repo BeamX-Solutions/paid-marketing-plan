@@ -196,7 +196,7 @@ function DashboardContent() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => router.push('/questionnaire')}
+                onClick={() => router.push('/questionnaire?new=true')}
                 className="border-[#0F5AE0] text-[#0F5AE0] hover:bg-white hover:scale-105 transition-all duration-300 cursor-pointer rounded-lg text-xs sm:text-sm px-2 sm:px-4"
               >
                 <span className="hidden sm:inline">Create New Plan</span>
@@ -580,7 +580,7 @@ function DashboardContent() {
                     </svg>
                     <p className="text-gray-500 mb-4">No marketing plans yet</p>
                     <Button
-                      onClick={() => router.push('/questionnaire')}
+                      onClick={() => router.push('/questionnaire?new=true')}
                       className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                     >
                       Create Your First Plan

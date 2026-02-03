@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import QuestionnaireStep from '@/components/questionnaire/QuestionnaireStep';
 import ProgressBar from '@/components/questionnaire/ProgressBar';
 import InsufficientCreditsModal from '@/components/credits/InsufficientCreditsModal';
@@ -18,6 +18,7 @@ import { analytics } from '@/lib/analytics/analyticsService';
 const QuestionnairePage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentSquare, setCurrentSquare] = useState(0);
   const [responses, setResponses] = useState<Record<string, any>>({});
@@ -184,6 +185,9 @@ const QuestionnairePage = () => {
         );
       }
 
+      // Clear saved responses after successful generation
+      localStorage.removeItem('questionnaire_responses');
+
       // Redirect to the results page
       router.push(`/plan/${plan.id}`);
     } catch (error) {
@@ -204,8 +208,16 @@ const QuestionnairePage = () => {
     }
   };
 
-  // Load saved responses on mount
+  // Load saved responses on mount, or clear them if starting a new plan
   useEffect(() => {
+    const isNewPlan = searchParams.get('new') === 'true';
+    if (isNewPlan) {
+      localStorage.removeItem('questionnaire_responses');
+      setResponses({});
+      setCurrentQuestionIndex(0);
+      setCompletedSquares([]);
+      return;
+    }
     const saved = localStorage.getItem('questionnaire_responses');
     if (saved) {
       try {
@@ -214,7 +226,7 @@ const QuestionnairePage = () => {
         console.error('Error loading saved responses:', error);
       }
     }
-  }, []);
+  }, [searchParams]);
 
   if (status === 'loading') {
     return (

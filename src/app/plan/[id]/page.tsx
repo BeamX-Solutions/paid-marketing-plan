@@ -310,13 +310,10 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Next Steps</h3>
               <div className="space-y-3">
-                <Button className="w-full" onClick={() => router.push('/implementation')}>
-                  Start Implementation
+                <Button className="w-full" onClick={() => window.open('https://calendly.com/beamxsolutions', '_blank')}>
+                  Book a Consultation
                 </Button>
-                <Button variant="outline" className="w-full" onClick={() => {}}>
-                  Schedule Consultation
-                </Button>
-                <Button variant="outline" className="w-full" onClick={() => router.push('/questionnaire')}>
+                <Button variant="outline" className="w-full" onClick={() => router.push('/questionnaire?new=true')}>
                   Create New Plan
                 </Button>
               </div>
