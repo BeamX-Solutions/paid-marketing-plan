@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import QuestionnaireStep from '@/components/questionnaire/QuestionnaireStep';
@@ -15,7 +15,7 @@ import {
 import { BusinessContext, QuestionnaireResponses, Question } from '@/types';
 import { analytics } from '@/lib/analytics/analyticsService';
 
-const QuestionnairePage = () => {
+const QuestionnaireContent = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -299,4 +299,14 @@ const QuestionnairePage = () => {
   );
 };
 
-export default QuestionnairePage;
+export default function QuestionnairePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#0F5AE0]"></div>
+      </div>
+    }>
+      <QuestionnaireContent />
+    </Suspense>
+  );
+}

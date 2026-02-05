@@ -182,8 +182,8 @@ function VerifyEmailContent() {
               </Link>
               <p className="text-sm text-gray-500">
                 Need help? Contact{' '}
-                <a href="mailto:support@beamxsolutions.com" className="text-blue-600 hover:underline">
-                  support@beamxsolutions.com
+                <a href="mailto:info@beamxsolutions.com" className="text-blue-600 hover:underline">
+                  info@beamxsolutions.com
                 </a>
               </p>
             </div>

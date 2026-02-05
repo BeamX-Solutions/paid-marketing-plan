@@ -311,8 +311,8 @@ export default function TermsOfServicePage() {
                 </p>
                 <p className="text-gray-700 mt-2">
                   <strong>Support:</strong>{' '}
-                  <a href="mailto:support@beamxsolutions.com" className="text-blue-600 hover:underline">
-                    support@beamxsolutions.com
+                  <a href="mailto:info@beamxsolutions.com" className="text-blue-600 hover:underline">
+                    info@beamxsolutions.com
                   </a>
                 </p>
               </div>

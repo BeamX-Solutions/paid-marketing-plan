@@ -255,7 +255,7 @@ NEXT STEPS:
 3. Start with Phase 1 activities (first 30 days)
 4. Schedule a follow-up to track your progress
 
-Need help? Contact us at support@beamxsolutions.com
+Need help? Contact us at info@beamxsolutions.com
 
 © 2026 BeamX Luna - Powered by BeamX Solutions
     `;
@@ -385,7 +385,7 @@ This marketing plan was generated using BeamX Luna's advanced reasoning capabili
 
             <div style="background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                 <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
-                    Questions? Reply to this email or contact support@beamxsolutions.com
+                    Questions? Reply to this email or contact info@beamxsolutions.com
                 </p>
                 <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                     © 2026 BeamX Solutions. All rights reserved.
@@ -419,7 +419,7 @@ WHY MARKETINGPLAN.AI?
 
 Ready to get started? Visit: https://beamxsolutions.com/questionnaire
 
-Questions? Contact us at support@beamxsolutions.com
+Questions? Contact us at info@beamxsolutions.com
 
 © 2026 BeamX Solutions
     `;

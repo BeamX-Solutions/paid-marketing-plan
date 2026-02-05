@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
 
                 <!-- Bottom Note -->
                 <p style="text-align: center; color: #9ca3af; font-size: 12px; margin-top: 20px;">
-                  This email was sent by BeamX Solutions. If you have any questions, contact us at support@beamxsolutions.com
+                  This email was sent by BeamX Solutions. If you have any questions, contact us at info@beamxsolutions.com
                 </p>
               </div>
             </body>
