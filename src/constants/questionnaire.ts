@@ -100,7 +100,7 @@ export const BUSINESS_CONTEXT_QUESTIONS: Question[] = [
     square: 0,
     text: 'What is your monthly marketing budget range?',
     type: 'select',
-    options: ['$0-$500', '$500-$2,000', '$2,000-$5,000', '$5,000-$10,000', '$10,000+'],
+    options: ['₦0-₦500,000', '₦500,000-₦2,000,000', '₦2,000,000-₦5,000,000', '₦5,000,000-₦10,000,000', '₦10,000,000+'],
     required: true
   },
   {
@@ -147,7 +147,7 @@ export const QUESTIONNAIRE_QUESTIONS: Question[] = [
     square: 1,
     text: 'What is the income level of your ideal customers?',
     type: 'select',
-    options: ['Under $30k', '$30k-$50k', '$50k-$75k', '$75k-$100k', '$100k-$150k', '$150k+', 'Varies/Business budget'],
+    options: ['Under ₦30M', '₦30M-₦50M', '₦50M-₦75M', '₦75M-₦100M', '₦100M-₦150M', '₦150M+', 'Varies/Business budget'],
     required: true
   },
   {
@@ -497,7 +497,7 @@ export const QUESTIONNAIRE_QUESTIONS: Question[] = [
     square: 8,
     text: 'What is the approximate lifetime value of your average customer?',
     type: 'select',
-    options: ['Under $500', '$500-$2,000', '$2,000-$10,000', '$10,000-$50,000', '$50,000+', 'I\'m not sure'],
+    options: ['Under ₦500,000', '₦500,000-₦2,000,000', '₦2,000,000-₦10,000,000', '₦10,000,000-₦50,000,000', '₦50,000,000+', 'I\'m not sure'],
     required: true
   },
 
