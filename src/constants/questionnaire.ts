@@ -30,7 +30,8 @@ export const BUSINESS_CONTEXT_QUESTIONS: Question[] = [
       'manufacturing',
       'education',
       'financial-services',
-      'nonprofit'
+      'nonprofit',
+      'travel'
     ],
     required: true,
     helpText: 'Select the industry that most closely matches your business model and target market.'

@@ -570,7 +570,7 @@ export default function SamplePlansPage() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center py-4">
             <img
-              src="/Beamx-Logo-Colour.png"
+              src="/logo.png"
               alt="BeamX Solutions Logo"
               className="h-12 w-auto max-w-[200px] cursor-pointer"
               onClick={() => router.push('/')}

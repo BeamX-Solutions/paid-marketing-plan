@@ -96,6 +96,14 @@ export const INDUSTRIES: Industry[] = [
     commonChallenges: ['Donor retention', 'Impact measurement', 'Volunteer engagement', 'Funding sustainability'],
     keyMetrics: ['Donation conversion', 'Donor lifetime value', 'Volunteer hours', 'Program effectiveness'],
     marketingChannels: ['Social media', 'Email marketing', 'Grant applications', 'Community events', 'Peer-to-peer']
+  },
+  {
+    id: 'travel',
+    name: 'Travel & Aviation',
+    description: 'Airlines, travel agencies, hospitality, and tourism businesses',
+    commonChallenges: ['Seasonal demand fluctuations', 'Price competition', 'Customer loyalty', 'Brand differentiation'],
+    keyMetrics: ['Booking conversion rate', 'Revenue per passenger', 'Customer retention rate', 'Net promoter score'],
+    marketingChannels: ['Google Ads', 'Social media', 'Email marketing', 'Travel platforms', 'Loyalty programs']
   }
 ];
 
@@ -105,12 +113,12 @@ export const getIndustryById = (id: string): Industry | undefined => {
 
 export const getIndustriesByCategory = (category: string): Industry[] => {
   const categories: Record<string, string[]> = {
-    'service': ['professional-services', 'healthcare', 'home-services', 'fitness', 'education', 'financial-services'],
+    'service': ['professional-services', 'healthcare', 'home-services', 'fitness', 'education', 'financial-services', 'travel'],
     'product': ['ecommerce', 'manufacturing', 'restaurants'],
     'technology': ['b2b-software', 'ecommerce'],
     'local': ['restaurants', 'real-estate', 'fitness', 'home-services', 'healthcare'],
-    'b2b': ['professional-services', 'b2b-software', 'manufacturing', 'financial-services'],
-    'b2c': ['ecommerce', 'restaurants', 'fitness', 'home-services', 'healthcare', 'real-estate']
+    'b2b': ['professional-services', 'b2b-software', 'manufacturing', 'financial-services', 'travel'],
+    'b2c': ['ecommerce', 'restaurants', 'fitness', 'home-services', 'healthcare', 'real-estate', 'travel']
   };
   
   const industryIds = categories[category] || [];
