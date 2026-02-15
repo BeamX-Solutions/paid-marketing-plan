@@ -105,6 +105,60 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { id: planId } = await params;
+
+    // Verify plan ownership
+    const existingPlan = await prisma.plan.findFirst({
+      where: {
+        id: planId,
+        user: { email: session.user.email }
+      }
+    });
+
+    if (!existingPlan) {
+      return NextResponse.json({ error: 'Plan not found' }, { status: 404 });
+    }
+
+    // Update only generatedContent (for edit mode)
+    const updatedPlan = await prisma.plan.update({
+      where: { id: planId },
+      data: {
+        generatedContent: body.generatedContent ? JSON.stringify(body.generatedContent) : existingPlan.generatedContent,
+        updatedAt: new Date()
+      },
+      include: {
+        user: true
+      }
+    });
+
+    // Parse JSON fields for response
+    const parsedPlan = {
+      ...updatedPlan,
+      generatedContent: updatedPlan.generatedContent ? JSON.parse(updatedPlan.generatedContent as string) : null
+    };
+
+    return NextResponse.json(parsedPlan);
+  } catch (error) {
+    console.error('Error patching plan:', error);
+    return NextResponse.json(
+      { error: 'Failed to update plan' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

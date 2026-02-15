@@ -115,7 +115,7 @@ export class EmailService {
   }
 
   private generateCompletionEmailHTML(data: EmailTemplateData): string {
-    const { businessName, generatedContent, businessContext, downloadUrl } = data;
+    const { businessName, website, generatedContent, businessContext, downloadUrl } = data;
     const { onePagePlan, strategicInsights } = generatedContent;
 
     return `

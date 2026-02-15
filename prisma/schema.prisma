@@ -29,6 +29,7 @@ model User {
   firstName             String?
   lastName              String?
   businessName          String?
+  website               String?
   industry              String?
   country               String?
   role                  Role       @default(USER)

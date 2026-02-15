@@ -6,7 +6,9 @@ import { useRouter } from 'next/navigation';
 import { Plan } from '@/types';
 import Button from '@/components/ui/Button';
 import ShareModal from '@/components/plan/ShareModal';
-import { Download, Share, Mail, ArrowLeft } from 'lucide-react';
+import EditableSection from '@/components/plan/EditableSection';
+import EditableGridItem from '@/components/plan/EditableGridItem';
+import { Download, Share, Mail, ArrowLeft, Edit3, Save, X } from 'lucide-react';
 import { analytics } from '@/lib/analytics/analyticsService';
 
 interface PlanPageProps {
@@ -27,6 +29,9 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -85,6 +90,49 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
       }
     } catch (err) {
       alert('Failed to download PDF');
+    }
+  };
+
+  const handleSectionUpdate = (path: string, newValue: string) => {
+    setPlan(prevPlan => {
+      if (!prevPlan) return prevPlan;
+      
+      const keys = path.split('.');
+      const updatedPlan = JSON.parse(JSON.stringify(prevPlan));
+      
+      let current = updatedPlan.generatedContent;
+      for (let i = 0; i < keys.length - 1; i++) {
+        current = current[keys[i]];
+      }
+      current[keys[keys.length - 1]] = newValue;
+      
+      setHasChanges(true);
+      return updatedPlan;
+    });
+  };
+
+  const handleSavePlan = async () => {
+    setIsSaving(true);
+    try {
+      const response = await fetch(`/api/plans/${planId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          generatedContent: plan?.generatedContent
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save plan');
+      }
+
+      setHasChanges(false);
+      setIsEditMode(false);
+      alert('Plan saved successfully!');
+    } catch (err) {
+      alert('Failed to save changes: ' + (err instanceof Error ? err.message : 'Unknown error'));
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -148,18 +196,41 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
               <p className="text-gray-600">Generated on {new Date(plan.createdAt).toLocaleDateString()}</p>
             </div>
             <div className="flex space-x-4">
-              <Button variant="outline" onClick={() => setShowShareModal(true)}>
-                <Share className="w-4 h-4 mr-2" />
-                Share
-              </Button>
-              <Button variant="outline" onClick={() => setShowShareModal(true)}>
-                <Mail className="w-4 h-4 mr-2" />
-                Email
-              </Button>
-              <Button onClick={downloadPDF}>
-                <Download className="w-4 h-4 mr-2" />
-                Download PDF
-              </Button>
+              {isEditMode ? (
+                <>
+                  <Button
+                    onClick={handleSavePlan}
+                    disabled={isSaving || !hasChanges}
+                    className={hasChanges ? '' : 'opacity-50 cursor-not-allowed'}
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    {isSaving ? 'Saving...' : 'Save Changes'}
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsEditMode(false)}>
+                    <X className="w-4 h-4 mr-2" />
+                    Done Editing
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" onClick={() => setIsEditMode(true)}>
+                    <Edit3 className="w-4 h-4 mr-2" />
+                    Edit Plan
+                  </Button>
+                  <Button variant="outline" onClick={() => setShowShareModal(true)}>
+                    <Share className="w-4 h-4 mr-2" />
+                    Share
+                  </Button>
+                  <Button variant="outline" onClick={() => setShowShareModal(true)}>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Email
+                  </Button>
+                  <Button onClick={downloadPDF}>
+                    <Download className="w-4 h-4 mr-2" />
+                    Download PDF
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -176,20 +247,41 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
               <div className="mb-8">
                 <h3 className="text-xl font-semibold text-blue-600 mb-4">BEFORE (Prospects)</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Target Market</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.before.targetMarket}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Message</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.before.message}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Media</h4>
-                    <ul className="text-gray-700 text-sm space-y-1">
+                  <EditableGridItem
+                    title="Target Market"
+                    content={onePagePlan.before.targetMarket}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.before.targetMarket', value)}
+                  />
+                  <EditableGridItem
+                    title="Message"
+                    content={onePagePlan.before.message}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.before.message', value)}
+                  />
+                  <div className="group relative">
+                    <div className="flex items-start justify-between mb-2">
+                      <h5 className="font-semibold text-gray-900 text-sm">Media</h5>
+                      {isEditMode && (
+                        <button
+                          onClick={() => {
+                            const newMedia = onePagePlan.before.media.join('\n');
+                            const edited = window.prompt('Edit media channels (one per line):', newMedia);
+                            if (edited !== null) {
+                              handleSectionUpdate('onePagePlan.before.media', edited.split('\n').filter(m => m.trim()).join('\n'));
+                            }
+                          }}
+                          className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded opacity-0 group-hover:opacity-100 transition"
+                          title="Edit"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                        </button>
+                      )}
+                    </div>
+                    <ul className="text-gray-700 text-xs space-y-1">
                       {onePagePlan.before.media.map((channel, index) => (
                         <li key={index} className="flex items-start">
-                          <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                          <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-1 mr-2 flex-shrink-0"></span>
                           {channel}
                         </li>
                       ))}
@@ -202,18 +294,24 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
               <div className="mb-8">
                 <h3 className="text-xl font-semibold text-green-600 mb-4">DURING (Leads)</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Lead Capture</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.during.leadCapture}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Lead Nurture</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.during.leadNurture}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Sales Conversion</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.during.salesConversion}</p>
-                  </div>
+                  <EditableGridItem
+                    title="Lead Capture"
+                    content={onePagePlan.during.leadCapture}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.during.leadCapture', value)}
+                  />
+                  <EditableGridItem
+                    title="Lead Nurture"
+                    content={onePagePlan.during.leadNurture}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.during.leadNurture', value)}
+                  />
+                  <EditableGridItem
+                    title="Sales Conversion"
+                    content={onePagePlan.during.salesConversion}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.during.salesConversion', value)}
+                  />
                 </div>
               </div>
 
@@ -221,18 +319,24 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
               <div>
                 <h3 className="text-xl font-semibold text-purple-600 mb-4">AFTER (Customers)</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Deliver Experience</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.after.deliverExperience}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Lifetime Value</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.after.lifetimeValue}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Referrals</h4>
-                    <p className="text-gray-700 text-sm">{onePagePlan.after.referrals}</p>
-                  </div>
+                  <EditableGridItem
+                    title="Deliver Experience"
+                    content={onePagePlan.after.deliverExperience}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.after.deliverExperience', value)}
+                  />
+                  <EditableGridItem
+                    title="Lifetime Value"
+                    content={onePagePlan.after.lifetimeValue}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.after.lifetimeValue', value)}
+                  />
+                  <EditableGridItem
+                    title="Referrals"
+                    content={onePagePlan.after.referrals}
+                    isEditMode={isEditMode}
+                    onSave={(value) => handleSectionUpdate('onePagePlan.after.referrals', value)}
+                  />
                 </div>
               </div>
             </div>
@@ -241,24 +345,33 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
             <div className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Implementation Guide</h2>
               
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Executive Summary</h3>
-                <p className="text-gray-700">{implementationGuide.executiveSummary}</p>
-              </div>
+              <EditableSection
+                title="Executive Summary"
+                content={implementationGuide.executiveSummary}
+                isEditMode={isEditMode}
+                onSave={(value) => handleSectionUpdate('implementationGuide.executiveSummary', value)}
+                className="mb-6"
+              />
 
               <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Phase 1 (First 30 Days)</h3>
-                  <p className="text-gray-700">{implementationGuide.actionPlans.phase1}</p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Phase 2 (Days 31-90)</h3>
-                  <p className="text-gray-700">{implementationGuide.actionPlans.phase2}</p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Phase 3 (Days 91-180)</h3>
-                  <p className="text-gray-700">{implementationGuide.actionPlans.phase3}</p>
-                </div>
+                <EditableSection
+                  title="Phase 1 (First 30 Days)"
+                  content={implementationGuide.actionPlans.phase1}
+                  isEditMode={isEditMode}
+                  onSave={(value) => handleSectionUpdate('implementationGuide.actionPlans.phase1', value)}
+                />
+                <EditableSection
+                  title="Phase 2 (Days 31-90)"
+                  content={implementationGuide.actionPlans.phase2}
+                  isEditMode={isEditMode}
+                  onSave={(value) => handleSectionUpdate('implementationGuide.actionPlans.phase2', value)}
+                />
+                <EditableSection
+                  title="Phase 3 (Days 91-180)"
+                  content={implementationGuide.actionPlans.phase3}
+                  isEditMode={isEditMode}
+                  onSave={(value) => handleSectionUpdate('implementationGuide.actionPlans.phase3', value)}
+                />
               </div>
             </div>
           </div>
