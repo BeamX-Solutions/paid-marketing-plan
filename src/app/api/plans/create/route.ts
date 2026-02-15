@@ -16,6 +16,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { businessContext, questionnaireResponses } = body;
 
+    // Extract businessName and website from responses
+    const businessName = questionnaireResponses?.['business-name'] || businessContext?.businessName || session.user.name;
+    const website = questionnaireResponses?.['business-website'] || undefined;
+
     // Find or create user
     let user = await prisma.user.findUnique({
       where: { email: session.user.email }
@@ -25,7 +29,17 @@ export async function POST(request: NextRequest) {
       user = await prisma.user.create({
         data: {
           email: session.user.email,
-          businessName: businessContext?.businessName || session.user.name
+          businessName: businessName,
+          website: website
+        }
+      });
+    } else {
+      // Update existing user with businessName and website from current session
+      user = await prisma.user.update({
+        where: { email: session.user.email },
+        data: {
+          businessName: businessName || user.businessName,
+          website: website || user.website
         }
       });
     }

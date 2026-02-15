@@ -2,6 +2,7 @@ export interface User {
   id: string;
   email: string;
   businessName?: string;
+  website?: string;
   industry?: string;
   profileData?: Record<string, any>;
   subscriptionStatus: string;
@@ -11,6 +12,8 @@ export interface User {
 export interface BusinessContext {
   industry: string;
   businessModel: 'B2B' | 'B2C' | 'B2B2C' | 'Marketplace';
+  businessName?: string;
+  website?: string;
   companySize: string;
   yearsInOperation: string;
   geographicScope: string;

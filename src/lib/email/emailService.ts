@@ -6,6 +6,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export interface EmailTemplateData {
   businessName?: string;
+    website?: string;
   userEmail: string;
   planId: string;
   generatedContent: GeneratedContent;
@@ -26,8 +27,8 @@ export class EmailService {
       return false;
     }
 
-    try {
-      const { businessName, userEmail, generatedContent, businessContext, downloadUrl } = data;
+        try {
+            const { businessName, website, userEmail, generatedContent, businessContext, downloadUrl } = data;
 
       const subject = `🎉 Your Marketing Plan is Ready${businessName ? ` for ${businessName}` : ''}!`;
 
@@ -140,6 +141,7 @@ export class EmailService {
                 <p style="font-size: 16px; margin-bottom: 25px; color: #4b5563;">
                     Hi there! Great news – your comprehensive marketing plan${businessName ? ` for <strong>${businessName}</strong>` : ''} is ready for download.
                 </p>
+                ${website ? `<p style="font-size:14px; color:#6b7280; margin-top:8px;">Website: <a href="${website}" style="color:#2563eb; text-decoration:none;">${website}</a></p>` : ''}
 
                 <!-- Download Button -->
                 <div style="text-align: center; margin: 30px 0;">
@@ -224,13 +226,14 @@ export class EmailService {
   }
 
   private generateCompletionEmailText(data: EmailTemplateData): string {
-    const { businessName, generatedContent, downloadUrl } = data;
+    const { businessName, website, generatedContent, downloadUrl } = data;
     const { onePagePlan, strategicInsights } = generatedContent;
 
     return `
 🎉 Your Marketing Plan is Complete!
 
 Hi there! Great news – your comprehensive marketing plan${businessName ? ` for ${businessName}` : ''} is ready for download.
+${website ? `Website: ${website}\n\n` : ''}
 
 Download Your Plan: ${downloadUrl}
 
@@ -262,7 +265,7 @@ Need help? Contact us at info@beamxsolutions.com
   }
 
   private generateShareEmailHTML(data: EmailTemplateData, senderName: string, message?: string): string {
-    const { businessName, downloadUrl } = data;
+    const { businessName, website, downloadUrl } = data;
 
     return `
     <!DOCTYPE html>
@@ -282,9 +285,10 @@ Need help? Contact us at info@beamxsolutions.com
             <div style="padding: 40px 30px;">
                 <h2 style="color: #1f2937; font-size: 24px; margin: 0 0 20px;">📊 Marketing Plan Shared With You</h2>
                 
-                <p style="font-size: 16px; margin-bottom: 25px; color: #4b5563;">
+                    <p style="font-size: 16px; margin-bottom: 25px; color: #4b5563;">
                     <strong>${senderName}</strong> has shared a marketing plan with you${businessName ? ` for <strong>${businessName}</strong>` : ''}.
                 </p>
+                ${website ? `<p style="font-size:14px; color:#6b7280; margin-top:8px;">Website: <a href="${website}" style="color:#2563eb; text-decoration:none;">${website}</a></p>` : ''}
 
                 ${message ? `
                 <div style="background: #f0f9ff; border-left: 4px solid #2563eb; padding: 20px; margin: 30px 0; border-radius: 6px;">
@@ -316,12 +320,13 @@ Need help? Contact us at info@beamxsolutions.com
   }
 
   private generateShareEmailText(data: EmailTemplateData, senderName: string, message?: string): string {
-    const { businessName, downloadUrl } = data;
+    const { businessName, website, downloadUrl } = data;
 
     return `
 📊 Marketing Plan Shared With You
 
 ${senderName} has shared a marketing plan with you${businessName ? ` for ${businessName}` : ''}.
+${website ? `Website: ${website}\n\n` : ''}
 
 ${message ? `Message from ${senderName}: "${message}"` : ''}
 

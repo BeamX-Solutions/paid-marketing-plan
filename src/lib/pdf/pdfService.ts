@@ -10,6 +10,7 @@ export interface PDFGenerationData {
   user: {
     email: string;
     businessName?: string;
+    website?: string;
   };
   createdAt: string;
 }

@@ -9,6 +9,7 @@ declare module 'next-auth' {
       status: UserStatus;
       firstName?: string;
       businessName?: string;
+      website?: string;
       industry?: string;
     } & DefaultSession['user'];
   }
@@ -18,6 +19,7 @@ declare module 'next-auth' {
     status: UserStatus;
     firstName?: string;
     businessName?: string;
+    website?: string;
     industry?: string;
   }
 }
@@ -28,6 +30,7 @@ declare module 'next-auth/jwt' {
     status: UserStatus;
     firstName?: string;
     businessName?: string;
+    website?: string;
     industry?: string;
   }
 }

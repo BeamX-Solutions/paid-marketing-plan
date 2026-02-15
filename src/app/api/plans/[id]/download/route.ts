@@ -46,7 +46,8 @@ export async function GET(
       businessContext: JSON.parse(plan.businessContext as string),
       user: {
         email: plan.user.email,
-        businessName: plan.user.businessName || undefined
+        businessName: plan.user.businessName || undefined,
+        website: plan.user.website || undefined
       },
       createdAt: plan.createdAt.toISOString()
     };

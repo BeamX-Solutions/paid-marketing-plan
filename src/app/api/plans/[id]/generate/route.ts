@@ -173,6 +173,7 @@ export async function POST(
 
       const emailData = {
         businessName: plan.user.businessName || undefined,
+        website: plan.user.website || undefined,
         userEmail: plan.user.email,
         planId: plan.id,
         generatedContent: generatedContent as any,

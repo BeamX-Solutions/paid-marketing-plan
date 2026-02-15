@@ -119,6 +119,8 @@ const QuestionnaireContent = () => {
     try {
       // Structure responses according to our types
       const businessContext: Partial<BusinessContext> = {
+        businessName: responses['business-name'],
+        website: responses['business-website'] || undefined,
         industry: responses['industry'],
         businessModel: responses['business-model'],
         companySize: responses['company-size'],

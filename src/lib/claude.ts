@@ -26,6 +26,8 @@ const ANALYSIS_PROMPT = `
 You are an expert marketing strategist analyzing a business for comprehensive strategic planning. 
 Review the following business information and questionnaire responses, then provide a thorough analysis.
 
+Business Name: {business_name}
+Business Website: {business_website}
 Business Context: {business_context}
 Questionnaire Responses: {responses}
 
@@ -43,8 +45,10 @@ Return only valid JSON without any markdown formatting or additional text.
 `;
 
 const STRATEGY_PROMPT = `
-Based on the business analysis provided, develop a comprehensive marketing strategy that follows the 9-square marketing plan framework.
+Based on the business analysis provided, develop a comprehensive marketing strategy for this business that follows the 9-square marketing plan framework.
 
+Business Name: {business_name}
+Business Website: {business_website}
 Business Analysis: {analysis}
 Business Context: {business_context}
 Questionnaire Responses: {responses}
@@ -116,6 +120,8 @@ export class ClaudeService {
 
     try {
       const prompt = ANALYSIS_PROMPT
+        .replace('{business_name}', businessContext.businessName || 'Unknown Business')
+        .replace('{business_website}', businessContext.website || 'No website provided')
         .replace('{business_context}', JSON.stringify(businessContext, null, 2))
         .replace('{responses}', JSON.stringify(responses, null, 2));
 
@@ -156,6 +162,8 @@ export class ClaudeService {
 
     try {
       const prompt = STRATEGY_PROMPT
+        .replace('{business_name}', businessContext.businessName || 'Unknown Business')
+        .replace('{business_website}', businessContext.website || 'No website provided')
         .replace('{analysis}', JSON.stringify(analysis, null, 2))
         .replace('{business_context}', JSON.stringify(businessContext, null, 2))
         .replace('{responses}', JSON.stringify(responses, null, 2));

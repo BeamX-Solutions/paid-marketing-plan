@@ -14,6 +14,24 @@ export const MARKETING_SQUARES = [
 
 export const BUSINESS_CONTEXT_QUESTIONS: Question[] = [
   {
+    id: 'business-name',
+    square: 0,
+    text: 'What is your business name?',
+    type: 'text',
+    placeholder: 'Enter your business name...',
+    required: true,
+    helpText: 'This will be included in your marketing plan and communications.'
+  },
+  {
+    id: 'business-website',
+    square: 0,
+    text: 'What is your website URL? (Optional)',
+    type: 'text',
+    placeholder: 'https://www.example.com',
+    required: false,
+    helpText: 'We\'ll include this in your marketing plan and send it with your plan details.'
+  },
+  {
     id: 'industry',
     square: 0,
     text: 'What industry best describes your business?',

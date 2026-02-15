@@ -168,6 +168,7 @@ interface PDFTemplateProps {
     user: {
       email: string;
       businessName?: string;
+      website?: string;
     };
     createdAt: string;
   };
@@ -214,6 +215,11 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
           <Text style={styles.subtitle}>
             {user.businessName || user.email}
           </Text>
+          {user.website && (
+            <Text style={[styles.text, { textAlign: 'center', marginBottom: 20 }]}>
+              {user.website}
+            </Text>
+          )}
           <Text style={[styles.text, { textAlign: 'center', marginTop: 20 }]}>
             Industry: {businessContext.industry?.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
           </Text>
