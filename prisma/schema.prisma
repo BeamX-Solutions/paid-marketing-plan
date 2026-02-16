@@ -87,6 +87,8 @@ model Plan {
   createdAt               DateTime  @default(now())
   updatedAt               DateTime  @updatedAt
   completedAt             DateTime?
+  shareToken              String?   @unique
+  sharedAt                DateTime?
 
   user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   claudeInteractions      ClaudeInteraction[]

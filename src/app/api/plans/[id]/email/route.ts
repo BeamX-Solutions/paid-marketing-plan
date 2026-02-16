@@ -70,14 +70,29 @@ export async function POST(
       case 'share':
         // Share plan with another email address
         if (!recipientEmail) {
-          return NextResponse.json({ 
-            error: 'Recipient email is required for sharing' 
+          return NextResponse.json({
+            error: 'Recipient email is required for sharing'
           }, { status: 400 });
         }
 
+        // Generate share token if plan doesn't have one yet
+        let shareToken = plan.shareToken;
+        if (!shareToken) {
+          const crypto = await import('crypto');
+          shareToken = crypto.randomBytes(32).toString('hex');
+          await prisma.plan.update({
+            where: { id: plan.id },
+            data: { shareToken, sharedAt: new Date() },
+          });
+        }
+
+        // Use public share URL instead of authenticated plan URL
+        const shareUrl = `${baseUrl}/shared/${shareToken}`;
+        const shareEmailData = { ...emailData, downloadUrl: shareUrl };
+
         const senderName = plan.user.businessName || plan.user.email.split('@')[0];
         success = await emailService.sendPlanShareEmail(
-          emailData,
+          shareEmailData,
           recipientEmail,
           senderName,
           message

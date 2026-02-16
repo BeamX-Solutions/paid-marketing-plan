@@ -301,6 +301,9 @@ Need help? Contact us at info@beamxsolutions.com
                     <a href="${downloadUrl}" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; font-size: 16px;">
                         📄 View Marketing Plan
                     </a>
+                    <p style="color: #6b7280; font-size: 13px; margin: 10px 0 0;">
+                        No account required &mdash; click to view the full plan instantly.
+                    </p>
                 </div>
 
                 <p style="color: #6b7280; font-size: 14px; text-align: center; margin: 30px 0;">
@@ -331,6 +334,7 @@ ${website ? `Website: ${website}\n\n` : ''}
 ${message ? `Message from ${senderName}: "${message}"` : ''}
 
 View Plan: ${downloadUrl}
+(No account required - click to view instantly)
 
 This marketing plan was generated using BeamX Luna's advanced reasoning capabilities.
 
