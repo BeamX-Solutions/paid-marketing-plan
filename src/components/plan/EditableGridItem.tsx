@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit2, Check, X } from 'lucide-react';
 
 interface EditableGridItemProps {
@@ -18,6 +18,12 @@ const EditableGridItem: React.FC<EditableGridItemProps> = ({
 }) => {
   const [editedContent, setEditedContent] = useState(content);
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (!isEditing) {
+      setEditedContent(content);
+    }
+  }, [content, isEditing]);
 
   const handleSave = () => {
     onSave(editedContent);

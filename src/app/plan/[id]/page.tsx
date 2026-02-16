@@ -93,7 +93,7 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
     }
   };
 
-  const handleSectionUpdate = (path: string, newValue: string) => {
+  const handleSectionUpdate = (path: string, newValue: string | string[]) => {
     setPlan(prevPlan => {
       if (!prevPlan) return prevPlan;
       
@@ -206,7 +206,11 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
                     <Save className="w-4 h-4 mr-2" />
                     {isSaving ? 'Saving...' : 'Save Changes'}
                   </Button>
-                  <Button variant="outline" onClick={() => setIsEditMode(false)}>
+                  <Button variant="outline" onClick={() => {
+                    if (hasChanges && !confirm('You have unsaved changes. Discard them?')) return;
+                    setHasChanges(false);
+                    setIsEditMode(false);
+                  }}>
                     <X className="w-4 h-4 mr-2" />
                     Done Editing
                   </Button>
@@ -268,7 +272,7 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
                             const newMedia = onePagePlan.before.media.join('\n');
                             const edited = window.prompt('Edit media channels (one per line):', newMedia);
                             if (edited !== null) {
-                              handleSectionUpdate('onePagePlan.before.media', edited.split('\n').filter(m => m.trim()).join('\n'));
+                              handleSectionUpdate('onePagePlan.before.media', edited.split('\n').filter((m: string) => m.trim()));
                             }
                           }}
                           className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded opacity-0 group-hover:opacity-100 transition"

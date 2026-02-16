@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit2, Check, X } from 'lucide-react';
 
 interface EditableSectionProps {
@@ -20,6 +20,12 @@ const EditableSection: React.FC<EditableSectionProps> = ({
 }) => {
   const [editedContent, setEditedContent] = useState(content);
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (!isEditing) {
+      setEditedContent(content);
+    }
+  }, [content, isEditing]);
 
   const handleSave = () => {
     onSave(editedContent);
