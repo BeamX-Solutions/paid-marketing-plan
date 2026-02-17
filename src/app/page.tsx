@@ -23,7 +23,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Our AI-powered questionnaire creates a comprehensive marketing strategy tailored specifically to your business. No marketing experience required.
+              BeamX Luna creates a comprehensive marketing strategy tailored specifically to your business. No marketing experience required.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -59,7 +59,7 @@ export default function HomePage() {
               Everything You Need for Marketing Success
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our AI-powered system guides you through a proven framework to create a complete marketing strategy that actually works.
+              BeamX Luna guides you through a proven framework to create a complete marketing strategy that actually works.
             </p>
           </div>
 
@@ -210,7 +210,7 @@ export default function HomePage() {
             Ready to Transform Your Marketing?
           </h2>
           <p className="text-xl text-white/90 mb-12 leading-relaxed">
-            Join hundreds of businesses that have created winning marketing strategies with our AI-powered platform.
+            Join hundreds of businesses that have created winning marketing strategies with BeamX Luna.
           </p>
           <Link href="/questionnaire?new=true">
             <Button

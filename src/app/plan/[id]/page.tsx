@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import ShareModal from '@/components/plan/ShareModal';
 import EditableSection from '@/components/plan/EditableSection';
 import EditableGridItem from '@/components/plan/EditableGridItem';
+import PlanRatingPopup from '@/components/plan/PlanRatingPopup';
 import { Download, Share, Mail, ArrowLeft, Edit3, Save, X } from 'lucide-react';
 import { analytics } from '@/lib/analytics/analyticsService';
 
@@ -446,6 +447,9 @@ const PlanPage: React.FC<PlanPageProps> = ({ params }) => {
         planId={planId}
         businessName={plan?.user?.businessName}
       />
+
+      {/* Rating Popup - appears after 30 seconds */}
+      <PlanRatingPopup planId={planId} />
     </div>
   );
 };

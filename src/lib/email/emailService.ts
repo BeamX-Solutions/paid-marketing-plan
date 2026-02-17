@@ -422,13 +422,162 @@ WHAT HAPPENS NEXT:
 
 WHY MARKETINGPLAN.AI?
 • Powered by BeamX Luna's superior reasoning
-• Industry-specific recommendations  
+• Industry-specific recommendations
 • Proven 9-square marketing framework
 • Actionable implementation guides
 
 Ready to get started? Visit: https://beamxsolutions.com/questionnaire
 
 Questions? Contact us at info@beamxsolutions.com
+
+© 2026 BeamX Solutions
+    `;
+  }
+
+  async sendCreditNotificationEmail(params: {
+    userEmail: string;
+    businessName?: string;
+    type: 'addition' | 'deduction' | 'purchase';
+    amount: number;
+    balanceAfter: number;
+    description: string;
+  }): Promise<boolean> {
+    if (!resend) {
+      console.log('Email service not configured (no RESEND_API_KEY), skipping credit notification email');
+      return false;
+    }
+
+    try {
+      const subjectMap = {
+        addition: 'Credits Added to Your BeamX Luna Account',
+        deduction: 'Credits Used on Your BeamX Luna Account',
+        purchase: 'Credit Purchase Confirmed - BeamX Luna',
+      };
+
+      const result = await resend.emails.send({
+        from: this.fromEmail,
+        to: [params.userEmail],
+        subject: subjectMap[params.type],
+        html: this.generateCreditNotificationHTML(params),
+        text: this.generateCreditNotificationText(params),
+      });
+
+      console.log('Credit notification email sent successfully:', result.data?.id);
+      return true;
+    } catch (error) {
+      console.error('Error sending credit notification email:', error);
+      return false;
+    }
+  }
+
+  private generateCreditNotificationHTML(params: {
+    businessName?: string;
+    type: 'addition' | 'deduction' | 'purchase';
+    amount: number;
+    balanceAfter: number;
+    description: string;
+  }): string {
+    const { businessName, type, amount, balanceAfter, description } = params;
+
+    const titleMap = {
+      addition: 'Credits Added!',
+      deduction: 'Credits Used',
+      purchase: 'Purchase Confirmed!',
+    };
+
+    const isPositive = type === 'addition' || type === 'purchase';
+    const amountColor = isPositive ? '#16a34a' : '#2563eb';
+    const amountBg = isPositive ? '#f0fdf4' : '#eff6ff';
+    const amountPrefix = isPositive ? '+' : '-';
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Credit Notification</title>
+    </head>
+    <body style="font-family: 'Inter', Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #2563eb, #9333ea); padding: 30px; text-align: center;">
+                <h1 style="color: white; margin: 0; font-size: 24px; font-weight: bold;">BeamX Luna</h1>
+                <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 14px;">Credit Notification</p>
+            </div>
+
+            <!-- Body -->
+            <div style="padding: 40px 30px;">
+                <h2 style="color: #1f2937; margin: 0 0 8px; font-size: 22px;">${titleMap[type]}</h2>
+                ${businessName ? `<p style="color: #6b7280; margin: 0 0 25px; font-size: 14px;">Account: ${businessName}</p>` : '<div style="margin-bottom: 25px;"></div>'}
+
+                <!-- Amount Box -->
+                <div style="background: ${amountBg}; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 25px;">
+                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 8px;">Credits ${isPositive ? 'Added' : 'Used'}</p>
+                    <p style="color: ${amountColor}; font-size: 36px; font-weight: bold; margin: 0;">${amountPrefix}${amount}</p>
+                </div>
+
+                <!-- Details -->
+                <div style="background: #f9fafb; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Description</td>
+                            <td style="padding: 8px 0; color: #1f2937; font-size: 14px; text-align: right; font-weight: 500;">${description}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb;">New Balance</td>
+                            <td style="padding: 8px 0; color: #1f2937; font-size: 14px; text-align: right; font-weight: 700; border-top: 1px solid #e5e7eb;">${balanceAfter} credits</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- CTA -->
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="${baseUrl}/dashboard" style="display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; font-size: 15px;">
+                        View Your Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background: #f9fafb; padding: 25px; text-align: center; border-top: 1px solid #e5e7eb;">
+                <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                    &copy; 2026 BeamX Solutions. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+  }
+
+  private generateCreditNotificationText(params: {
+    businessName?: string;
+    type: 'addition' | 'deduction' | 'purchase';
+    amount: number;
+    balanceAfter: number;
+    description: string;
+  }): string {
+    const { businessName, type, amount, balanceAfter, description } = params;
+    const isPositive = type === 'addition' || type === 'purchase';
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+
+    const titleMap = {
+      addition: 'Credits Added',
+      deduction: 'Credits Used',
+      purchase: 'Purchase Confirmed',
+    };
+
+    return `
+${titleMap[type]} - BeamX Luna
+${businessName ? `\nAccount: ${businessName}` : ''}
+
+${isPositive ? '+' : '-'}${amount} credits
+Description: ${description}
+New Balance: ${balanceAfter} credits
+
+View your dashboard: ${baseUrl}/dashboard
 
 © 2026 BeamX Solutions
     `;

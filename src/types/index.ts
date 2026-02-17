@@ -235,6 +235,7 @@ export interface Question {
   required: boolean;
   helpText?: string;
   placeholder?: string;
+  maxSelections?: number;
   validation?: Record<string, any>;
   conditional?: {
     field: string;

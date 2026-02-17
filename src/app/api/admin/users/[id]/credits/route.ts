@@ -9,6 +9,7 @@ import {
 } from '@/lib/credit-validation';
 import { z } from 'zod';
 import { randomUUID } from 'crypto';
+import { emailService } from '@/lib/email/emailService';
 
 const prisma = new PrismaClient();
 
@@ -214,6 +215,20 @@ export async function POST(
           },
         });
       });
+    }
+
+    // Send credit notification email (non-blocking)
+    try {
+      await emailService.sendCreditNotificationEmail({
+        userEmail: user.email,
+        businessName: user.businessName || undefined,
+        type: operationType === 'addition' ? 'addition' : 'deduction',
+        amount: Math.abs(amount),
+        balanceAfter: newBalance,
+        description: reason || (operationType === 'addition' ? 'Admin credit grant' : 'Admin credit deduction'),
+      });
+    } catch (emailError) {
+      console.error('Failed to send credit notification email:', emailError);
     }
 
     return NextResponse.json({

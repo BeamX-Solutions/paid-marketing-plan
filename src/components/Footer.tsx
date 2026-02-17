@@ -35,7 +35,7 @@ export default function Footer() {
           </Link>
 
           <p className="text-base text-gray-300 mb-8 max-w-lg">
-            AI-powered marketing plan generator helping businesses create comprehensive marketing strategies in minutes.
+            BeamX Luna is an AI-powered marketing plan solution helping businesses create comprehensive marketing strategies in minutes.
           </p>
 
           {/* Social Media Links */}

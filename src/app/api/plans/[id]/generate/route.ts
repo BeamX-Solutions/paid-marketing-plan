@@ -68,6 +68,17 @@ export async function POST(
         planId,
         'Marketing plan generation'
       );
+
+      // Send credit deduction notification (non-blocking)
+      const balanceAfterDeduction = await creditService.getUserCreditBalance(plan.user.id);
+      emailService.sendCreditNotificationEmail({
+        userEmail: plan.user.email,
+        businessName: plan.user.businessName || undefined,
+        type: 'deduction',
+        amount: CREDITS_PER_PLAN,
+        balanceAfter: balanceAfterDeduction.totalCredits,
+        description: 'Marketing plan generation',
+      }).catch(err => console.error('Failed to send credit notification email:', err));
     } catch (error) {
       return NextResponse.json({
         error: 'Credit deduction failed',

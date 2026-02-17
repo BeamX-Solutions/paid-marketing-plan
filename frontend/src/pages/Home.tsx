@@ -107,7 +107,7 @@ const Home: React.FC = () => {
               Everything You Need for Marketing Success
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our AI-powered system guides you through a proven framework to create 
+              BeamX Luna guides you through a proven framework to create
               a complete marketing strategy that actually works.
             </p>
           </div>
@@ -259,7 +259,7 @@ const Home: React.FC = () => {
             Ready to Transform Your Marketing?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join thousands of businesses that have created winning marketing strategies with our AI-powered platform.
+            Join thousands of businesses that have created winning marketing strategies with BeamX Luna.
           </p>
           <Link
             to={isAuthenticated ? "/plans/create" : "/register"}

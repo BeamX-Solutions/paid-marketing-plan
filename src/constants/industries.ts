@@ -104,6 +104,46 @@ export const INDUSTRIES: Industry[] = [
     commonChallenges: ['Seasonal demand fluctuations', 'Price competition', 'Customer loyalty', 'Brand differentiation'],
     keyMetrics: ['Booking conversion rate', 'Revenue per passenger', 'Customer retention rate', 'Net promoter score'],
     marketingChannels: ['Google Ads', 'Social media', 'Email marketing', 'Travel platforms', 'Loyalty programs']
+  },
+  {
+    id: 'technology',
+    name: 'Technology',
+    description: 'Technology companies, IT services, hardware, and digital solutions',
+    commonChallenges: ['Rapid market changes', 'Talent acquisition', 'Product differentiation', 'Customer education'],
+    keyMetrics: ['User adoption rate', 'Customer acquisition cost', 'Revenue growth rate', 'Net promoter score'],
+    marketingChannels: ['Content marketing', 'SEO', 'LinkedIn', 'Webinars', 'Developer communities']
+  },
+  {
+    id: 'retail',
+    name: 'Retail',
+    description: 'Brick-and-mortar retail stores, chains, and omnichannel retailers',
+    commonChallenges: ['Foot traffic decline', 'Online competition', 'Inventory management', 'Customer loyalty'],
+    keyMetrics: ['Sales per square foot', 'Inventory turnover', 'Customer retention rate', 'Average transaction value'],
+    marketingChannels: ['Local SEO', 'Social media', 'In-store promotions', 'Loyalty programs', 'Email marketing']
+  },
+  {
+    id: 'logistics',
+    name: 'Logistics',
+    description: 'Supply chain management, freight, shipping, and distribution services',
+    commonChallenges: ['Route optimization', 'Cost management', 'Regulatory compliance', 'Technology adoption'],
+    keyMetrics: ['On-time delivery rate', 'Cost per shipment', 'Fleet utilization', 'Customer satisfaction'],
+    marketingChannels: ['LinkedIn', 'Trade shows', 'Industry publications', 'Direct sales', 'B2B directories']
+  },
+  {
+    id: 'media-entertainment',
+    name: 'Media & Entertainment',
+    description: 'Media production, broadcasting, streaming, gaming, and entertainment services',
+    commonChallenges: ['Audience engagement', 'Content monetization', 'Platform fragmentation', 'Audience retention'],
+    keyMetrics: ['Audience reach', 'Engagement rate', 'Subscriber growth', 'Revenue per user'],
+    marketingChannels: ['Social media', 'Influencer partnerships', 'Content marketing', 'Paid media', 'Events']
+  },
+  {
+    id: 'hospitality',
+    name: 'Hospitality',
+    description: 'Hotels, resorts, event venues, and hospitality management',
+    commonChallenges: ['Seasonal demand', 'Online reputation management', 'Guest experience consistency', 'Price competition'],
+    keyMetrics: ['Occupancy rate', 'Revenue per available room', 'Guest satisfaction score', 'Repeat booking rate'],
+    marketingChannels: ['Booking platforms', 'Google Ads', 'Social media', 'Email marketing', 'Loyalty programs']
   }
 ];
 
@@ -113,12 +153,12 @@ export const getIndustryById = (id: string): Industry | undefined => {
 
 export const getIndustriesByCategory = (category: string): Industry[] => {
   const categories: Record<string, string[]> = {
-    'service': ['professional-services', 'healthcare', 'home-services', 'fitness', 'education', 'financial-services', 'travel'],
-    'product': ['ecommerce', 'manufacturing', 'restaurants'],
-    'technology': ['b2b-software', 'ecommerce'],
-    'local': ['restaurants', 'real-estate', 'fitness', 'home-services', 'healthcare'],
-    'b2b': ['professional-services', 'b2b-software', 'manufacturing', 'financial-services', 'travel'],
-    'b2c': ['ecommerce', 'restaurants', 'fitness', 'home-services', 'healthcare', 'real-estate', 'travel']
+    'service': ['professional-services', 'healthcare', 'home-services', 'fitness', 'education', 'financial-services', 'travel', 'hospitality', 'logistics'],
+    'product': ['ecommerce', 'manufacturing', 'restaurants', 'retail'],
+    'technology': ['b2b-software', 'ecommerce', 'technology', 'media-entertainment'],
+    'local': ['restaurants', 'real-estate', 'fitness', 'home-services', 'healthcare', 'retail', 'hospitality'],
+    'b2b': ['professional-services', 'b2b-software', 'manufacturing', 'financial-services', 'travel', 'logistics', 'technology'],
+    'b2c': ['ecommerce', 'restaurants', 'fitness', 'home-services', 'healthcare', 'real-estate', 'travel', 'retail', 'hospitality', 'media-entertainment']
   };
   
   const industryIds = categories[category] || [];

@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
                     <p style="font-size: 16px; color: #374151; margin-bottom: 20px;">Hello${firstName ? ` ${firstName}` : ''},</p>
 
                     <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
-                      Thank you for signing up! Please verify your email address to get started with creating your AI-powered marketing plans.
+                      Thank you for signing up! Please verify your email address to get started with creating your marketing plans on BeamX Luna.
                     </p>
 
                     <!-- CTA Button -->

@@ -35,6 +35,9 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
   const handleMultiSelectChange = (option: string, checked: boolean) => {
     const currentValue = Array.isArray(value) ? value : [];
     if (checked) {
+      if (question.maxSelections && currentValue.length >= question.maxSelections) {
+        return;
+      }
       onChange([...currentValue, option]);
     } else {
       onChange(currentValue.filter((item: string) => item !== option));
@@ -102,19 +105,30 @@ const QuestionnaireStep: React.FC<QuestionnaireStepProps> = ({
 
       case 'multiselect':
         const selectedValues = Array.isArray(value) ? value : [];
+        const atLimit = question.maxSelections ? selectedValues.length >= question.maxSelections : false;
         return (
           <div className="space-y-3">
-            {question.options?.map((option) => (
-              <label key={option} className="flex items-start space-x-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedValues.includes(option)}
-                  onChange={(e) => handleMultiSelectChange(option, e.target.checked)}
-                  className="mt-1 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-gray-700 leading-tight">{option}</span>
-              </label>
-            ))}
+            {question.maxSelections && (
+              <p className="text-sm text-gray-500 mb-1">
+                {selectedValues.length} of {question.maxSelections} selected
+              </p>
+            )}
+            {question.options?.map((option) => {
+              const isChecked = selectedValues.includes(option);
+              const isDisabled = atLimit && !isChecked;
+              return (
+                <label key={option} className={cn("flex items-start space-x-3", isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer")}>
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    disabled={isDisabled}
+                    onChange={(e) => handleMultiSelectChange(option, e.target.checked)}
+                    className="mt-1 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <span className="text-gray-700 leading-tight">{option}</span>
+                </label>
+              );
+            })}
           </div>
         );
 

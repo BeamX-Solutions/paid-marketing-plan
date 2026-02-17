@@ -38,7 +38,7 @@ export default function TermsOfServicePage() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Description of Service</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                BeamX Solutions is an AI-powered platform that helps businesses create comprehensive marketing plans through an interactive questionnaire. Our Service uses artificial intelligence (Claude AI by Anthropic) to generate personalized marketing strategies based on your business information.
+                BeamX Luna is an AI-powered marketing plan solution that helps businesses create comprehensive marketing plans through an interactive questionnaire. Our Service uses artificial intelligence (Claude AI by Anthropic) to generate personalized marketing strategies based on your business information.
               </p>
               <p className="text-gray-700 leading-relaxed">
                 The Service operates on a credit-based system where users purchase credits to generate marketing plans.

@@ -49,7 +49,12 @@ export const BUSINESS_CONTEXT_QUESTIONS: Question[] = [
       'education',
       'financial-services',
       'nonprofit',
-      'travel'
+      'travel',
+      'technology',
+      'retail',
+      'logistics',
+      'media-entertainment',
+      'hospitality'
     ],
     required: true,
     helpText: 'Select the industry that most closely matches your business model and target market.'
@@ -99,10 +104,13 @@ export const BUSINESS_CONTEXT_QUESTIONS: Question[] = [
       'Standing out from competition',
       'Building brand awareness',
       'Generating consistent revenue',
-      'Managing cash flow',
+      'Rising operational costs & cash flow management',
       'Hiring and retaining talent',
       'Scaling operations',
-      'Digital marketing effectiveness'
+      'Digital marketing effectiveness',
+      'Adopting and Managing Artificial Intelligence (AI)',
+      'Retaining customers',
+      'Currency volatility & forex issues'
     ],
     required: true
   },
@@ -145,7 +153,8 @@ export const BUSINESS_CONTEXT_QUESTIONS: Question[] = [
       'Build stronger brand recognition',
       'Improve customer retention',
       'Streamline operations',
-      'Hire more team members'
+      'Hire more team members',
+      'Acquire new users/customers'
     ],
     required: true
   }
@@ -156,10 +165,11 @@ export const QUESTIONNAIRE_QUESTIONS: Question[] = [
   {
     id: 'target-demographics-age',
     square: 1,
-    text: 'What is the age range of your ideal customers?',
-    type: 'select',
+    text: 'What is the age range of your ideal customers? (Select up to 2)',
+    type: 'multiselect',
     options: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+', 'Mixed/Varies'],
-    required: true
+    required: true,
+    maxSelections: 2
   },
   {
     id: 'target-demographics-income',
