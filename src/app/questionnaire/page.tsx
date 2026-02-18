@@ -242,17 +242,55 @@ const QuestionnaireContent = () => {
     return null; // Will redirect in useEffect
   }
 
+  // Rotating facts for loading screen
+  const [factIndex, setFactIndex] = useState(0);
+  const [factVisible, setFactVisible] = useState(true);
+
+  const LOADING_FACTS = [
+    { icon: '📊', text: '78% of businesses with a documented marketing strategy outperform those without one' },
+    { icon: '🚀', text: 'Content marketing generates 3x more leads than traditional outbound marketing' },
+    { icon: '💰', text: 'Email marketing delivers an average ROI of $36 for every $1 spent' },
+    { icon: '📝', text: 'Businesses that blog get 67% more leads than those that don\'t' },
+    { icon: '🎯', text: 'Personalized marketing can increase revenue by up to 15%' },
+    { icon: '🔲', text: 'BeamX Luna uses the proven 9-square marketing framework trusted by thousands of businesses' },
+    { icon: '📅', text: 'Your plan includes a 180-day phased implementation guide' },
+    { icon: '✨', text: 'Each plan is uniquely generated based on your industry, goals, and business model' },
+    { icon: '✏️', text: 'You can edit and customize your plan after generation' },
+    { icon: '🤝', text: 'Share your plan with team members or consultants for feedback' },
+  ];
+
+  useEffect(() => {
+    if (!isGenerating) return;
+    const interval = setInterval(() => {
+      setFactVisible(false);
+      setTimeout(() => {
+        setFactIndex(prev => (prev + 1) % LOADING_FACTS.length);
+        setFactVisible(true);
+      }, 400);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isGenerating]);
+
   if (isGenerating) {
+    const fact = LOADING_FACTS[factIndex];
     return (
       <div className="min-h-screen bg-[#f0f4f8] flex items-center justify-center">
-        <div className="text-center">
+        <div className="text-center max-w-lg px-6">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#0F5AE0] mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
             Generating Your Marketing Plan
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-8">
             BeamX Luna is analyzing your responses and creating your personalized marketing strategy...
           </p>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 min-h-[100px] flex items-center justify-center">
+            <div
+              className={`transition-opacity duration-300 ${factVisible ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <span className="text-2xl mb-2 block">{fact.icon}</span>
+              <p className="text-gray-700 text-sm leading-relaxed">{fact.text}</p>
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -28,8 +28,12 @@ Review the following business information and questionnaire responses, then prov
 
 Business Name: {business_name}
 Business Website: {business_website}
+Website Content: {website_content}
 Business Context: {business_context}
 Questionnaire Responses: {responses}
+
+If website content is provided, use it to better understand what the business actually offers,
+their current messaging, target audience signals, and positioning. Factor this into your analysis.
 
 Provide a comprehensive analysis in JSON format including:
 1. businessModelAssessment: Evaluation of the business model strengths and weaknesses
@@ -49,9 +53,13 @@ Based on the business analysis provided, develop a comprehensive marketing strat
 
 Business Name: {business_name}
 Business Website: {business_website}
+Website Content: {website_content}
 Business Analysis: {analysis}
 Business Context: {business_context}
 Questionnaire Responses: {responses}
+
+If website content is provided, reference specific details from the website in your recommendations
+(e.g., improve their current messaging, leverage existing content, identify gaps in their current approach).
 
 Generate a complete marketing plan in JSON format with the following structure:
 
@@ -110,7 +118,8 @@ Return only valid JSON without any markdown formatting or additional text.
 export class ClaudeService {
   async analyzeBusinessResponses(
     businessContext: BusinessContext,
-    responses: QuestionnaireResponses
+    responses: QuestionnaireResponses,
+    websiteContent?: string
   ): Promise<ClaudeAnalysis> {
     // Use mock service if no API key is configured
     if (!anthropic) {
@@ -122,6 +131,7 @@ export class ClaudeService {
       const prompt = ANALYSIS_PROMPT
         .replace('{business_name}', businessContext.businessName || 'Unknown Business')
         .replace('{business_website}', businessContext.website || 'No website provided')
+        .replace('{website_content}', websiteContent || 'No website content available')
         .replace('{business_context}', JSON.stringify(businessContext, null, 2))
         .replace('{responses}', JSON.stringify(responses, null, 2));
 
@@ -152,7 +162,8 @@ export class ClaudeService {
   async generateMarketingPlan(
     businessContext: BusinessContext,
     responses: QuestionnaireResponses,
-    analysis: ClaudeAnalysis
+    analysis: ClaudeAnalysis,
+    websiteContent?: string
   ): Promise<GeneratedContent> {
     // Use mock service if no API key is configured
     if (!anthropic) {
@@ -164,6 +175,7 @@ export class ClaudeService {
       const prompt = STRATEGY_PROMPT
         .replace('{business_name}', businessContext.businessName || 'Unknown Business')
         .replace('{business_website}', businessContext.website || 'No website provided')
+        .replace('{website_content}', websiteContent || 'No website content available')
         .replace('{analysis}', JSON.stringify(analysis, null, 2))
         .replace('{business_context}', JSON.stringify(businessContext, null, 2))
         .replace('{responses}', JSON.stringify(responses, null, 2));

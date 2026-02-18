@@ -233,10 +233,10 @@ export const MarketingPlanPDF: React.FC<PDFTemplateProps> = ({ plan }) => {
         </View>
       </Page>
 
-      {/* One-Page Marketing Plan */}
+      {/* BeamX Luna Marketing Plan */}
       <Page size="A4" style={styles.page}>
         <View style={styles.onePageContainer}>
-          <Text style={styles.onePageTitle}>One-Page Marketing Plan</Text>
+          <Text style={styles.onePageTitle}>BeamX Luna Marketing Plan</Text>
 
           {/* BEFORE Section */}
           <View style={[styles.marketingSquareRow, { marginBottom: 20 }]}>

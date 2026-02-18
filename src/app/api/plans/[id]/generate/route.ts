@@ -103,9 +103,33 @@ export async function POST(
       console.log('Starting Claude analysis...');
       const businessContext = JSON.parse(plan.businessContext);
       const questionnaireResponses = JSON.parse(plan.questionnaireResponses);
+
+      // Fetch website content for better context
+      let websiteContent = '';
+      const website = businessContext.website;
+      if (website) {
+        try {
+          const url = website.startsWith('http') ? website : `https://${website}`;
+          const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+          if (res.ok) {
+            const html = await res.text();
+            websiteContent = html
+              .replace(/<script[\s\S]*?<\/script>/gi, '')
+              .replace(/<style[\s\S]*?<\/style>/gi, '')
+              .replace(/<[^>]+>/g, ' ')
+              .replace(/\s+/g, ' ')
+              .trim()
+              .slice(0, 3000);
+          }
+        } catch {
+          console.log('Could not fetch website content, proceeding without it');
+        }
+      }
+
       const analysis = await claudeService.analyzeBusinessResponses(
         businessContext,
-        questionnaireResponses
+        questionnaireResponses,
+        websiteContent
       );
 
     // Log Claude interaction
@@ -138,7 +162,8 @@ export async function POST(
     const generatedContent = await claudeService.generateMarketingPlan(
       businessContext,
       questionnaireResponses,
-      analysis
+      analysis,
+      websiteContent
     );
 
     // Log Claude interaction
