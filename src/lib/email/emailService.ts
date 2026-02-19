@@ -17,6 +17,7 @@ export interface EmailTemplateData {
 
 // Shared email layout wrapper
 function emailWrapper(content: string): string {
+  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,7 @@ function emailWrapper(content: string): string {
     <div style="max-width: 560px; margin: 0 auto; padding: 40px 20px;">
         <!-- Logo -->
         <div style="text-align: center; margin-bottom: 32px;">
-            <span style="font-size: 20px; font-weight: 700; color: #111827; letter-spacing: -0.3px;">BeamX Luna</span>
+            <img src="${baseUrl}/logo.png" alt="BeamX Luna" width="140" style="height: auto; display: inline-block;">
         </div>
 
         <!-- Card -->
