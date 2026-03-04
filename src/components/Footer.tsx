@@ -26,7 +26,7 @@ export default function Footer() {
           {/* Brand */}
           <Link href="/" className="inline-block mb-6 hover:opacity-80 transition-opacity duration-300 cursor-pointer">
             <Image
-              src="/logo-white.png"
+              src="/logo-dark.png"
               alt="BeamX Solutions"
               width={180}
               height={45}

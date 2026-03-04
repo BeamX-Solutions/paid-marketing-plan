@@ -17,13 +17,13 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/logo-white.png", type: "image/png" },
+      { url: "/logo-dark.png", type: "image/png" },
     ],
     apple: [
-      { url: "/logo-white.png", type: "image/png" },
+      { url: "/logo-dark.png", type: "image/png" },
     ],
     other: [
-      { rel: "android-chrome", url: "/logo-white.png" },
+      { rel: "android-chrome", url: "/logo-dark.png" },
     ],
   },
   manifest: "/site.webmanifest",

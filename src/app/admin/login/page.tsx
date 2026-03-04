@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
           <div className="flex justify-center mb-6">
             <Link href="/" className="hover:opacity-80 transition-opacity duration-300">
               <Image
-                src="/logo-white.png"
+                src="/logo-dark.png"
                 alt="BeamX Solutions"
                 width={200}
                 height={50}
