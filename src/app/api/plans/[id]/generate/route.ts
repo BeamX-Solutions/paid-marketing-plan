@@ -51,6 +51,11 @@ export async function POST(
 
     if (!hasSufficient) {
       const balance = await creditService.getUserCreditBalance(plan.user.id);
+      // Mark plan as pending so the user can retry from the dashboard
+      await prisma.plan.update({
+        where: { id: planId },
+        data: { status: 'pending' }
+      });
       return NextResponse.json({
         error: 'Insufficient credits',
         message: `You need ${CREDITS_PER_PLAN} credits to generate a plan. You have ${balance.totalCredits} credits.`,

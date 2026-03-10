@@ -24,6 +24,7 @@ function DashboardContent() {
   const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'plans'>('overview');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [generatingPlanId, setGeneratingPlanId] = useState<string | null>(null);
 
   const paymentStatus = searchParams?.get('payment');
   const paymentReference = searchParams?.get('reference');
@@ -112,6 +113,28 @@ function DashboardContent() {
       console.error('Error fetching credit data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResumePlan = async (planId: string) => {
+    setGeneratingPlanId(planId);
+    try {
+      const response = await fetch(`/api/plans/${planId}/generate`, { method: 'POST' });
+
+      if (response.status === 402) {
+        const data = await response.json();
+        alert(`Insufficient credits. You need ${data.creditsRequired} credits but have ${data.creditsAvailable}.`);
+        return;
+      }
+
+      if (!response.ok) throw new Error('Generation failed');
+
+      router.push(`/plan/${planId}`);
+    } catch (error) {
+      console.error('Error resuming plan:', error);
+      alert('Failed to generate plan. Please try again.');
+    } finally {
+      setGeneratingPlanId(null);
     }
   };
 
@@ -544,9 +567,11 @@ function DashboardContent() {
                                   ? 'bg-green-100 text-green-800'
                                   : plan.status === 'failed'
                                   ? 'bg-red-100 text-red-800'
+                                  : plan.status === 'pending'
+                                  ? 'bg-blue-100 text-blue-800'
                                   : 'bg-yellow-100 text-yellow-800'
                               }`}>
-                                {plan.status}
+                                {plan.status === 'pending' ? 'Awaiting Credits' : plan.status}
                               </span>
                             </div>
                           </div>
@@ -558,6 +583,15 @@ function DashboardContent() {
                                 className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
                               >
                                 View Plan
+                              </Button>
+                            ) : plan.status === 'pending' ? (
+                              <Button
+                                size="sm"
+                                onClick={() => handleResumePlan(plan.id)}
+                                disabled={generatingPlanId === plan.id}
+                                className="bg-[#0F5AE0] hover:bg-[#0C48B3] text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                              >
+                                {generatingPlanId === plan.id ? 'Generating...' : 'Generate Plan'}
                               </Button>
                             ) : (
                               <Button
