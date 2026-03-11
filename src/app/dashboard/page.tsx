@@ -593,13 +593,22 @@ function DashboardContent() {
                               >
                                 {generatingPlanId === plan.id ? 'Generating...' : 'Generate Plan'}
                               </Button>
+                            ) : plan.status === 'failed' ? (
+                              <Button
+                                size="sm"
+                                onClick={() => handleResumePlan(plan.id)}
+                                disabled={generatingPlanId === plan.id}
+                                className="bg-orange-500 hover:bg-orange-600 text-white hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                              >
+                                {generatingPlanId === plan.id ? 'Retrying...' : 'Retry Plan'}
+                              </Button>
                             ) : (
                               <Button
                                 size="sm"
                                 variant="outline"
                                 disabled
                               >
-                                {plan.status === 'failed' ? 'Failed' : 'Processing...'}
+                                Processing...
                               </Button>
                             )}
                           </div>

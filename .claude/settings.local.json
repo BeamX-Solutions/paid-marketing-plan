@@ -49,7 +49,9 @@
       "Bash(timeout:*)",
       "Bash(del check-db.js check-failures.js test-claude.js)",
       "Bash(ping:*)",
-      "Bash(git diff:*)"
+      "Bash(git diff:*)",
+      "Bash(find /c/Users/user/Documents/paid-marketing-plan/src/app/api -type f -name *route.ts)",
+      "Bash(xargs grep:*)"
     ],
     "deny": [],
     "ask": []
